@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			class Animal {
+				
+				constructor(name, age, gender) {
+					this.name = name;
+					this.age = age;
+					this.gender = gender;
+				};
+				
+				eat() {
+					console.log('张口吃');
+				};
+				
+				say() {
+					console.log('张口叫');
+				};
+				
+			};
+			
+			// 定义一个继承自动物类的人类
+			class Person extends Animal {}
+
+			// 创建实例
+			var xiaojia = new Person('佳佳', 10, '女');
+			console.log(xiaojia);
+			xiaojia.say();
+		</script>
+	</body>
+</html>

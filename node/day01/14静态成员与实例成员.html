@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			/**
+			 * 静态成员(类成员)：
+			 * 给类自己添加的属性方法。
+			 * 
+			 * 实例成员：
+			 * 给实例添加的属性方法。
+			 * */
+			
+			function Person(name, age) {
+				// name和age是加给实例使用的，在面向对象编程中也称为实例成员
+				this.name = name;
+				this.age = age;
+			}
+			
+			// 这是加给类自己的属性，称为静态成员或类成员
+			Person.MAX_AGE = 250;
+			
+			// 定义在原型上的方法是给实例准备的，所以这里的方法也称为实例成员
+			Person.prototype = {
+				eat: function() {
+					console.log('饿了么？饿了找饿了么');
+				},
+				say: function() {
+					console.log('饿了么？饿了就不要说话了');
+				}
+			};
+			
+			// 实例只能使用实例成员，不能使用静态成员
+			var xiaoming = new Person('小明', 18);
+			console.log(xiaoming.name);
+			xiaoming.eat();
+			console.log(xiaoming.MAX_AGE);  // undefined
+			
+			// 类只能使用静态成员，不能使用实例成员
+			console.log(Person.MAX_AGE);
+			console.log(Person.age);   // undefined
+		</script>
+	</body>
+</html>

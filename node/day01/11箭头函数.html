@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			/**
+			 * 语法：形参 => 代码体
+			 * */
+			
+			// 1、基本写法
+//			var add = (a, b) => {
+//				console.log(a + b);
+//			};
+//			add(10, 20);
+		
+			// 2、如果形参只有1个，可以省略小括号
+//			var log = v => {
+//				console.log(v);
+//			};
+//			log('打印试试');
+			
+			// 3、如果函数体只有一条语句，可以省略大括号
+//			var log2 = v => console.log(v);
+//			log2('打印试试');
+			
+			// 简洁写法的例子
+//			var arr = [ 11, 22, 33 ];
+//			console.log(arr.map(function (v) {
+//				return v * v;
+//			}));
+//			console.log(arr.map(v => v * v));
+			
+			// 4、不能new
+//			var Person = () => {};
+//			new Person;  // 报错，Person is not a constructor
+
+			// 5、没有arguments了，使用会报错
+			let fn = () => console.log(arguments);
+			fn(1, 2, 3);
+ 		</script>
+	</body>
+</html>

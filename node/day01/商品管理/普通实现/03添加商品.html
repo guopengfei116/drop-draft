@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.wrapper {
+			width: 800px;
+			margin: 20px auto;
+		}
+		.operation {
+			margin-bottom: 10px;
+			text-align: center;
+			line-height: 20px;
+			font-size: 18px;
+		}
+		.operation input {
+			padding: 5px;
+			border: 1px solid deepskyblue;
+		}
+		.operation button {
+			border-radius: 3px;
+			background-color: deepskyblue;
+		}
+		.search {
+			text-align: left;
+			line-height: 20px;
+			font-size: 18px;
+		}
+		.search input {
+			padding: 5px;
+			border: 1px solid deeppink;
+		}
+		#tb{
+			width: 800px;
+			border-collapse: collapse;
+			margin: 20px auto;
+		}
+		#tb th{
+			background-color: #0094ff;
+			color:white;
+			font-size: 16px;
+			padding: 5px;
+			text-align: center;
+			border: 1px solid black;
+		}
+		#tb td{
+			padding: 5px;
+			text-align: center;
+			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="operation">
+			<input class="add-name" type="text" placeholder="请输入名称">
+			<button class="add-btn" type="button">添加数据</button>
+		</div>
+		<div class="search">
+			<input type="text" placeHolder="请输入筛选内容">
+		</div>
+		<table id="tb">
+			<thead>
+				<tr>
+					<th>编号</th>
+					<th>名称</th>
+					<th>创建时间</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<hbody>
+				<tr>
+					<td colspan="4">列表无数据</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>宝马</td>
+					<td>2015-01-02</td>
+					<td>
+						<a href="#">删除</a>
+					</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>奔驰</td>
+					<td>2012-11-22</td>
+					<td>
+						<a href="#">删除</a>
+					</td>
+				</tr>
+			</hbody>
+		</table>
+	</div>
+	<!-- 脚本 -->
+	<script src="js/jquery-3.1.0.js"></script>
+	<script>
+		let goodsList = [
+			{
+				id: 1,
+				name: '悍马',
+				time: 2010
+			},
+			{
+				id: 2,
+				name: '玛萨拉蒂',
+				time: 2012
+			},
+			{
+				id: 3,
+				name: '保时捷',
+				time: 2014
+			}
+		];
+		let currentId = 3;
+		
+		// 渲染页面函数
+		function render(goodsList = []) {
+			let html = goodsList.map(goods => {
+				return `<tr>
+								<td>${ goods.id }</td>
+								<td>${ goods.name }</td>
+								<td>${ goods.time }</td>
+								<td>
+									<a href="#">删除</a>
+								</td>
+							</tr>`;
+			}).join('');
+			$('tbody').html(html);
+		}
+		render(goodsList);
+		
+		// 添加商品，成功后重新刷新列表
+		$('.add-btn').on('click', () => {
+			goodsList.push({
+				id: ++currentId,
+				name: $('.add-name').val(),
+				time: Date.now()
+			});
+			render(goodsList);
+		});
+	</script>
+</body>
+</html>

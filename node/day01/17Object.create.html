@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			/**
+			 * Object.create：
+			 * 因为这是构造函数身上的方法，所以也叫静态方法。
+			 * 作用：创建新对象，并可自由指定新对象的继承结构
+			 * 语法：var newObj = Object.create(继承的对象);
+			 * */
+			
+			// newObj继承了传入的对象
+			var newObj = Object.create({ aa: 11, bb: 22 });
+			console.log(newObj.aa);
+			
+			// 创建一个没有原型链的对象
+			var newObj2 = Object.create(null);
+			console.log(newObj2);
+		</script>
+	</body>
+</html>

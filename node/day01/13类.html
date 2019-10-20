@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+//			function Person(name, age) {
+//				this.name = name;
+//				this.age = age;
+//			}
+//			Person.prototype = {
+//				eat: function() {
+//					console.log('饿了么？饿了找饿了么');
+//				},
+//				say: function() {
+//					console.log('饿了么？饿了就不要说话了');
+//				}
+//			};
+			
+			
+			// es6新增的类似与主流面向对象语言的写法
+			class Person {
+				
+				// 这是类的构造器
+				constructor(name, age) {
+					this.name = name;
+					this.age = age;
+				};
+				
+				eat() {
+					console.log('饿了么？饿了找饿了么');
+				};
+				
+				say() {
+					console.log('饿了么？饿了就不要说话了');
+				};
+			};
+			
+			// 创建实例
+			var xiaomei = new Person('美', 14);
+			xiaomei.eat();
+			console.log(xiaomei);
+		</script>
+	</body>
+</html>

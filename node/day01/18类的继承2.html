@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			class Animal {
+				
+				constructor(name, age, gender) {
+					this.name = name;
+					this.age = age;
+					this.gender = gender;
+				};
+				
+				eat() {
+					console.log('张口吃');
+				};
+				
+				say() {
+					console.log('张口叫');
+				};
+				
+			};
+			
+			// 定义一个继承自动物类的人类
+			class Person extends Animal {
+				
+				// 如果要写构造器，第一条语句必须要调用super方法，含义是调用父类。
+				constructor(name, age, gender, codeAge) {
+					super(name, age, gender);
+					this.codeAge = codeAge;   // 这是人类独有的属性
+				};
+				
+				// 人类实例独有的方法
+				studay() {
+					console.log(`${ this.name }在刻苦的学习,都学了${ this.age }年了`);
+				};
+				
+			};
+
+			// 创建实例 => Person.prototype(可以认为是一个Animal实例) => Animal.prototype => Object.prototype => null
+			var xiaojia = new Person('佳佳', 10, '女', 5);
+			console.log(xiaojia);
+			xiaojia.say();
+			xiaojia.studay();
+		</script>
+	</body>
+</html>

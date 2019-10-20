@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script src="js/jquery-3.1.0.js"></script>
+		<form id="upload" action="/file_upload" method="post" enctype="multipart/form-data">
+		    <input id="file-input" type="file" name="img">
+		    <input type="text" name="name">
+		    <button type="submit">上传</button>
+		</form>
+		<img id="preview" src="" alt="图片预览" />
+		<script>
+			$('#upload').on('submit', function() {
+
+				var formData = new FormData(this);
+				// formData.append('img', $('#file-input').prop('files')[0]);
+
+				$.ajax({
+					url: '/file_upload',
+					type: 'post',
+					data: formData,
+					processData: false, // 告诉jq不要转换数据格式
+					contentType: false, // 告诉jq不要修改请求内容的头信息
+					success: function(data) {
+						console.log(data);
+						$('#preview').attr('src', data.path);
+					}
+				});
+				
+				// 阻止默认的提交事件
+				return false;
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			/**
+			 * let:
+			 * 1、不允许重复声明
+			 * 2、拥有块级作用域
+			 * 3、没有预解析
+			 * 4、暂存性死区
+			 * 5、全局变量不再是window属性
+			 * */
+			
+			//  1、不允许重复声明
+//			let a = 10;
+//			let a = 20;
+			
+			// 2、拥有块级作用域
+//			let i = 10;
+//			for(let i = 0; i < 5; i++) {
+//				console.log(i);
+//			}
+//			console.log('外面的i为' + i);
+			
+			// 3、没有预解析
+//			console.log(a + b);   // 报错，从语法上就帮助你解决了一些问题
+//			let a = 10;
+//			let b = 20;
+
+			// 4、暂存性死区
+//			let a = 10;
+//			if(true) {
+//				console.log(a); // a已经在当前作用域存在了，不用去全局找a，但是呢又不允许提前使用，所以报错
+//				let a = 20;
+//				console.log(a);
+//			}
+
+			// 5、全局变量不再是window属性
+			let a = 10;
+			console.log(a);
+			console.log(window.a);
+		</script>
+	</body>
+</html>

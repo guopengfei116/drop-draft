@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.wrapper {
+			width: 800px;
+			margin: 20px auto;
+		}
+		.operation {
+			margin-bottom: 10px;
+			text-align: center;
+			line-height: 20px;
+			font-size: 18px;
+		}
+		.operation input {
+			padding: 5px;
+			border: 1px solid deepskyblue;
+		}
+		.operation button {
+			border-radius: 3px;
+			background-color: deepskyblue;
+		}
+		.search {
+			text-align: left;
+			line-height: 20px;
+			font-size: 18px;
+		}
+		.search input {
+			padding: 5px;
+			border: 1px solid deeppink;
+		}
+		#tb{
+			width: 800px;
+			border-collapse: collapse;
+			margin: 20px auto;
+		}
+		#tb th{
+			background-color: #0094ff;
+			color:white;
+			font-size: 16px;
+			padding: 5px;
+			text-align: center;
+			border: 1px solid black;
+		}
+		#tb td{
+			padding: 5px;
+			text-align: center;
+			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<div id="app" class="wrapper">
+		<div class="operation">
+			<input class='name-input' type="text" placeholder="请输入名称">
+			<input class='price-input' type="text" placeholder="请输入价格">
+			<button class="add-btn" type="button">添加数据</button>
+		</div>
+		<div class="search">
+			<input type="text" placeholder="请输入筛选内容">
+		</div>
+		<table id="tb">
+			<thead>
+				<tr>
+					<th>编号</th>
+					<th  class="goods-title" data-keycode="name" data-order="1">名称</th>
+					<th  class="goods-title" data-keycode="price" data-order="1">价钱</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>悍马</td>
+					<td>2010</td>
+					<td>无</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- 脚本 -->
+	<script src="js/jquery-3.1.0.js"></script>
+	<script>
+		// 渲染函数
+		function render(goodsList) {
+			var nTbody = document.querySelector('tbody');
+			nTbody.innerHTML = goodsList.map(function(goods, i) {
+				return	'<tr>' +
+								'<td>' + i + '</td>' + 
+								'<td>' + goods.name + '</td>' + 
+								'<td>' + goods.price + '</td>' +
+								'<td><a class="del-btn" goods-id="' + goods._id + '" href="#">删除</a></td>' +
+							'</tr>';
+			}).join('');
+		}
+		
+		// 请求全部数据进行渲染
+		$.ajax({
+			type: "get",
+			url: "/api/getprodlist",
+			success: function(data) {
+				render(data);
+			}
+		});
+		
+		// 表头，点击获取排序后的列表数据进行渲染
+		$(document).on('click', '.goods-title', function() {
+			var keycode = $(this).attr('data-keycode');
+			var order = $(this).attr('data-order');
+			$(this).attr('data-order', -order);
+			
+			$.ajax({
+				type: "get",
+				url: "/api/getprodlist",
+				data: {
+					keycode: keycode,
+					order: order
+				},
+				success: function(data) {
+					render(data);
+					order
+				}
+			});
+		});
+		
+		// 删除按钮，因为按钮是动态生成的所以使用委托的方式绑定
+		$(document).on('click', '.del-btn', function() {
+			$.ajax({
+				type: "get",
+				url: "/api/delproduct",
+				data: { id: $(this).attr('goods-id') },
+				success: function(data) {
+					render(data);
+				}
+			});
+		});
+		
+		// 添加按钮
+		$('.add-btn').on('click', function() {
+			$.ajax({
+				type: "post",
+				url: "/api/addproduct",
+				data: { 
+					name: $('.name-input').val(),
+					price: $('.price-input').val()
+				},
+				success: function(data) {
+					$('.name-input').val('');
+					$('.price-input').val('');
+					render(data);
+				}
+			});
+		});
+		
+		// 搜索商品
+		$('.search input').on('change', function() {
+
+			// 获取表单搜索的值，然后以这个值作为条件搜索商品
+			$.ajax({
+				url: '/api/searchproduct',
+				type: 'get',
+				data: {
+					keycode:  $(this).val()
+				},
+				success(data) {
+					render(data);
+				}
+			});
+		});
+	</script>
+</body>
+</html>

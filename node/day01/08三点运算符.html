@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			/**
+			 * 三点运算符：
+			 * 依据使用场景，把多个值可包装成数组，也可解开真伪数组为多个值。
+			 * */
+			
+			// 1、用来定义形参，可以把后面剩余的参数使用一个形参存储，
+			// 这个形参的值最终是一个数组。
+//			function total(a, b, ...nums) {
+//				var result = 0;
+//				nums.forEach(function(v) {
+//					result += v;
+//				});
+//				console.log(result);
+//			}
+//			
+//			total(1, 2, 3, 4, 5);
+			
+			// 2、用来传参，可以把数组或伪数组中的每个值提取出来传给函数
+//			var arr = [ 22, 11, 55, 0 ];
+//			console.log(Math.max(...arr));
+//			console.log(Math.max.apply(null, arr));
+			
+			// 3、合并数组
+//			var arr1 = [ 1, 2, 3 ];
+//			var arr2 = [ 4, 5, 6 ];
+//			var arr3 = [ 7, 8, 9 ];
+//			var arr4 = [ ...arr1, ...arr2, ...arr3 ];
+//			console.log(arr4);
+			
+			// 4、解构赋值
+//			var arr = [ 'aaa', 'bbb', 'ccc', 'ddd' ];
+//			var [ a, ...b ] = arr;
+//			console.log(a, b);
+			
+		</script>
+	</body>
+</html>

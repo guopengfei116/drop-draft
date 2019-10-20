@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			// 完全解构，必须以名字来取值
+//			let obj = { a: 11, b: 22, c: 33 };
+//			let { c, b, a } = obj;
+//			console.log(a, b, c);
+			
+			// 部分解构，必须以名字来取值
+//			let obj = { a: 11, b: 22, c: 33 };
+//			let { c } = obj;
+//			console.log(c);
+			
+			// 解构缺失，缺失的undefined
+//			let obj = { a: 11, b: 22, c: 33 };
+//			let { c, d } = obj;
+//			console.log(c, d);
+			
+			// 深层次解构，记得对应key
+//			let obj = { a: 11, b: 22, c: { c1: 31, c2: 32, c3: 33 } };
+//			let { d, c: { c3 }, c } = obj;
+//			console.log(d, c3, c);
+			
+			// 默认值
+//			let obj = { a: 11, b: 22, c: { c1: 31, c2: 32, c3: 33 } };
+//			let { d = 400, c = 100 } = obj;
+//			console.log(d, c);
+
+			// 重定变量名
+			let obj = { a: 11, b: 22, c: { c1: 31, c2: 32, c3: 33 } };
+			let { a: aa, b: bb } = obj;
+			console.log(aa, bb);
+			console.log(a, b);  // 有了新名字，a和b就不能使用了
+		</script>
+	</body>
+</html>

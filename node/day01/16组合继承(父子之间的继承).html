@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			function Animal(name, age, gender) {
+				this.name = name;
+				this.age = age;
+				this.gender = gender;
+			}
+			Animal.prototype = {
+				eat: function() {
+					console.log('张口吃');
+				},
+				say: function() {
+					console.log('张口叫');
+				}
+			};
+			
+			// 人也有动物属性，为了代码复用，可以通过call、apply来实现构造函数借用
+			function Person(name, age, gender) {
+				Animal.apply(this, arguments);
+			}
+			
+			// 原型复用方式1
+//			extend(Person.prototype, Animal.prototype, {
+//				studay: function() {
+//					console.log('我们的模仿力数一数二的');
+//				}
+//			});
+
+			// 原型复用方式2 （让Person的原型继承Animal的原型）
+//			Person.prototype = new Animal;
+			
+			// 原型复用方式3 （让Person的原型继承Animal的原型）
+			Person.prototype = Object.create(Animal.prototype);
+			Person.prototype.studay = function() {
+				console.log('我们的模仿力数一数二的');
+			};
+			
+			// xiaofang => Person.prototype(可以认为是Animal实例) => Animal.prototype => Object.protytpe => null
+			var xiaofang = new Person('大眼睛小芳', 18, '女');
+			xiaofang.eat();
+			xiaofang.studay();
+		</script>
+	</body>
+</html>
+

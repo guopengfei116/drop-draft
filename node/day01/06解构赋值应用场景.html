@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			// 1、变量间交互
+//			let a = 10, b = 20, c = 30;
+//			[ c, a, b ] = [ a, b, c ];
+//			console.log(a, b, c);
+			
+			
+			// 2、提取对象值
+//			let ajaxResponseData = {
+//			  code: 200,
+//			  msg: '成功',
+//			  result: {
+//			      name: '车',
+//			      info: '各种车',
+//			      list: ['兰博基尼', '法拉利']
+//			  }
+//			};
+//			
+//			// 取出code与list两个值
+//			let { code, result: { list } } = ajaxResponseData;
+//			console.log(code, list);
+
+			// 3、函数变相返回多个值
+			function getCache() {
+				let obj = {};
+				return {
+					get: function(key) {
+						return obj[key];
+					},
+					set: function(key, val) {
+						obj[key] = val;
+					}
+				};
+			}
+			
+			// 解构返回的对象，然后单独存储到俩个变量中
+			var { get, set } = getCache();
+			set('fibs', [1, 1, 2, 3, 5, 8]);
+			console.log(get('fibs'));
+		</script>
+	</body>
+</html>

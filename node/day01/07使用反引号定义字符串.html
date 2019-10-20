@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			/**
+			 * 反引号：esc下面的那个按键
+			 * 1、支持换行
+			 * 2、支持模版语法
+			 * */
+			
+			// 报错
+//			var str = '<div>
+//							 <span></span>
+//							</div>';
+							
+			// 1、支持换行字符串，会把换行符、空格记录下来
+			var str = `<div>
+								<span></span>
+							</div>`;
+			console.log(str);
+			
+			// 2、支持模版语法  ${ 里面还支持函数调用，表达式计算 }
+			var songList = [ { name: '十年', singer: 'E' }, { name: '浮夸', singer: 'E' } ];
+			var html = `<div>
+								<span>${ songList[0].name }</span>
+								<span>${ songList[0].singer }</span>
+							</div>`;
+			console.log(html);
+		</script>
+	</body>
+</html>

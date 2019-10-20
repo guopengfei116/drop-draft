@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			// es6新增的类似与主流面向对象语言的写法
+			class Person {
+				
+				// 这是类的构造器
+				constructor(name, age) {
+					this.name = name;
+					this.age = age;
+					
+					// 每创建一个人，总人口就++，
+					// 如果是第一个人口，++结果为NaN，所以需要设置默认值1
+					Person.total++ || (Person.total = 1);
+				};
+				
+				
+				// 这是两个实例方法，供实例使用
+				eat() {
+					console.log('饿了么？饿了找饿了么');
+				};
+				
+				say() {
+					console.log('饿了么？饿了就不要说话了');
+				};
+				
+				// 这是静态方法，供类使用
+				static getTotal() {
+					return Person.total;
+				};
+			};
+			
+			// 创建两个实例，然后调用静态方法获取总人口
+			var xiaomei = new Person('美不美', 16);
+			var xiaoming = new Person('叼不叼', 16);
+			console.log(Person.getTotal());
+		</script>
+	</body>
+</html>

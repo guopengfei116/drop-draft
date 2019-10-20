@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<span>1</span>
+		<span>2</span>
+		<span>3</span>
+		<span>4</span>
+		<span>5</span>
+		<script>
+			var list = [11, 22, 33];
+			console.log(...list);
+			
+			console.log(...document.querySelectorAll('span'));
+			
+			// 相当于把原先伪数组变成了真数组存储每个span，好处就是可以使用数组方法了
+			var spans = [...document.querySelectorAll('span')];
+			console.log(spans);
+		</script>
+	</body>
+</html>

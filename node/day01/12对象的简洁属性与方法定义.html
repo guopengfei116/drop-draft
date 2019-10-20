@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			/**
+			 * 1、对象属性引用变量的值 
+			 * 如果要引用的变量名与属性一致才可以简写。
+			 * 
+			 * 2、对象方法定义
+			 * 
+			 * 3、属性名允许使用表达式
+			 * */
+			
+			// 1、对象属性引用变量的值 
+//			let a = 1, b = 2, c = 3, fn = function(){};
+//			let obj = {
+//				a,
+//				b,
+//				c,
+//				fn
+//			};
+//			console.log(obj);
+
+
+			// 2、对象方法定义
+//			let obj = {
+//				a: 10,
+//				fn: function() {
+//					console.log('传统对象方法定义');
+//				},
+//				fn2() {
+//					console.log('es6对象方法新定义方式');
+//				}
+//			};
+//			obj.fn();
+//			obj.fn2();
+			
+			// 3、属性名允许使用表达式
+			var a = 'shenme';
+			var obj = {
+				[ 1 + 2 ]:  '这也可以' ,
+				[ a ]: '到底是什么'
+			};
+			console.log(obj);
+		</script>
+	</body>
+</html>

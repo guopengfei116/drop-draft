@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script src="js/jquery-3.1.0.js"></script>
+		<script>
+			$.ajax({
+				type: "post",
+				url: "http://localhost:8888",
+				data: {
+					name: '没钱花',
+					age: 18
+				},
+				success: function(data) {
+					console.log(data);
+				}
+			});
+		</script>
+	</body>
+</html>

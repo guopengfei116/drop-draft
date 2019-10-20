@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<h1>首页</h1>
+		<script src="js/jquery-3.1.0.js"></script>
+		<script type="text/javascript">
+			$.ajax({
+				type:"get",
+				url:"/api/goods/list",
+				async:true,
+				success: function(data) {
+					$('h1').html(JSON.stringify(data));
+				},
+				error: function(err) {
+					if(err.status == 401) {
+						alert('请先登陆！');
+						location.href = '/login.html';
+					}else {
+						alert(err.responseText);
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

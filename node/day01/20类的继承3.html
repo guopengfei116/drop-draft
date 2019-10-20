@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			class Animal {
+				
+				// 动物的特征
+				static getPropertys() {
+					console.log('动物相比植物，就是可以自由挪动');
+				};
+				
+			};
+			
+			// 这句话，不光完成了实例的继承，也完成类的继承
+			class Person extends Animal {};
+			
+			Animal.getPropertys();
+			Person.getPropertys();
+			
+			// class写到类本质上还是函数
+			console.log(typeof Animal);
+			console.log(typeof Person);
+			
+			// 类继承类内部的实现原理
+			// Person => Animal => Function.prototype => Object.prototype => null
+			console.dir(Person);
+		</script>
+	</body>
+</html>
