@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="./jQuery/core.js"></script>
+    <script src="./jQuery/attr&css.js"></script>
+    <script src="./jQuery/dom.js"></script>
+    <script src="./jQuery/event.js"></script>
+</head>
+<body>
+    <script>
+        /*
+        * 刮刮乐实现原理：
+        * 1、创建一个canvasDOM元素
+        * 2、设置奖品为canvasDOM元素的背景
+        * 3、在画布中绘制一个遮盖层
+        * 4、把canvas加到页面中，呈现给用户的是一个遮盖层
+        * 5、监听鼠标事件，当鼠标按下并且移动的时候，
+        * 把画布指定的区域变为透明，这样奖品就被一点一点的刮出来了。
+        *
+        *
+        * 指定区域变透明的原理：
+        * 1、先绘制好奖品遮盖层
+        * 2、设置图像冲突处理的属性globalCompositeOperation值为destination-out
+        * 3、根据鼠标移动的位置绘制图像，因为这个图像和遮盖层可能产生冲突，
+        * 冲突的部分不会显示，即冲突的部分为透明。
+        * */
+
+        // 定义一些变量
+        var cvsWidth = 500,
+            cvsHeight = 500,
+            r = 20;
+
+        // 1、创建一个canvasDOM元素
+        var $cvs = $('<canvas></canvas>');
+        var cvs = $cvs.get(0);
+        cvs.width = cvsWidth;
+        cvs.height = cvsHeight;
+        var ctx = cvs.getContext('2d');
+
+        // 2、设置奖品为canvasDOM元素的背景
+        var imgs = [ './img/iphone8.jpg', './img/ziyou.jpg' ];
+        var randomNum = Math.floor(Math.random() * 2);
+        $cvs.css({
+            backgroundImage: 'url('+ imgs[randomNum] +')',
+            backgroundSize: '100% 100%'
+        });
+
+        // 3、在画布中绘制一个遮盖层
+        ctx.fillStyle = 'rgb(120, 120, 120)';
+        ctx.fillRect( 0, 0, cvs.width, cvs.height );
+
+        // 4、把canvas加到页面中，呈现给用户的是一个遮盖层
+        $cvs.appendTo( document.body );
+
+        // 5、监听鼠标事件，当鼠标按下并且移动的时候，
+        // 把画布指定的区域变为透明，这样奖品就被一点一点的刮出来了。
+        $cvs.mousedown( function() {
+
+            // 先设置图像冲突的处理方式为：只显示旧图像未冲突的部分
+            ctx.globalCompositeOperation = 'destination-out';
+
+            // 鼠标移动时，获取鼠标在画布中的坐标，然后绘制新图像圆
+            $cvs.mousemove( function( e ) {
+
+                // 计算鼠标在画布中的坐标
+                var x = e.pageX - cvs.offsetLeft;
+                var y = e.pageY - cvs.offsetTop;
+
+                // 根据鼠标的轨迹绘制圆
+                ctx.beginPath();
+                ctx.arc( x, y, r, 0, Math.PI*2 );
+                ctx.fill();
+            });
+        });
+
+        // 鼠标放开时，解除鼠标移动的事件
+        $cvs.mouseup( function() {
+            $cvs.off( 'mousemove' );
+        });
+    </script>
+</body>
+</html>

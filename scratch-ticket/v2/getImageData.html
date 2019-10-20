@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <canvas></canvas>
+    <script>
+        var cvs = document.querySelector('canvas');
+        var ctx = cvs.getContext('2d');
+
+        /*
+        * 获取画布中指定区域的像素数据：
+        * ctx.getImageData( x, y, width, height );
+        * 返回值为一个对象，该对象有一个data属性，以一维数组的形式存储了所有的像素数据，
+        * 这些数据每4个为一组，代表一个像素点的RGBA值。
+        * */
+
+        // 获取默认的像素数据
+        /*var imageData = ctx.getImageData(0, 0, 100, 100);
+        console.log(imageData);
+
+        // 绘制一块黑色区域，然后获取其像素数据
+        ctx.fillRect(0, 0, 100, 100);
+        var imageData2 = ctx.getImageData(0, 0, 100, 100);
+        console.log(imageData2);
+
+        // 绘制一块红色区域，然后获取其像素数据
+        ctx.fillStyle = 'red';
+        ctx.fillRect(0, 0, 100, 100);
+        var imageData3 = ctx.getImageData(0, 0, 100, 100);
+        console.log(imageData3);
+
+        // 绘制一块多色彩的区域，然后获取其像素数据
+        ctx.fillStyle = 'rgba(50, 100, 200, 1)';
+        ctx.fillRect(0, 0, 100, 100);
+        var imageData4 = ctx.getImageData(0, 0, 100, 100);
+        console.log(imageData4);*/
+
+        /*
+        * 如何判断一块区域中，透明的部分所占比值：
+        * 1、通过getImageData方法得到该区域的像素数据对象，
+        * 2、再通过像素数据对象的data属性得到一个存储像素数据的一维数组
+        * 3、遍历这个一维数组，依次判断每一个像素的第四个值(即透明度的值)，
+        * 如果这个值为0，证明该像素是透明的。
+        * 4、遍历的过程中累计透明的数量，这个数量 除以 像素总数，就得到一个透明部分所占比值。
+        * */
+
+        var alphaNumber = 0;
+
+        ctx.fillRect(0, 0, 100, 100);
+        var imageData = ctx.getImageData(0, 0, cvs.width, cvs.height);
+        var imageDataArr = imageData.data;
+
+        // 遍历每一个像素的数据
+        for( var i = 0, len = imageDataArr.length; i < len; i+=4 ) {
+
+            // 如果是代表透明度的值，那么判断该值是否等于0，
+            // 如果是，证明这个像素是透明的，则累加透明数量的统计。
+            if( imageDataArr[i + 3] === 0 ) {
+                alphaNumber++;
+            }
+        }
+
+        // 透明部分占画布的比值
+        console.log(alphaNumber / (imageDataArr.length / 4));
+    </script>
+</body>
+</html>

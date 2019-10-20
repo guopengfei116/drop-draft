@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./jQuery/core.js"></script>
+    <script src="./jQuery/attr&css.js"></script>
+    <script src="./jQuery/dom.js"></script>
+    <script src="./jQuery/event.js"></script>
+    <script src="scratch_ticket.js"></script>
+</head>
+<body>
+    <div></div>
+    <div></div>
+    <script>
+        // 获取第一个DIV，设置其大小，然后给他添加一个刮刮乐功能
+        $('div').first().css({
+            width: '500px',
+            height: '300px'
+        }).scratchTicket([ './img/iphone8.jpg', './img/ziyou.jpg' ]);
+    </script>
+</body>
+</html>

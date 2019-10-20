@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var canvas = document.createElement( 'canvas' );
+    canvas.width = 500;
+    canvas.height = 400;
+    //canvas.style.border = '1px dashed red';
+    // 获得 CanvasRenderingContext2D 对象
+    var ctx = canvas.getContext( '2d' );
+    document.body.appendChild( canvas );
+
+    // canvas背景
+    var img = new Image();
+    var imgPath = './v1/iphone8.jpg';
+    img.src = imgPath;
+    canvas.style.backgroundImage = 'url(' + imgPath + ')';
+
+    // canvas默认颜色
+    ctx.fillStyle = 'grey';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    img.addEventListener('load', function () {
+        // 擦除半径
+        var clearR = 20,
+            isDown = false,
+            gameOver = false;
+
+        canvas.addEventListener('mousedown', function (e) {
+            isDown = true;
+        });
+
+        document.addEventListener('mouseup', function (e) {
+            isDown = false;
+        });
+
+        canvas.addEventListener('mousemove', function (e) {
+            if (!isDown || gameOver) {
+                return ;
+            }
+            console.log(isDown);
+
+            ctx.globalCompositeOperation =  'destination-out';
+
+            var temX = e.pageX - canvas.offsetLeft,
+                    temY = e.pageY - canvas.offsetTop;
+
+            ctx.beginPath();
+            ctx.arc(temX, temY, clearR, 0, 2 * Math.PI);
+            ctx.fill();
+
+            isShow();
+        });
+
+        // 根据比例结果看是否显示奖品
+        function isShow() {
+            var data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+
+            var len = data.length,
+                    pixelTotal = len / 4,
+                    opacityPixelTotal = 0;
+
+            for (var i = 0; i < len; i+=4) {
+                /*if (data[i] === 0 && data[i+1] === 0 && data[i+2] === 0 && data[i+3] === 0) {
+                    opacityPixelTotal++;
+                }*/
+                if (data[i+3] === 0) {
+                    opacityPixelTotal++;
+                }
+
+                if (i > len / 2) {
+                    console.log(111);
+                    if (pixelTotal / opacityPixelTotal < 2) {
+                        gameOver = true;
+                        setTimeout(function () {
+                            /*ctx.globalCompositeOperation =  'source-over';
+                             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);*/
+                            ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        }, 500);
+                    }
+                }
+            }
+
+            /*// 超过一半直接显示出奖品
+            if (pixelTotal / opacityPixelTotal < 2) {
+                gameOver = true;
+                setTimeout(function () {
+                    /!*ctx.globalCompositeOperation =  'source-over';
+                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);*!/
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }, 500);
+            }*/
+        }
+    });
+</script>
+</body>
+</html>

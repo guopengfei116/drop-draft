@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <canvas></canvas>
+    <script>
+        /*
+        * 设置全局图像合成(冲突)处理方式：
+        * ctx.globalCompositeOperation = 10个值,默认值为source-over。
+        * source-over: 新图像覆盖旧图像。
+        * source-atop: 新图像显示在旧图像之上，同时显示新图像的冲突部分。
+        * source-in: 只显示新图像的冲突部分，但是旧图像不再显示。
+        * source-out: 只显示新图像的未冲突部分，但是旧图像不再显示。
+        * destination-over: 旧图像覆盖新图像。
+        * destination-atop:  旧图像显示在新图像之上，同时显示旧图像的冲突部分。
+        * destination-in: 只显示旧图像的冲突部分，但是新图像不再显示。
+        * destination-out:  只显示旧图像的未冲突部分，但是新图像不再显示。
+        * lighter: 冲突部分，多种色彩累加。
+        * copy: 只显示新图像，但是旧图像不再显示。
+        *
+        * 对于刮刮乐需要这样的属性：
+        * 1、新绘制的图像和旧图像冲突的部分不显示内容
+        * 2、旧图像未冲突的部分完美显示。
+        * */
+        var cvs = document.querySelector('canvas');
+        var ctx = cvs.getContext('2d');
+        cvs.width = 500;
+        cvs.height = 500;
+
+        // 绘制第一个图像
+        ctx.fillStyle = 'skyblue';
+        ctx.fillRect( 0, 0, 200, 200 );
+
+        // 要利用这个属性完成刮刮乐，需要注意，
+        // 属性设置要在绘图旧图像之后(对于刮刮乐来说就是遮盖层)，
+        // 新图像之前(对于刮刮乐来说就是鼠标拖动时画的圆)
+        ctx.globalCompositeOperation = 'destination-out';
+
+        // 绘制第一个图像，该图像的部分和第一个图像存在冲突
+        ctx.fillStyle = 'deeppink';
+        ctx.fillRect( 100, 100, 200, 200 );
+    </script>
+</body>
+</html>
