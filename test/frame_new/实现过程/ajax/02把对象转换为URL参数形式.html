@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        function urlStringify( data ) {
+            var result = '', key;
+
+            for ( key in data ) {
+                // 为了防止乱码，key和val统一使用encodeURIComponent方法转码一下
+                result += encodeURIComponent( key ) + '=' + encodeURIComponent( data[ key ] ) + '&';
+            }
+
+            return result.slice( 0, -1 );
+        }
+
+        var data = {
+            name: '张三',
+            age: 18
+        };
+        console.log(urlStringify(data));
+    </script>
+</body>
+</html>

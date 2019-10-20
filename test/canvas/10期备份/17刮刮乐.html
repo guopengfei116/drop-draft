@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="cvs" width="500" height="500" style="border: 1px solid red"></canvas>
+<script>
+    var cvs = document.getElementById('cvs');
+    var ctx = cvs.getContext('2d');
+
+    // 初始化图片资源
+    var imgSrc = './imgs/NPCrabbitbaby.png';
+    var img = new Image();
+    img.src = imgSrc;
+
+    // 刮的半径
+    var r = 20, isGameOver = false;
+
+    // 设置canvasDom的背景为奖品
+    cvs.style.backgroundImage = 'url(' + imgSrc + ')';
+
+    // 初始化画布的整体颜色
+    ctx.fillStyle = 'grey';
+    ctx.fillRect(0, 0, cvs.width, cvs.height);
+
+    // 图片加载完毕之后，就给画布绑定事件，
+    // 让对方可以刮奖了。
+    img.addEventListener('load', function () {
+
+        // 鼠标是否按下
+        var isMouseDown = false;
+
+        // 鼠标按下，那么就可以移动鼠标刮奖了
+        cvs.addEventListener('mousedown', function () {
+            isMouseDown = true;
+        });
+
+        // 鼠标放开，就停止刮奖
+        document.addEventListener('mouseup', function () {
+            isMouseDown = false;
+
+            // 放了防止其他影响，停止刮奖时恢复默认值
+            ctx.globalCompositeOperation = 'source-over';
+        });
+
+        // 刮奖
+        cvs.addEventListener('mousemove', function (e) {
+            // 只能按着鼠标刮
+            if (!isMouseDown || isGameOver) {
+                return;
+            }
+
+            // 设置重叠部分的绘制方式，只显示旧图形未冲突的部分
+            ctx.globalCompositeOperation = 'destination-out';
+
+            // 计算鼠标到画布的距离
+            var x = e.pageX - cvs.offsetLeft,
+                y = e.pageY - cvs.offsetTop;
+
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, 2 * Math.PI);
+            ctx.fillStyle = 'skyblue';
+            ctx.fill();
+
+            // 根据刮的比例显示奖品
+            isShow();
+        });
+    });
+
+    // 根据刮的比例显示奖品，
+    // 当刮了全图的一半时，
+    // 那么直接显示奖品
+    function isShow() {
+
+        // 先获取整个画布的像素数据,
+        // 然后统计alpha通道为0的数量，
+        // 当这个数量达到一定比值时，
+        // 那么整个奖品将直接展示。
+
+        // 获取像素数据
+        var data = ctx.getImageData(0, 0, cvs.width, cvs.height).data;
+
+        // 计算像素的数量，每4个值代表一个像素的rgba
+        var pixelTotal = data.length / 4;
+
+        // 统计透明像素的数量
+        var opacityPixelTotal = 0;
+
+        // 每次遍历4个值
+        for (var i = 0; i < pixelTotal; i++) {
+
+            // 每个像素的alpha值为0时，那么这个像素点就是透明，
+            // 那么透明的像素总和就自增一次。
+            if( data[i + 3] === 0) {
+                opacityPixelTotal++;
+            }
+
+            // 遍历一半像素点的时候，就可以判断了，
+            // 不用等到全部遍历完在判断。
+            if (i > pixelTotal / 2) {
+               // console.log(opacityPixelTotal, pixelTotal);
+                if (opacityPixelTotal / pixelTotal > 0.5) {
+                    isGameOver = true;
+                    console.log(opacityPixelTotal, pixelTotal);
+                    /*setTimeout(function () {
+                     ctx.clearRect(0, 0, cvs.width, cvs.height);
+                     }, 1000);*/
+                }
+            }
+        }
+
+        /*// 当透明的数量是总数量的一半时，那么展示整个奖品
+        if (opacityPixelTotal / pixelTotal > 0.5) {
+            isGameOver = true;
+            console.log(opacityPixelTotal, pixelTotal);
+            setTimeout(function () {
+                ctx.clearRect(0, 0, cvs.width, cvs.height);
+            }, 1000);
+        }*/
+    }
+</script>
+</body>
+</html>

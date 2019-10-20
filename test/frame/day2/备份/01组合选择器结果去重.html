@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    * {
+        height: 10px;
+    }
+</style>
+<body>
+<div>
+    <span>同学爱吃：羊腰子</span>
+    <span>生蚝生蚝</span>
+    <span>扇贝扇贝</span>
+    <span>皮皮虾皮皮虾</span>
+    <a>螃蟹螃蟹</a>
+    <a></a>
+    <a></a>
+</div>
+<div id="div">
+    <ul>
+        <li>a</li>
+        <li>b</li>
+    </ul>
+    <p class="pink">1</p>
+    <p class="pink">2</p>
+    <p class="pig">3</p>
+    <p class="pig">4</p>
+</div>
+<script>
+
+    // 该对象，用来记录一些新方法是否可用
+    var support = {
+        getElementsByClassName: (document.getElementsByClassName + '').indexOf('[native code]') > -1,
+        querySelectorAll: !((document.querySelectorAll + '').indexOf('[native code]') > -1),
+        trim: (String.prototype.trim + '').indexOf('[native code]') > -1
+    };
+
+    /*
+    * 数组去重方法
+    * */
+    function unique( arr ) {
+        var result = [];
+        for (var i = 0, len = arr.length; i < len; i++) {
+            if (result.indexOf(arr[i]) === -1) {
+                result.push(arr[i]);
+            }
+        }
+        return result;
+    }
+
+    /*
+    * 兼容性的trim方法，用来去除字符串两端的空白。
+    * ' a bc ' ==> /^\s*|\s*$/g
+    * */
+    function trim( str ) {
+
+        // 过滤空与非字符串
+        if (!str || typeof str !== 'string') {
+            return '';
+        }
+
+        // 优先使用原生的
+        if (support.trim) {
+            return str.trim();
+        }
+
+        // 自己实现功能
+        return str.replace(/^\s*|\s*$/g, '');
+    }
+
+    // 通过className获取元素
+    // 进行了兼容性处理
+    function byClass( className, arr ) {
+        arr = arr || [];
+
+        var tags, i, len;
+
+        // 优先使用原生的getElementsByClassName方法
+        if (support.getElementsByClassName) {
+            arr.push.apply(arr, document.getElementsByClassName(className));
+            return arr;
+        }
+
+        /*
+         * 遍历所有元素，把含有指定className的元素push到arr中
+         * */
+        tags = document.getElementsByTagName('*');
+        for (i = 0, len = tags.length; i < len; i++) {
+            // 通过给元素className的两边添加空格，让判断变得统一
+            if ((' ' + tags[i].className + ' ').indexOf(' ' + className + ' ') > -1) {
+                arr.push(tags[i]);
+            }
+        }
+        return arr;
+    }
+
+    /*
+    * Function ｛ select ｝ 选择器函数
+    * param { selector : string } 选择器
+    * param { arr : Array } 指定获取的元素所存放的数组
+    * */
+    function select( selector, arr ) {
+        arr = arr || [];
+
+        var firstChar, temTag, selectorNew, selectors,
+            i, len;
+
+        // 处理'' || !string
+        if (!selector || typeof selector !== 'string') {
+            return [];
+        }
+
+        // 优先使用浏览器内置的querySelectorAll方法
+        if (support.querySelectorAll) {
+            arr.push.apply(arr, document.querySelectorAll(selector));
+            return arr;
+        }
+
+        // 先把selector通过','分割成数组
+        selectors = selector.split(',');
+
+        for (i = 0, len = selectors.length; i < len; i++) {
+
+            // 获取selector第一个字符，将来用作区分选择器的类型
+            firstChar = trim(selectors[i]).charAt(0);
+            // 去掉selector的第一个字符
+            selectorNew = trim(selectors[i]).slice(1);
+
+            if (firstChar === '#') {
+                // document.getElementById可能返回null，需要过滤掉
+                if (temTag = document.getElementById(selectorNew)) {
+                    arr.push(temTag);
+                }
+            }else if (firstChar === '.') {
+                arr.push.apply(arr, byClass(selectorNew));
+            }else if (firstChar === '*') {
+                arr.push.apply(arr, document.getElementsByTagName('*'));
+            }else {
+                arr.push.apply(arr, document.getElementsByTagName(trim(selectors[i])));
+            }
+        }
+
+        return unique(arr);
+    }
+
+    // 练习：把上面的byClassName和byAll方法补全
+    // 测试代码
+    console.log(select('p, .pig'));
+</script>
+</body>
+</html>

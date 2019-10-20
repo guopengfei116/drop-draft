@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="cvs" width="500" height="500" style="border: 1px solid red"></canvas>
+<script>
+    var cvs = document.getElementById('cvs');
+    var ctx = cvs.getContext('2d');
+
+    /*
+    * ctx.globalCompositeOperation = 'source-over';
+    * 作用：用来设置图形重叠绘制的方案。
+    * 默认值：source-over
+    *
+    * source代表新图形，destination代表旧图形。
+    *
+    * source-over: 冲突的部分，新图形覆盖旧图形；
+    * source-atop: 新图形在旧图形覆盖之外的地方不可见，冲突部分显示新
+    * source-in: 只保留新图形冲突的部分，旧图形不可见
+    * source-out: 只保留新图形未冲突的部分，旧图形不可见
+    *
+    * destination-over: 冲突的部分，旧图形覆盖新图形；
+    * destination-atop: 旧图形在新图形之外外的地方不可见，冲突部分显示旧
+    * destination-in：只保留旧图形冲突的部分，新图形不可见
+    * destination-out：只保留旧图形未冲突的部分，新图形不可见
+    *
+    * lighter：冲突的部分，颜色值相加
+    * copy: 显示新图形，旧图形不可见
+    * */
+
+    ctx.fillStyle = 'deeppink';
+    ctx.fillRect(0, 0, cvs.width, cvs.height);
+
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.fillStyle = 'skyblue';
+    ctx.fillRect(100, 100, 200, 200);
+
+</script>
+</body>
+</html>

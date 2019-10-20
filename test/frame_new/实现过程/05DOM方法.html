@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="前3天框架核心结构.js"></script>
+</head>
+<body>
+    <ul>
+        <li>1111</li>
+        <li>2222</li>
+        <li>3333</li>
+        <li>4444</li>
+    </ul>
+    <script>
+        // 扩展一些DOM方法
+        jQuery.fn.extend({
+
+            // 清空所有元素里的内容
+            empty: function () {
+
+                // 遍历所有的元素，分别清空这些元素里的内容
+                this.each( function() {
+                    this.innerHTML = "";
+                } );
+
+                // 为了实现链式编程
+                return this;
+            },
+
+            // 删除所有的元素
+            remove: function() {
+
+                // 遍历所有的元素，通过parentNode得到元素的父元素，
+                // 然后父元素调用removeChild方法删除这些元素
+                this.each( function() {
+                    this.parentNode.removeChild( this );
+                } );
+            },
+
+            /*
+            * function { appendTo } 把所有的元素添加到指定元素中
+            * param { selector: DOM || jQuery实例 || html片段 || 选择器 }
+            *   可以把元素添加到指定DOM中，或者jQuery实例的每一个元素中，
+            *   或者选择器匹配到的所有元素中。
+            * */
+            appendTo: function( selector ) {
+                var $selector, temp, result = [];
+
+                // 为了统一代码实现，先把selector转换为jQuery对象再处理
+                $selector = jQuery( selector );
+
+                // 遍历this的所有元素，遍历到的每一个都分别添加到$selector的每一个元素中
+                for ( var i = 0, len = this.length; i < len; i++ ) {
+                    for ( var j = 0, leng = $selector.length; j < leng; j++ ) {
+                        // 如果是第一次，则添加元素本身，如果不是，则添加元素的clone版本
+                        temp = j === 0? this[i]: this[i].clone( true );
+                        $selector[j].appendChild( temp );
+                        result.push( temp );
+                    }
+                }
+
+                return jQuery( result );
+            },
+
+            /*
+            * function { append } 给所有元素添加指定的内容
+            * param { selector: DOM || jQuery实例 || html片段 || 文本 }
+            * */
+            append: function( selector ) {
+
+            }
+        });
+    </script>
+    <script>
+        // 测试
+        $('li').remove();
+    </script>
+</body>
+</html>

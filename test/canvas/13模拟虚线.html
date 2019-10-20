@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var canvas = document.createElement( 'canvas' );
+    canvas.width = 500;
+    canvas.height = 400;
+    canvas.style.border = '1px dashed red';
+    var ctx = canvas.getContext( '2d' );
+    document.body.appendChild( canvas );
+
+    /*
+     * 正数从左向右抵消，
+     * 负数从右向左抵消。
+     * 算法：
+     * 1、ctx.lineDashOffset %= ctx.getLienDash()的和；
+     * 2、剩余的数从左抵消或者从右抵消。
+     * */
+
+    // 画虚线思路：
+    // 先画一条实线，然后画下一条实线时先moveTo一定距离再画。
+    var step = 5;
+    ctx.moveTo(10, 10);
+    ctx.lineTo(10 + 5, 10);
+    ctx.moveTo(10 + 5 * 2, 10);
+    ctx.lineTo(10 + 5 * 3, 10);
+    ctx.moveTo(10 + 5 * 4, 10);
+    ctx.stroke();
+
+    /*// for循环改造
+    ctx.beginPath();
+    var step = 5;
+    var startX = 10;
+    var startY = 30;
+    var endX = 200;
+    while(true) {
+        ctx.moveTo(startX, startY); // 先移动到开始位置
+        ctx.lineTo(startX += step, startY); // 画实线
+        if (startX >= endX) {  // 到达终点则停止
+            break;
+        }
+        startX += step; // 空白
+    }
+    ctx.stroke();*/
+
+    // for循环优化
+    ctx.beginPath();
+    var step = 5;
+    var startX = 0;
+    var startY = 30;
+    var endX = 200;
+    var i = 1;
+    while(true) {
+        if (i % 2 === 1) {
+            ctx.moveTo(startX, startY); // 空白部分
+        }else {
+            ctx.lineTo(startX, startY); // 画实线
+        }
+
+        // 到达终点则停止
+        if (startX >= endX) {
+            break;
+        }
+
+        startX += step;
+        i++;
+    }
+    ctx.stroke();
+
+    /*// 虚线动画
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    var step = 5;
+    var startX = 0;
+    var startY = 30;
+    var endX = 200;
+    var i = 1;
+    var timer = setInterval(function () {
+        if (i % 2 === 1) {
+            ctx.moveTo(startX, startY); // 空白部分
+        }else {
+            ctx.lineTo(startX, startY); // 画实线
+        }
+
+        // 到达终点则停止
+        if (startX >= endX) {
+            clearInterval(timer);
+        }
+
+        startX += step;
+        i++;
+        ctx.stroke();
+    }, 20);*/
+</script>
+</body>
+</html>

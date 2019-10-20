@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var canvas = document.createElement( 'canvas' );
+    canvas.width = 500;
+    canvas.height = 400;
+    canvas.style.border = '1px dashed red';
+    // 获得 CanvasRenderingContext2D 对象
+    var ctx = canvas.getContext( '2d' );
+    document.body.appendChild( canvas );
+
+    // 模拟横向渐变，由不同颜色的竖线构成
+    for (var i = 1, len = 256; i < len; i++) {
+        ctx.beginPath();
+
+        ctx.strokeStyle = 'rgb(' + i + ', 0, 0)';
+
+        // 依次从左向右红到黑渐变
+        ctx.moveTo(10 + i, 10);
+        ctx.lineTo(10 + i, 210);
+
+        ctx.stroke();
+    }
+
+    // 模拟竖向渐变，由不同颜色的横线构成
+    for (var i = 1, len = 256; i < len; i++) {
+        ctx.beginPath();
+
+        ctx.strokeStyle = 'rgb(' + i + ', 0, 0)';
+
+        // 依次从上向下红到黑渐变
+        ctx.moveTo(10, 250 + i);
+        ctx.lineTo(210, 250 + i);
+
+        ctx.stroke();
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        /*
+        * 能干什么？
+        * */
+        function Person() {
+           /* this.sayHello = function () {
+                console.log('说一句话');
+            }*/
+        }
+
+        Person.prototype.sayHello = function () {
+            console.log('说一句话');
+        };
+
+        var zhangsan = new Person();
+        var lisi = new Person();
+
+        zhangsan.sayHello();
+        lisi.sayHello();
+
+       console.log(zhangsan.sayHello === lisi.sayHello);
+
+        /*
+        * 构造函数的问题?
+        * 好处：可以帮助我们节省重复代码。
+        * 坏处：在构造函数当中，给对象添加属性或者方法，会让每一个都单独拥有一份，造成内存浪费
+        * */
+
+        /*
+        * 原型的作用：
+        * 通过构造函数创建的对象，可以访问原型上的属性或者方法，达到共享的目的。
+        *
+        * 原型是什么：
+        * 原型就是函数的一个属性，prototype。
+        * */
+
+        /*
+        * 对象的属性访问机制：
+        * 如果访问对象的属性，先会在自身上去查找，如果存在，则返回；
+        * 如果不存在，就是对应的构造函数的prototype属性上去查找。
+        * */
+    </script>
+</body>
+</html>

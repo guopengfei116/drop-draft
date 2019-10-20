@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        /*
+        * Person 构造函数
+        * person1  -- sayHello, run
+        * person2  --- sayHeelo, run
+        * */
+        function Person() {
+            this.sayHello = function () {
+                console.log('说话');
+            },
+            this.run = function () {
+                console.log("奔跑");
+            }
+        }
+
+        var person1 = new Person();
+        var person2 = new Person();
+
+        console.log(person1.sayHello === person2.sayHello);
+
+    </script>
+</body>
+</html>

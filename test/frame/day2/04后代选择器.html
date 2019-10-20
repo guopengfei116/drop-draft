@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // 供内部使用的基本选择器函数
+        function baseSelect( selector, context, arr ) {
+            context = context || document;
+            arr = arr || [];
+
+            var match, temTag;
+
+            if (match = baseSelectorReg.exec(trim(selector))) {
+                if (match[1]) {
+                    // document.getElementById可能返回null，需要过滤掉
+                    if (temTag = document.getElementById(match[1])) {
+                        arr.push(temTag);
+                    }
+                }else if (match[2]) {
+                    arr.push.apply(arr, context.getElementsByClassName(match[2]));
+                }else if (match[4]) {
+                    arr.push.apply(arr, context.getElementsByTagName('*'));
+                }else if (match[3]){
+                    arr.push.apply(arr, context.getElementsByTagName(match[3]));
+                }
+            }
+
+            return arr;
+        }
+
+        // 后代选择器
+        function selectChildren( selector, context, arr ) {
+            context = context || document;
+            arr = arr || [];
+
+            var i, len, j, len2, temNode = [ document ], res = [];
+
+            // 先把selector通过' '分割成数组
+            selectors = selector.split(' ');
+
+            // 从祖到子，依次遍历
+            for (i = 0, len = selectors.length; i < len; i++) {
+                // 指定元素上下文
+                for (j = 0, len2 = temNode.length; j < len2; j++) {
+                    res.push.apply(res, baseSelect(selectors[i], temNode[j]));
+                }
+                temNode = res;
+                res = [];
+            }
+
+            // 把匹配到的后代元素存储到arr中
+            arr.push.apply(arr, temNode);
+            return arr;
+        }
+    </script>
+</body>
+</html>

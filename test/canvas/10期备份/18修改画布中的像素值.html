@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="cvs" width="500" height="500" style="border: 1px solid red"></canvas>
+<script>
+    var cvs = document.getElementById('cvs');
+    var ctx = cvs.getContext('2d');
+
+    /*
+    * 获取画布中某个区域绘制的像素数据。
+    * ctx.getImageData(要获取的x轴起始坐标，要获取的y轴起始坐标，获取的宽度，获取的高度);
+    *
+    * 返回值是一个对象，颜色16机制表示值
+    * */
+
+    // 先绘制一张图片
+    var img = new Image();
+    img.src = './iphone8.jpg';
+    img.onload = function () {
+        ctx.drawImage(img, 0, 0, cvs.width, cvs.height);
+
+        // 获取整个画布绘制时像素点的rgba值。
+        var dataImage = ctx.getImageData(0, 0, cvs.width, cvs.height);
+        var pixelData = dataImage.data;
+
+        // 反转画布中每一个像素点的rbg通道
+        /*for (var i = 0; i < pixelData.length; i+=4) {
+            pixelData[i] = 255 - pixelData[i];
+            pixelData[i + 1] = 255 - pixelData[i + 1];
+            pixelData[i + 2] = 255 - pixelData[i + 2];
+            // pixelData[i + 3] = 255 - pixelData[i + 3];
+        }*/
+
+        // 求平均值
+        var tem;
+        for (var i = 0; i < pixelData.length; i+=4) {
+            tem = ( pixelData[i] + pixelData[i + 1] + pixelData[i + 2] ) / 3;
+            pixelData[i] = tem;
+            pixelData[i + 1] = tem;
+            pixelData[i + 2] = tem;
+        }
+
+        // 放回画布中展示反转后的图像
+        ctx.putImageData(dataImage, 0, 0);
+    };
+</script>
+</body>
+</html>

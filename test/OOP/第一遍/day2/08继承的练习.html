@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        var obj = {
+            run : function () {
+                console.log('奔跑');
+            },
+            eat : function () {
+                console.log('吃饭');
+            },
+            look : function () {
+                console.log('可以看');
+            }
+        };
+
+        // 要求创建一个Person类的对象，这个对象继承obj。
+
+        // 一个对象可以访问它的原型对象。对象和原型对象的关系是如何建立起来的？
+        // 如果我们能够让新对象和obj对象建立'对象与原型对象'的关系，那么我们就实现了继承。(新对象.__proto__ == obj)。
+        // 要实现这种关系，需要用到构造函数与构造函数的原型属性。
+        // 把obj变成构造函数的原型，那么通过构造函数创建的对象就继承了obj对象。
+
+        function Person(name) {
+            this.name = name;
+        }
+
+        Person.prototype = obj;
+        Person.prototype.say = function () {
+            console.log('说话');
+        };
+        Person.prototype.eat = function () {
+            console.log('使用工具吃饭');
+        };
+
+        var zhangsan = new Person('zhangsan');
+        zhangsan.eat();
+
+        // 实现继承的基本的4个步骤
+        /*
+        * 1、找到要继承的对象
+        * 2、准备一个构造函数
+        * 3、修改构造函数的原型为要继承的对象
+        * 4、通过构造函数创建对象
+        * */
+
+        /*
+        * 这种直接使用已有对象覆盖原型的继承方式，有一个弊端，
+        * 就是给原型添加属性和方法或影响到被继承的对象。
+        * */
+        obj.say();
+        obj.eat();
+
+
+        // 刚才我们在实现继承的时候，
+        // 就是在思考如何把一个对象的原型对象修改为要继承的都系。
+
+
+
+
+    </script>
+</body>
+</html>

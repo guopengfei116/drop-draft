@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="select_sub.js"></script>
+    <script src="itcast.js"></script>
+    <script src="event.js"></script>
+    <script src="css&attr.js"></script>
+    <script src="animate.js"></script>
+    <style>
+        div {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            left: 0;
+            background-color: fuchsia;
+        }
+        #div2 {
+            top: 300px;
+        }
+        button {
+            position: absolute;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <div id="div2"></div>
+    <button>点击</button>
+    <script>
+        $.extend({
+            createXMLHttp: function( ) {
+                if ( window.XMLHttpRequest ) {
+                    return new XMLHttpRequest()
+                }else {
+                    return new ActiveXObject('Microsoft.XMLHTTP')
+                }
+            },
+
+            parseJSON: function ( data ) {
+                try {
+                    return window.JSON.parse( data );
+                }catch(e) {
+                    try {
+                        return Function( 'return ' + data )();
+                    }catch(e) {
+                        return {};
+                    }
+                }
+            },
+
+            stringifyUrlParam: function( data ) {
+                if (!data) {
+                    return '';
+                }
+                var arr = [], key;
+                for ( key in data ) {
+                    arr.push( encodeURIComponent(key) + '=' + encodeURIComponent(data[key]) );
+                }
+                return arr.json('&');
+            },
+
+            ajaxSttings: {
+                url: location.href,
+                type: "GET",
+                dataType: 'json',
+                async: true,
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8"
+                //contentType: "application/json; charset=UTF-8"
+            },
+
+            ajax: function ( options ) {
+                var config = {}, xhr;
+                $.extend( config, $.ajaxSttings );
+                $.extend( config, options );
+
+                xhr = $.createXMLHttp();
+
+                switch ( config.type.toUpperCase() ) {
+                    case 'GET':
+                        xhr.open('GET', config.url + '?' + $.stringifyUrlParam(config.data), config.async);
+                        xhr.send();
+                        break;
+                    case 'POST':
+                        xhr.open('POST', config.url, config.async);
+                        xhr.setRequestHeader('Content-Type', config.contentType);
+                        xhr.send($.stringifyUrlParam(config.data));
+                        break;
+                }
+
+                xhr.onreadystatechange=function(){
+                    if(xhr.readyState==4){
+                        config.complete && config.complete();
+                        if((xhr.status>=200 && xhr.status<300) || xhr.status==304){
+                            config.success && config.success(xhr.responseText);
+                        }else{
+                            config.error && config.error(xhr.status);
+                        }
+                    }
+                };
+            }
+        });
+
+        $.ajax({
+            url: './json.json',
+            success: function (data) {
+                console.log(JSON.parse(data));
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var cvs = document.createElement( 'canvas' );
+    cvs.width = 500;
+    cvs.height = 400;
+    cvs.style.border = '1px solid red';
+    // 获得 cvsRenderingContext2D 对象
+    var ctx = cvs.getContext( '2d' );
+    document.body.appendChild( cvs );
+
+    var width = 10, height = 20;
+    var rows = Math.floor(cvs.height / height);  // 行
+    var cols = Math.floor(cvs.width / width);  // 列
+
+    for (var i = 0; i < rows; i++) {
+
+        for (var j = 0; j < cols; j++) {
+
+            ctx.moveTo(width * j, height * i); // j控制列，i控制行，i在外面，整体是一行一行的画
+            ctx.lineTo(width * j + width, height * i);  // 小横线
+            ctx.lineTo(width * j + width, height * i + height); // 小竖线
+        }
+    }
+
+    ctx.stroke();
+</script>
+</body>
+</html>

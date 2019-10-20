@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="select_sub.js"></script>
+    <script src="itcast.js"></script>
+    <script src="event.js"></script>
+    <script src="css&attr.js"></script>
+</head>
+<body>
+    <p class="aa bb cd dd ee">123</p>
+    <p class="xxx xbbx">456</p>
+    <p class="iiiii bb">456</p>
+    <p>456</p>
+    <p id="p">456</p>
+    <script>
+        $.extend({
+            attr: function ( ele, name, val,  ) {
+
+            }
+        });
+
+        $.fn.extend({
+
+            // attr获取和设置属性通过getAttribute与setAttribute方法实现
+            // 如果传入一个字符串，那么就是获取；
+            // 如果传入一个对象，那么就是批量设置；
+            // 如果传入两个字符串，那么就设置指定的属性值
+            attr: function ( name, value ) {
+                var len = arguments.length;
+
+                // 1个参数
+                if ( len === 1 ) {
+
+                    // 如果是字符串，那就获取第一个元素的属性
+                    if ( $.isString( name ) ) {
+                        return this[0].getAttribute( name );
+                    }
+
+                    // 如果是对象，那么就给所有元素批量添加属性
+                    else if ( typeof name === 'object' ) {
+
+                        // 遍历所有的元素
+                        this.each( function () {
+                            // 分别给每一个元素，批量添加属性
+                            for ( var key in name ) {
+                                this.setAttribute( key, name[ key ] );
+                            }
+                        });
+                    }
+                }
+
+                // 2个参数，都是字符串的情况
+                else if ( $.isString( name ) && $.isString( value ) ) {
+                    // 遍历所有的元素
+                    this.each( function () {
+                        // 分别给每一个元素添加指定的属性
+                        this.setAttribute( name, value );
+                    });
+                }
+
+                return this;
+            },
+
+            // prop获取和设置属性通过直接.的方式
+            // 如果传入一个字符串，那么就是获取；
+            // 如果传入一个对象，那么就是批量设置；
+            // 如果传入两个字符串，那么就设置指定的属性值
+            prop: function () {
+
+            }
+        });
+    </script>
+    <script>
+        $('p').attr('attr', 'attr_zidingyi');
+        $('p').attr({
+            aaa: 111,
+            bbb: 222
+        });
+        console.log($('p').attr('aaa'));
+    </script>
+</body>
+</html>

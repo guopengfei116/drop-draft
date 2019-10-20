@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script >
+
+        // 函数创建的方式
+        // 声明式、表达式
+        // 函数都是Function的实例
+
+        var obj = new Object();
+        var f = function () {}
+        /*
+        * 语法
+        * 除最后一个参数外，其余参数都代表新创建的函数的形参，最后一个参数代表函数体
+        * */
+        function fn () {
+            f();
+            var a = 1;
+            var fn = new Function('a', 'b', 'console.log(typeof a)')();
+            var fn = Function('console.log(typeof a);')();
+        }
+
+        fn();
+    </script>
+</body>
+</html>

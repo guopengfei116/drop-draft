@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var cvs = document.createElement( 'canvas' );
+    cvs.width = 500;
+    cvs.height = 400;
+    cvs.style.border = '1px solid red';
+    // 获得 cvsRenderingContext2D 对象
+    var ctx = cvs.getContext( '2d' );
+    document.body.appendChild( cvs );
+
+    function toRadian(angle) {
+        return Math.PI / 180 * angle;
+    }
+
+    // 从-90度开始动画绘制圆
+    var startAngle = -90,
+        endAngle = 360 - Math.abs(startAngle),
+        runningAngle = startAngle;
+
+    // 注意，角度转弧度，结束角度从开始角度依次累加
+    var timer = setInterval(function () {
+
+        ctx.moveTo(cvs.width / 2, cvs.height / 2);
+        ctx.arc(cvs.width / 2, cvs.height / 2, 100, toRadian(startAngle), toRadian(runningAngle));
+        ctx.fill();
+
+        runningAngle++;
+        if (runningAngle > endAngle) {
+            console.log(runningAngle);
+            clearInterval(timer);
+        }
+    }, 20);
+
+</script>
+</body>
+</html>

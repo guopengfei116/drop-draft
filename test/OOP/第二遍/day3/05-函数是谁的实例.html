@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // 函数是谁的实例 ？Function构造函数
+
+        // {} 是谁的实例 ？ Object构造函数
+
+        // 对象 instanceof 构造函数 ，用来判断对象 是不是 这个构造函数的实例
+        console.log({} instanceof Object);
+        console.log({} instanceof Array);
+        console.log(function fn() {} instanceof Function);
+
+        function fn() {
+
+        }
+        // 函数是一个对象，并且Function构造函数的对象。
+        // {} 的原型对象是 Object.prototype
+        // 函数 的原型对象是 Function.prototype
+        console.log(fn.__proto__ === Function.prototype);
+
+        function fn1() {}
+        function fn2() {}
+       // function fn3() {}
+
+        // 画出fn1和fn2的原型链结构图
+        // {a:1} 构造函数Object
+
+        console.log('Function原型的原型对象是不是Object的原型属性', Function.prototype.__proto__ === Object.prototype);
+        /*
+        * 最终所有的对象都继承自Object.prototype(包含内置构造函数的prototype属性)
+        * */
+    </script>
+</body>
+</html>

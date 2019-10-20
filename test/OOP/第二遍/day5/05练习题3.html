@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <button id="btn">点击我</button>
+    <script>
+        var nBtn = document.getElementById('btn');
+        //var a = 10;
+        var fn = function () {
+            console.log(a);
+        };
+        nBtn.onclick = function () {
+            var a = 11;
+            (function () {
+                console.log(a);
+            })();
+        };
+
+
+        function fn() {
+            var a = 2;
+
+            function inFn() {
+                var a = 1;
+            }
+
+            (function () {
+                console.log(a);
+            }());
+        }
+
+        fn();
+    </script>
+</body>
+</html>

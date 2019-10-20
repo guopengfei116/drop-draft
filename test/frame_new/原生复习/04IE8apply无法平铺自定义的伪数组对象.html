@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        /*
+        * IE8apply无法平铺自定义的伪数组对象
+        * */
+
+        var obj = {};
+        var arr = ['aa','bb','cc'];
+        var likeArray = { 0: '111', 1: '222', length: 2 };
+        var scripts = document.getElementsByTagName('script');
+        [].push.apply( obj, arr );
+        [].push.apply( obj, scripts );
+        [].push.apply( obj, likeArray );
+        console.log( obj );
+    </script>
+</body>
+</html>

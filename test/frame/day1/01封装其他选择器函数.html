@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    * {
+        height: 10px;
+    }
+</style>
+<body>
+    <div>
+        <span>同学爱吃：羊腰子</span>
+        <span>生蚝生蚝</span>
+        <span>扇贝扇贝</span>
+        <span>皮皮虾皮皮虾</span>
+        <a>螃蟹螃蟹</a>
+        <a></a>
+        <a></a>
+    </div>
+    <div id="div">
+        <ul>
+            <li>a</li>
+            <li>b</li>
+        </ul>
+        <p class="p">1</p>
+        <p class="p">2</p>
+        <p class="ppp">3</p>
+        <p class="ppp">4</p>
+    </div>
+    <script>
+        // 按照之前的套路，封装byId，byTagName，byClassName，byAll方法。
+
+        // id
+        function byId(id, arr) {
+            arr = arr || [];
+            var tag = document.getElementById(id);
+            // 防止添加null
+            if (tag) {
+                arr.push(tag);
+            }
+            return arr;
+        }
+
+        // tagName
+        function byTagName(tagName, arr) {
+            arr = arr || [];
+            arr.push.apply(arr, document.getElementsByTagName(tagName));
+            return arr;
+        }
+
+        // 获取span和p元素
+        // var tags = byTagName('p', byTagName('span'));
+
+        // className
+        function byClassName(ClassName, arr) {
+            arr = arr || [];
+            arr.push.apply(arr, document.getElementsByClassName(ClassName));
+            return arr;
+        }
+
+
+        // 获取所有元素
+        function byAll(arr) {
+            arr = arr || [];
+            arr.push.apply(arr, document.getElementsByTagName('*'));
+            return arr;
+        }
+
+        // 练习：把上面的byClassName和byAll方法补全
+        // 测试代码
+        console.log(byAll());
+    </script>
+</body>
+</html>

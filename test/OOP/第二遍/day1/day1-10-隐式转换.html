@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+
+        /*
+        * 为什么字符串可以访问方法呢
+        * 是因为字符串在调用属性的时候，js解析引擎会自动把我们的字符串进行隐式类型转换
+        * */
+/*        var str = 'abc';
+        //console.log(str.indexOf('b'));
+        console.log(str.constructor);
+
+        // 字符串的构造函数是String
+        // constructor属性来自于String对象的prototype属性
+        var str1 = new String(str);
+        console.log(str1.constructor === str.constructor);*/
+
+      /*  var boo = true;
+       // console.log(typeof boo.valueOf());
+        var boo1 = new Boolean(boo);
+        //console.log(boo1);
+
+        var num = 123;
+        var num1 = new Number(num);
+        console.log(num1);
+        //console.log(num.constructor.prototype);
+        //console.log(typeof num.toLocaleString());
+
+    /!*    var nu = null;
+        console.log(nu.constructor);*!/
+
+        /!*var undef = undefined;
+        console.log(undef);*!/
+
+        var date = new Date();
+        console.log(date.getFullYear === Date.prototype.getFullYear);*/
+
+
+    </script>
+</body>
+</html>

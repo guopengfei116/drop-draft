@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // 多层级原型继承  arr 继承 Array.prototype， Array.prototype又继承了Object.prototype
+        var arr = [];
+        // Array.prototype
+
+        Object.prototype.nihao = '很好';
+        console.log(arr.nihao);
+    </script>
+</body>
+</html>

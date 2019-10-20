@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // 如何进行函数调用  ：　使用一对（）。
+
+        // 实参、形参
+
+
+        // 形参，类似于数学当中代数。比如：计算两数之和，为了通用性，我们用a +ｂ表示。然后在实际的计算当中，
+        // 只要把要计算的数值套入公式即可。为了函数通用，形参就是把函数运行所需要的数据使用符号进行抽象代表，那么这个符号就是形参。
+
+        // 实参，就是函数调用过程中实际传入的参数。相当于我们套入到公式里面的具体数值。
+
+        /*
+        *  形参和实参直接的联系：
+        *  形参就是函数所需数据的抽象表示，作用是接收数据，
+        *  实参是函数调用过程中实际传入的参数，作用是传递数据；
+        *  联系就是形参就是用来接收实参传递过来的数据。
+        * */
+
+ /*       console.log(aa);
+        console.log(bb);
+        console.log(cc);
+        console.log(dd);*/
+
+        if(1) {
+            function aa() {}
+        }else {
+            function bb() {}
+        }
+
+        try {
+            function cc() {
+                console.log(arguments.caller);
+                console.log(cc.caller);
+                console.log(arguments.callee);
+                console.log(cc.callee);
+            }
+        }catch (e) {
+            function dd() {}
+        }
+
+        (function gg() {
+           cc();
+        })();
+
+    </script>
+</body>
+</html>

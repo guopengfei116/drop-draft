@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        (function ( global, factory ) {
+
+            factory(global);
+
+        })(this, function () {
+
+            var JQuery = function ( selector, context ) {
+                return new JQuery.fn.init( selector, context );
+            };
+
+            JQuery.fn = JQuery.prototype = {
+                constructor: jQuery
+            };
+
+            var init = JQuery.fn.init = function () {
+
+            };
+
+            init.prototype = jQuery.fn;
+
+            return JQuery;
+        });
+    </script>
+</body>
+</html>

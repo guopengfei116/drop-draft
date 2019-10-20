@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="select_sub.js"></script>
+    <script src="itcast.js"></script>
+    <script src="event.js"></script>
+    <script src="css&attr.js"></script>
+    <script src="animate.js"></script>
+    <style>
+        div {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            left: 0;
+            background-color: fuchsia;
+        }
+        #div2 {
+            top: 300px;
+        }
+        button {
+            position: absolute;
+            margin-top: 20px;
+        }
+    </style>
+    <script src="jquery-1.12.0.js"></script>
+</head>
+<body>
+    <div></div>
+    <div id="div2"></div>
+    <button>点击</button>
+    <script>
+        function fn() {
+            console.log(1);
+        }
+        $.ajax({
+            url: './test_file/json.json',
+            method: 'POST',
+            data: { value: 100, name: 'heihei', arr: [1,2,3] },
+            //contentType: 'application/json',
+
+            //dataType: 'text script',  //当做js执行，success直接return文本值，不会报解析错误
+            //dataType: 'script', //当做js执行，success直接return文本值，不会报解析错误
+
+            //dataType: 'json', //当做JSON解析执行，success返回解析后的对象
+            //dataType: 'text json', //当做JSON解析执行，success返回解析后的对象
+
+            //dataType: 'xml', //当做XML文档解析，success返回解析后的XML对象
+            //dataType: 'text xml', //当做XML文档解析，success返回解析后的XML对象
+
+            //dataType: 'html', //当做html文档，不做解析直接返回
+            //dataType: 'text *', //不做解析，当做文本返回
+
+            //dataType: '*', //根据响应头，进行解析，最后返回文本（调用toString得到）
+            dataType: '* text', //根据响应头，进行解析，最后返回文本（调用toString得到）
+
+            success: function (data) {
+                console.log(data);
+            },
+            error: function () {
+                console.log(arguments);
+            }
+        });
+    </script>
+</body>
+</html>

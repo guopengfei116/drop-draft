@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        /*
+        * 什么沙箱？
+        * 可以解决全局变量的污染的问题。
+        * 在js当中，沙箱就是函数。
+        * 一般在使用的使用，都是自调函数。
+        *
+        * 变量效率提高方案：
+        * 同时为了提高常用对象的查找效率，
+        * 会把这些对象通过匿名函数传入，作为局部变量存在。
+        *
+        * 什么是全局变量污染？
+        * 因为全局变量比较珍贵，我们所使用的词汇也有限，
+        * 所以经常会出现重名的情况；
+        * 第二点是我们开发中可能会引入很多库或者框架，
+        * 如果大家都定义全局变量，重名的可能性会加大；
+        * 所以要减少全局变量的使用。
+        * */
+
+
+        /* 不必要这么麻烦
+        function fn() {
+            var a = 1;
+        }
+        fn()*/
+
+        // 沙箱模式
+        (function () {
+            var a = 1;
+        }());
+
+        // 有时间写的代码供比人使用，怎么办？
+        (function (w) {
+            // 为提供查找效率，把常用的对象变为局部变量预设
+            var doc = w.document;
+            var aler = w.alert;
+
+            var a = 1;
+            var b = 2;
+            aler('1');
+            function Person() {
+
+            }
+
+            window.Person = Person;
+        }(window));
+
+        console.log(Persion);
+        var a = 1;
+    </script>
+</body>
+</html>

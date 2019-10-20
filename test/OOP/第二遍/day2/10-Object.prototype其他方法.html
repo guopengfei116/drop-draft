@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // toLocaleString toString valueOf
+
+        // toLocaleString 用来调用数据对应的构造函数的toString方法
+
+        var arr = [1,2,'bb'];
+        arr.toStr = Object.prototype.toLocaleString;
+        /*console.log(arr.toStr());
+        console.log(arr.toString());*/
+
+        // Array 和 Date 构造函数的原型属性上重新定义了toLocaleString方法。
+        var da = new Date();
+        da.toStr = Object.prototype.toLocaleString;
+        /*console.log(da.toStr());
+        console.log(da.toLocaleString());
+        console.log(da.toString());*/
+
+        // String Data ...这些构造函数的原型属性上都定义了toString方法。
+        // ！！重点  toString ==> 可以进行数据类型判断
+
+        // valueOf 把数据转换为对应的对象类型
+        var num = 1;
+        console.log(num.valueOf());
+        console.log( typeof Object.prototype.valueOf.call(1));
+        console.log( typeof num);
+    </script>
+</body>
+</html>

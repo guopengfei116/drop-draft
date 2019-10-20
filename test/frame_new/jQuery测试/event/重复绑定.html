@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../jquery-2.2.0.js"></script>
+</head>
+<body>
+    <div>div1div2div3</div>
+    <script>
+        // jQuery支持重复绑定，标准的addEventListener不支持，IE6、7、8反而和jQ一样支持。
+        function fn1( e ) {
+            console.log('trigger1_' + e.type);
+        }
+        function fn2( e ) {
+            console.log('trigger2_' + e.type);
+        }
+        function fn3( e ) {
+            console.log('trigger3_' + e.type);
+        }
+        $('div').on( 'click', fn1 ).on( 'click', fn1 ).on( 'click', fn2 ).on( 'click', fn2 );
+        $('div').on( 'mouseover', fn3 ).on( 'mouseover', fn3 );
+
+        // 删除指定事件指定函数
+        $('div').off( 'click', fn2 );
+
+        // 删除指定事件
+        //$('div').off( 'click' );
+
+        // 删除所有事件
+        //$('div').off(  );
+    </script>
+</body>
+</html>

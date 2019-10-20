@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        var isLoad = false;
+        window.onload = function () {
+            isLoad = true;
+            console.log(000);
+        };
+
+        setTimeout(function () {
+            if ( isLoad ) {
+                console.log(111);
+            }else {
+                // 事件句柄一定是在事件被触发的时候才会执行
+                window.onload = function () {
+                    console.log(111);
+                };
+            }
+        }, 3000);
+    </script>
+</body>
+</html>

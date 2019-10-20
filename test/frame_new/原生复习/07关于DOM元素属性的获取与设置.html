@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>123123213</div>
+    <input checked="checked" type="checkbox"/>
+    <img />
+    <script>
+        /*
+        *  获取和设置属性值有两种方式：
+        *  1、通过getAttribute和setAttribute方法实现，
+        *  2、通过DOM.属性名 和 DOM.属性名=属性值方式实现。
+        *
+        *  区别：
+        *  1、通过setAttribute设置的自定义属性，必须通过getAttribute获取，
+        *  通过.方式设置的自定义属性，必须通过.来获取，
+        *  2、setAttribute不能以数字命名，.方式可以。
+        *  3、对于DOM原生的哪些属性，有些两种方式都可以获取值，
+        *  有些只能通过.方式来获取最新的值，而getAttribute只能获取默认值。
+        *
+        *  补充:对于IE6、7、8来说，两种方式可以混用，没有区别。
+        * */
+
+        var div = document.querySelector('div');
+        var box = document.querySelector('input');
+        var img = document.querySelector('img');
+
+        /*----------------------------自定义属性测试---------------------------------*/
+
+        // 使用两种方式设置自定义属性
+        div.setAttribute('attr', 'attr_set');
+        div.dian = 'dian_set';
+
+        // 使用getAttribute方法获取两种方式设置的自定义属性值
+        console.log(div.getAttribute('attr'));;
+        console.log(div.getAttribute('dian'));;
+
+        // 使用.方式获取两种方式设置的自定义属性值
+        console.log(div.attr);
+        console.log(div.dian);
+
+        /*----------------------------原生属性测试---------------------------------*/
+
+        // 对与input相关的属性获取，.方式比较靠谱
+        console.log(box.getAttribute('checked'));
+        console.log(box.checked);
+
+        // 对于部分属性，比如src、id、class，两种方式都可以，
+        // 不过获取到的值，还有属性名，两种方式有些许差异。
+        img.src = './ss.png';
+        console.log(img.getAttribute('src'));
+        console.log(img.src);
+
+
+    </script>
+</body>
+</html>

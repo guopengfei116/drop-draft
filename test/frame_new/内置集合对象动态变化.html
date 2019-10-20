@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <a>000</a>
+        <a>111</a>
+    </div>
+    <script>
+        // 删除元素：获取元素的父元素，然后调用removeChild方法删除该元素。
+        var nodeList = document.querySelectorAll('a');
+        var HTMLCollection = document.getElementsByTagName('a');
+        nodeList[0].parentNode.removeChild( nodeList[0] );
+        console.log(nodeList); // 不会动态变化
+        console.log(HTMLCollection); // 会动态变化
+
+        /*
+        * 为什么这里要把as转换为数组，而我们在框架中实现的不需要转换：
+        * 因为这里我们操作的是as原生集合对象，他会动态变化；
+        * 所以需要把它先转换为数组，数组不会动态变化。
+        *
+        * 而框架中，我们操作的是this实例，这个实例是我们自己创造的，不会动态变化。
+        * */
+    </script>
+</body>
+</html>

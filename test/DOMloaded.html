@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div></div>
+    <div></div>
+    <script>
+        if ( document.addEventListener ) {
+            document.addEventListener('DOMContentLoaded', function () {
+                console.log('标准浏览器获取document.readyState属性：' + document.readyState );
+            });
+            window.addEventListener('load', function () {
+                console.log('标准浏览器load时获取document.readyState属性：' + document.readyState );
+            });
+        }else {
+            document.attachEvent('onreadystatechange', function (e) {
+                if ( document.readyState === 'complete' ) {
+                    console.log('complete的时候才可以获取到页面所有的元素');
+                }
+            });
+            window.attachEvent('onload', function () {
+                console.log('IE浏览器load时获取document.readyState属性：' + document.readyState );
+            });
+        }
+
+        setTimeout(function () {
+            var script = document.createElement('script');
+            script.src = './itcast.js';
+            console.log(document.readyState );
+            document.body.appendChild(script);
+        }, 3000);
+    </script>
+    <a id="a"></a>
+    <div>
+        <span class="span">1</span>
+        <span class="span">2</span>
+        <span class="span">3</span>
+    </div>
+</body>
+</html>

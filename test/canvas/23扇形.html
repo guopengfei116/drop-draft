@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var cvs = document.createElement( 'canvas' );
+    cvs.width = 500;
+    cvs.height = 400;
+    cvs.style.border = '1px solid red';
+    // 获得 cvsRenderingContext2D 对象
+    var ctx = cvs.getContext( '2d' );
+    document.body.appendChild( cvs );
+
+    // 绘制扇形的重点是需要设置起始位置为圆心点, 然后闭合路径即可
+    ctx.strokeStyle = 'red';
+    ctx.fillStyle = 'pink';
+
+    ctx.moveTo( 100, 200 );
+    ctx.arc( 100, 200, 100, -Math.PI/3, Math.PI/3 );
+    ctx.closePath();
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo( 300, 200 );
+    ctx.arc( 300, 200, 100,  -Math.PI/3, Math.PI/3);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.stroke();
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        function Person() {
+/*            this.sayHello = function () {
+                console.log('说话');
+            },
+            this.run = function () {
+                console.log("奔跑");
+            }*/
+        }
+
+        /*
+        * 1、目的性不明确
+        * */
+
+
+        /*
+        * 原型就是、、、、、、、、9
+        * */
+
+        Person.prototype.sayHello = function () {
+            console.log('说话');
+        };
+
+        Person.prototype.run = function () {
+            console.log("奔跑");
+        };
+
+
+        var person1 = new Person();
+        var person2 = new Person();
+
+        person1.sayHello();
+        person2.sayHello();
+
+        /*
+        * 对象的属性查找机制：
+        * 如果访问对象的属性，会优先在自身上去查找，如果没找到，就会去对应的构造函数的prototype对象上去找，
+        * 如果仍然没找到，就会去对应的构造函数的prototype对象的构造函数的prototype对象上去找.....
+        * */
+
+    </script>
+</body>
+</html>

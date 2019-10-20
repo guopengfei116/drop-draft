@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <input name="iphong" type="checkbox" />
+    <input name="iphong" type="checkbox" />
+
+    <input name="android" type="radio"/>
+    <input name="android" type="radio"/>
+
+    <input type="text"/>
+
+    <div class="test">div</div>
+
+    <script>
+        // 复选框
+        var checkbox = document.querySelector('input[type=checkbox]');
+        checkbox.onchange = function() {
+            console.log( this.checked ); // 可以获取
+            console.log( this.getAttribute('checked') ); // 只能获取默认值，null
+        }
+
+        // 单选框
+        var radio = document.querySelector('input[type=radio]');
+        radio.onchange = function() {
+            console.log( this.checked ); // 可以获取
+            console.log( this.getAttribute('checked') ); // 只能获取默认值，null
+        }
+
+        // 输入框
+        var text = document.querySelector('input[type=text]');
+        text.onchange = function() {
+            console.log( this.value ); // 可以获取
+            console.log( this.getAttribute('value') ); // 只能获取默认值，null
+        }
+
+        // className属性，两种方式都可以
+        // id属性也一样
+        // src也一样
+        var div = document.querySelector('div');
+        div.onclick = function() {
+            console.log( this.className ); // 可以获取
+            console.log( this.getAttribute('className') ); // 无法获取，得到null
+            console.log( this.getAttribute('class') ); // 可以获取
+
+            // 两种方式设置值，都可以成功，也可以获取
+            div.setAttribute('class', 'abc');
+            div.className += ' new';
+        }
+
+        /*
+        * 有很多属性两种方式都可以，比如表单的name、type，
+        * 标签的id、class、src。
+        * */
+    </script>
+</body>
+</html>

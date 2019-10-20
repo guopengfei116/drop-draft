@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-1.12.0.js"></script>
+</head>
+<body>
+    <div id="div" class="haha">1</div>
+    <div class="haha">2</div>
+    <div >3</div>
+    <input id="input"  type="text"/>
+    <input id="input2" value="有value默认值" type="text"/>
+    <script>
+        // 没参数是获取
+        console.log($('div').html());
+
+        // 有参数是设置
+        console.log($('div').html('<a>aaaa</a>'));
+    </script>
+</body>
+</html>

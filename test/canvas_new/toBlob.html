@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #cvs {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+<div id="div"></div>
+<script src="./js/getCanvasContext.js"></script>
+<script>
+    var ctx = getCanvasContext('div', 500, 500, true);
+    ctx.fillRect( 10, 10, 100, 100 );
+    ctx.canvas.toBlob(function (blob) {
+        // 得到一个blob对象，可以用作图像上传，下载等操作
+        console.log(blob);
+    }, 'image/gif', 0.01);
+</script>
+</body>
+</html>

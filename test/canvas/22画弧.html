@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var cvs = document.createElement( 'canvas' );
+    cvs.width = 500;
+    cvs.height = 400;
+    cvs.style.border = '1px solid red';
+    // 获得 cvsRenderingContext2D 对象
+    var ctx = cvs.getContext( '2d' );
+    document.body.appendChild( cvs );
+
+    // 在 200, 200 的地方绘制一段半径为 100 的圆弧, 圆心角为 - PI / 2 到 PI / 4
+    ctx.arc( 200, 200, 100, -Math.PI/2, Math.PI/4 );
+    ctx.stroke();
+
+    // 为了方便看清楚结构, 绘制坐标轴
+    ctx.beginPath();
+    ctx.strokeStyle = 'red';
+    ctx.moveTo( 50, 200 );
+    ctx.lineTo( 350, 200 );
+
+    ctx.moveTo( 200, 50 );
+    ctx.lineTo( 200, 350 );
+
+    ctx.moveTo( 200, 200 );
+    ctx.lineTo( 300, 300 );
+
+    ctx.stroke();
+</script>
+</body>
+</html>

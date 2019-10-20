@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <ul>
+        <li>111</li>
+        <li>222</li>
+        <li>333</li>
+    </ul>
+    <script>
+        var trimReg = /^\s+|\s+$/g;
+        function trim( str ) {
+            if (''.trim) {
+                console.log('原生');
+                return str.trim();
+            }
+            return str.replace(trimReg, '');
+        }
+
+        // 测试
+        var str = 'ul, li, a';
+        var selectors = str.split(',');
+        for (var i = 0, len = selectors.length; i < len; i++) {
+            console.log(trim(selectors[i]), trim(selectors[i]).length);
+        }
+    </script>
+</body>
+</html>

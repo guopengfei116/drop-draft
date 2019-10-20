@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // 为什么要用闭包
+        /*
+        * 1、全局变量很珍贵，极易引起重名冲突，而且全局变量很容易在不起眼的地方被改写,
+        * 所以我们写代码时变量都被定义为了局部变量，但是有些时候我们需要在外界使用这些局部变量，所以就不得不利用闭包完成。
+        * 2、有时候需要保存同一个变量的不同状态
+        * */
+
+        var  a  = 1;
+
+
+        function f() {
+            a = 2;
+        }
+
+        var pritIArr = [];
+
+        for(var i = 0; i < 5; i++) {
+            pritIArr.push((function (i) {
+                function pritI() {
+                    console.log(i);
+                }
+                return pritI;
+            }(i)));
+        }
+
+        console.log(pritIArr);
+        for (var i = 0; i < pritIArr.length; i++) {
+            pritIArr[i]();
+        }
+
+        function pritI() {
+            console.log(i);
+        }
+
+        //pritI();
+    </script>
+</body>
+</html>

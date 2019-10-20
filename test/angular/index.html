@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body ng-app="my-module">
+		
+		<section ng-controller="my-module-controller">
+			<form ng-submit="submit()">
+				<!-- 使用指令时全部小写，定义时的大写字母前使用-来区分 -->
+				<input type="text" ng-model="obj.directiveTest" my-module-disable-space />
+				<input type="text" ng-model="obj.directiveTest2" my-module-disable-space />
+				<button type="submit">提交</button>
+			</form>
+		</section>
+		
+		<script src="angular.js"></script>
+		<script>
+			var m = angular.module('my-module', []);
+			
+			// 定一个控制器，负责控制页面中的一部分，这里仅仅用于测试，模拟真实项目环境
+			// 主要使用使用了ng-model的双向数据绑定，测试如果使用了自定义指令后$scope的值能否与表单一致
+			m.controller('my-module-controller', [
+				'$scope',
+				function($scope) {
+				
+					$scope.obj = {};
+					$scope.obj.directiveTest = '默认值';
+					$scope.obj.directiveTest2 = '默认值-默认值';
+					
+					// 提交的时候，测试($scope中的数据是否与表单一致
+					$scope.submit = function() {
+						console.log('表单提交时，$scope.directiveTest的值为：' + $scope.obj.directiveTest);
+						console.log('表单提交时，$scope.directiveTest2的值为：' + $scope.obj.directiveTest);
+						return false;
+					}
+				}
+			]);
+			
+			// 定义一个公共的用于禁止表单输入空格的指令
+			// 指令名称必须驼峰命名
+			m.directive('myModuleDisableSpace', [
+				function() {
+					return {
+						replace: false,
+						restrict: 'A',
+						// 指令使用scope配置，那么指令就有了自己的scope，如果不配置那就就公用父的scope
+//						scope: {
+//							attrName: '@'  // 让使用该指令input表单通过attrName属性告诉我表单双向数据绑定时对应$scope的属性名
+//						},
+						link: function($scope, ele, attr) {
+							console.log(attr);
+							// 监听元素键盘按下事件，如果按下的是空格那么阻止正常的输入
+							ele.on('keydown', function(e) {
+								if(e.keyCode === 32) {
+									e.preventDefault();
+								}
+							});
+							
+							// 在值发生改变的时候，为了防止用户粘贴复制等行为导致的含有空格，做一次消除替换
+							// 但是直接给元素赋值angular无法监听到值的变化，造成$scope数据与表单不一致，
+							// 所以转而去修改scope中的属性，为了指令的通用性，
+							// 所以需要让用户使用该指令的时候告诉我要修改的属性名是什么。
+							ele.on('change', function(e) {
+								var oldVal = ele.val();
+								var newVal = oldVal.replace(/\s+/g, '');
+								
+								
+								// 这样修改表单的值，$scope中的数据是不会同步更新的，所以不能这样写
+//								$scope.$apply(function() {
+//									ele.val(newVal);
+//								});
+
+								// 1、这里在事件中修改$scope中的值，angular是监听不到的，页面元素不会跟着更新，
+								// 所以使用$apply方法。
+								// 2、为了能够让这个指令更加通用，所以需要使用元素自定义属性来获取表单对应$scope的名字，
+								// 这样指令就写活了，可以在任何表单中使用，只需要表单中添加my-module-disable-space指令，
+								// 然后再添加attrName="表单对应$scope的属性名"即可。
+								$scope.$apply(function() {
+									eval('$scope.' + attr.ngModel + '= newVal');
+//									$scope[attr.ngModel] = newVal;
+								});
+
+							});
+						}
+					}
+				}
+			]);
+		</script>
+	</body>
+</html>

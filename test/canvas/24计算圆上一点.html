@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var cvs = document.createElement( 'canvas' );
+    cvs.width = 500;
+    cvs.height = 400;
+    cvs.style.border = '1px solid red';
+    // 获得 cvsRenderingContext2D 对象
+    var ctx = cvs.getContext( '2d' );
+    document.body.appendChild( cvs );
+
+    // 求x
+    // 余弦：锐角临边 / 斜边 = cos(锐角角度)
+    // 余弦：锐角临边 / 半径(已知) = cos(锐角角度)
+    // 余弦：锐角临边 = 半径(已知) * cos(锐角角度)
+    // 左边圆x轴坐标：圆心x - 锐角临边(半径(已知) * cos(锐角角度))
+    // 右边圆x轴坐标：圆心x + 锐角临边(半径(已知) * cos(锐角角度))
+
+    // 求y
+    // 正弦：锐角对边 / 斜边 = sin(锐角角度)
+    // 正弦：锐角对边 / 半径(已知) = sin(锐角角度)
+    // 正弦：锐角对边 = 半径(已知) * sin(锐角角度)
+    // 上边圆y轴坐标：圆心y - 锐角对边( 半径(已知) * sin(锐角角度) )
+    // 下边圆y轴坐标：圆心y + 锐角对边( 半径(已知) * sin(锐角角度) )
+
+    // 为了防止负数角度，需要Math.abs(锐角角度);
+
+    function toRadian(angle) {
+        return Math.PI / 180 * angle;
+    }
+
+    // 从中心绘制 -60 到120 度的圆弧
+    var x = cvs.width / 2,
+        y = cvs.height / 2,
+        r = 100,
+        start = -60,
+        end = 120;
+
+    ctx.arc(x, y, r, toRadian(start), toRadian(end));
+
+    // 让弧向右移动100像素，Math.cos 和 Math.sin需要传弧度
+    ctx.moveTo(x + 100 + r * Math.cos(toRadian(start)), y - r * Math.sin(Math.abs(toRadian(end))));
+    ctx.arc(x + 100, y, r, toRadian(start), toRadian(end));
+    ctx.stroke();
+</script>
+</body>
+</html>

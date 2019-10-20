@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="select_sub.js"></script>
+    <script src="itcast.js"></script>
+    <script src="events.js"></script>
+</head>
+<body>
+    <p id="p1">123</p>
+    <p id="p2">456</p>
+    <script>
+        $.extend({
+            getStyle: function ( ele, name ) {
+                if ( ele.currentStyle ) {
+                    return ele.currentStyle[ name ];
+                }else {
+                    return window.getComputedStyle( ele )[ name ];
+                }
+            }
+        });
+
+        $.fn.extend({
+            attr: function ( name, value ) {
+
+                // 一个参数
+                if ( value === undefined ) {
+
+                    // 获取第一个元素的属性
+                    if ( $.isString( name ) ) {
+                        return this[0].getAttribute( name );
+                    }
+
+                    // 批量设置属性
+                    else if ( typeof name === 'object' ) {
+                        this.each( function () {
+                            var that = this;
+                            $.each( name, function ( key, val ) {
+                                that.setAttribute( key, val );
+                            });
+                        });
+                    }
+                }
+
+                // 两个参数都是字符串，给所有元素设置指定的属性
+                else if ( $.isString( name ) && $.isString( value ) ){
+                    this.each( function () {
+                        this.setAttribute( name, value );
+                    });
+                }
+
+                return  this;
+            },
+
+            prop: function ( name, value ) {
+
+                // 一个参数
+                if ( value === undefined ) {
+
+                    // 获取第一个元素的属性
+                    if ( $.isString( name ) ) {
+                        return this[0][ name ];
+                    }
+
+                    // 批量设置属性
+                    else if ( typeof name === 'object' ) {
+                        this.each( function () {
+                            var that = this;
+                            $.each( name, function ( key, val ) {
+                                that[ key ] = val;
+                            });
+                        });
+                    }
+                }
+
+                // 两个参数都是字符串，给所有元素设置指定的属性
+                else if ( $.isString( name ) && $.isString( value ) ){
+                    this.each( function () {
+                        this[ name ] = value;
+                    });
+                }
+
+                return  this;
+            },
+
+            html: function ( html ) {
+
+                 //return this.prop( 'innerHTML', html );
+
+                if ( html ) {
+                    this.each( function () {
+                        this.innerHTML = html + '';
+                    });
+                }else {
+                    return this[0].innerHTML;
+                }
+
+                return this;
+            },
+
+            text: function ( html ) {
+                if ( html ) {
+                    this.each( function () {
+                        this.innerHTML = '';
+                        this.appendChild( document.createTextNode( html ) );
+                    });
+                }else {
+                    return this[0].innerHTML;
+
+                    /*// 没哟传入内容要获得内容
+                    // 遍历节点的子元素, 并将文本节点 ( nodeType == 3) 加入到数组中
+                    var arr = [];
+                    getTxt( this[ 0 ], arr );
+                    return arr.join( ' ' );*/
+                }
+
+                return this;
+
+                function getTxt( node, list ) {
+                    var arr = node.childNodes;
+                    for ( var i = 0; i < arr.length; i++ ) {
+                        if ( arr[ i ].nodeType === 3 ) {
+                            list.push( arr[ i ].nodeValue );
+                        }
+                        if ( arr[ i ].nodeType === 1 ) {
+                            getTxt( arr[ i ], list );
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    <script>
+        console.log($('p').text());
+        console.log($('p').text('<a>aaa</a>'));
+    </script>
+</body>
+</html>

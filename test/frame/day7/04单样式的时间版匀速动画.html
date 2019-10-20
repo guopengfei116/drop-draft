@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="itcast.js"></script>
+    <script src="select_sub.js"></script>
+    <script src="event.js"></script>
+    <script src="css&attr.js"></script>
+    <style>
+        div {
+            width: 50px;
+            height: 50px;
+            background-color: #0c60ee;
+        }
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div></div>
+<button>按钮</button>
+<script>
+    var but = document.getElementsByTagName( 'button' )[0];
+    var div = document.getElementsByTagName( 'div' )[0];
+    but.onclick = function () {
+        animation( div, {
+            marginLeft: 100
+        }, function () {
+            animation( div, {
+                height: 200
+            });
+        });
+    };
+
+    function animation( ele, json, fn ) {
+
+        // 假设json只有一个marginLeft属性值
+        var startTime = +new Date(), style = 'marginLeft',
+            totalTime = 2000;
+
+        // 初始样式，需要移出定时器获取
+        var currentStyle;
+        currentStyle = parseInt(getStyle( ele, style )) || 0;
+
+        ele.timer = setInterval( function () {
+            var speed, isStop = true, delayTime;
+
+            // 速度公式
+            delayTime = +new Date() - startTime;
+            delayTime = delayTime > totalTime? totalTime : delayTime;
+
+            // 速度 = 总路程 / 总时长
+            speed = (json[style] - currentStyle) / totalTime;
+
+            // 显示的样式 = 最初样式 + 由时间控制的样式
+            ele.style[style] = currentStyle + speed * delayTime + 'px';
+
+            // 时间到了，就可以停止了
+            if ( delayTime >= totalTime ) {
+                clearInterval( ele.timer );
+                console.log(+new Date() - startTime);
+                fn && fn();
+            }
+        }, 20);
+    }
+
+    //兼容获取属性
+    function getStyle( ele, style ){
+        if( window.getComputedStyle ){
+            return window.getComputedStyle( ele, null )[style];
+        }
+        return ele.currentStyle[style];
+    }
+</script>
+</body>
+</html>

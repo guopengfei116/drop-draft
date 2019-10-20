@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        /*
+        * 什么是预解析？
+        * 在代码大量执行前先执行一小部分，可以理解为大量运动前的热身。
+        *
+        * js预解析时做了那些事情？
+        *
+        * js代码的执行过程：
+        *
+        * 1、找到代码、激活js解析引擎、然后载入代码
+        *
+        * 浏览器下载完毕html文件之后，会逐行解析形成DOM树，
+        * 在解析的过程如何遇到script标签，会先把它解析为DOM元素，
+        * 如果这个script标签中的内容是js脚本或者下载下来的内容是js脚本,
+        * 那么就会激活js解析引擎载入代码，这时候这些还是字符串。
+        *
+        * 激活js解析引擎的过程，可以理解为eval(script.innerHTML)。
+        *
+        * js解析引擎：浏览器可以解析很多种文件，比如html、css、图片、js，
+        * 其中负责解析执行js代码的东西就叫js解析引擎。
+        * node.js用的和chrome是一款js解析引擎，名字叫V8。
+        *
+        * 2、逐行查找声明语句、并执行  -- 预解析、学习重点
+        *   var、function
+        *
+        *   含有var声明变量的语句中，可能含有两部分，
+        *   一部分是声明变量，一部分是给变量赋值，
+        *   只有声明的部分才会在欲解析阶段执行，
+        *   剩余的部分会在欲解析完成之后逐行执行。
+        *
+        *   函数声明表达式不会在欲解析阶段执行，
+        *   只有函数声明式才会在欲解析阶段执行。
+        *   在函数表达式当中，函数的名字相当于是函数的局部变量，只能在函数内访问
+        *
+        *
+        * 3、重新逐行执行除声明外的代码
+        *
+        *
+        * */
+
+        console.log(a);
+        var a = 1;
+
+        fn();
+        function fn() {
+            console.log(11);
+        }
+
+        console.log(f);
+        //foo();
+        var f = function foo() {
+            console.log(12)
+        };
+
+
+        if(function foo2() { console.log(foo2) }) {
+
+        }
+
+        foo2();
+    </script>
+</body>
+</html>

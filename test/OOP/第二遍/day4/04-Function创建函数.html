@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // 使用关键字function定义的函数相当于字面量方式定义的对象{}
+        // 函数都是Function的实例，函数也是对象
+        // 对象可以通过new 构造函数的方式创建，函数也通过这种方式创建；
+        // 不过这种方式创建函数，所需要的构造函数只能Function。
+
+        // 语法：var fn = new Function(arg1, arg2, arg3... argN, body); 所需参数都是字符串。
+
+        // arguments 代表实参的对象
+        function sum() {
+            var sum = 0; for (var i = 0; i < arguments.length; i++) { sum += arguments[i]; }
+            console.log(sum);
+        }
+
+        var fn = new Function('var sum = 0; for (var i = 0; i < arguments.length; i++) { sum += arguments[i]; }console.log(sum); ');
+        fn(1,2,9,100,1000,10000);
+
+        // 把传入的数字加10
+        // 通过new Function创建的函数，默认作为顶级函数执行，无法访问外界的局部作用域，只能访问全局作用域。
+        function add(a, b) {
+            var zengzhi = b || 10 ;   // 使用||运算符要按优先级来书写
+            /*(function sum() {
+                console.log(a + zengzhi);
+            })();*/
+            var fn =  Function('console.log(a + zengzhi);');
+            fn();
+        }
+
+        add(100, 100);
+
+        // 在开发当中，如果是为了创建一个函数，一般没人用这种方式创建。
+        // 如果用，也是为了利用这种方式的一个特性，把字符串解析成js代码。
+        // eval
+
+
+    </script>
+</body>
+</html>

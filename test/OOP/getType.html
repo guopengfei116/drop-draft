@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        function getType(date) {
+            var type = typeof date, typeStr;
+
+            if (date === null) {
+                return 'null';
+            }else if (type == 'number') {
+                return 'number';
+            }else if (type == 'string') {
+                return 'string';
+            }else if (type == 'boolean') {
+                return 'boolean';
+            }else if (type == 'undefined') {
+                return 'undefined';
+            }else if (type == 'function') {
+                return 'Function';
+            }
+
+            // object
+            typeStr = Object.prototype.toString.call(date);
+            type = typeStr.slice(8, -1);
+            return type;
+        }
+
+        // 测试代码
+        console.log(getType(Object.prototype));
+        console.log(getType(Function.prototype));
+        console.log(getType(String.prototype));
+        console.log(getType([]));
+        console.log(getType(new Date()));
+        console.log(getType(Math));
+        console.log(getType(new Number(2)));
+        console.log(getType(new String(2)));
+        console.log(getType(new Boolean()));
+
+        console.log('/*-------------------------------------------*/');
+
+        console.log(getType(1));
+        console.log(getType('abc'));
+        console.log(getType(false));
+        console.log(getType(null));
+        console.log(getType(undefined));
+        console.log(getType(NaN));
+    </script>
+</body>
+</html>

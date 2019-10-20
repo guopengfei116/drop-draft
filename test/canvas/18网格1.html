@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var cvs = document.createElement( 'canvas' );
+    cvs.width = 500;
+    cvs.height = 400;
+    cvs.style.border = '1px solid red';
+    // 获得 cvsRenderingContext2D 对象
+    var ctx = cvs.getContext( '2d' );
+    document.body.appendChild( cvs );
+
+    var width = 20, height = 10;
+    var rows = Math.floor(cvs.height / height);  // 行
+    var cols = Math.floor(cvs.width / width);  // 列
+
+    // 画横线，cvs.height / height 计算需要多少根横线，
+    // 然后y坐标依次累加，画横线
+    for (var i = 0; i < rows; i++) {
+        ctx.moveTo(0, height * i);
+        ctx.lineTo(cvs.width, height * i);
+    }
+
+    // 画纵线，cvs.width / width 计算需要多少根竖线，
+    // 然后x坐标依次累加，画竖线
+    for (var i = 0; i < cols; i++) {
+        ctx.moveTo(width * i, 0);
+        ctx.lineTo(width * i, cvs.height);
+    }
+
+    ctx.stroke();
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var canvas = document.createElement( 'canvas' );
+    canvas.width = 500;
+    canvas.height = 400;
+    canvas.style.border = '1px dashed red';
+    var ctx = canvas.getContext( '2d' );
+    document.body.appendChild( canvas );
+
+    /*
+    * 正数从左向右抵消，
+    * 负数从右向左抵消。
+    * 算法：
+    * 1、ctx.lineDashOffset %= ctx.getLienDash()的和；
+    * 2、剩余的数从左抵消或者从右抵消。
+    * */
+
+    // 先画两边
+    ctx.moveTo(10, 0);
+    ctx.lineTo(10, 20);
+    ctx.moveTo(210, 0);
+    ctx.lineTo(210, 20);
+
+    ctx.moveTo(10, 30);
+    ctx.lineTo(10, 50);
+    ctx.moveTo(210, 30);
+    ctx.lineTo(210, 50);
+    ctx.stroke();
+
+    // 再画虚线
+    ctx.beginPath();
+    ctx.setLineDash([5, 9]);
+    ctx.moveTo(10, 10);
+    ctx.lineTo(210, 10);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.lineDashOffset = 3;
+    ctx.moveTo(10, 40);
+    ctx.lineTo(210, 40);
+    ctx.stroke();
+</script>
+</body>
+</html>

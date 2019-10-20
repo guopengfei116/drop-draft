@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // 顶级原型链 Object.prototype
+
+        // constructor 原型属性对宿主对象的引用(原型属性属于谁，谁就是原型属性的宿主)
+        //console.log(Object === Object.prototype.constructor);
+
+        // ！！重点 hasOwnProperty  判断是否是自己的属性，期望参数，要查询的属性名
+        Object.prototype.itcast = '传智播客额';
+        var obj = {a:1, b:'a', c:[1,2]};
+        //console.log(obj.hasOwnProperty('d'));
+
+        // 过滤掉非自身属性,过滤原型属性
+        for (var key in obj) {
+            console.log(key);
+            if (obj.hasOwnProperty(key)) {
+                //console.log(key);
+            }
+        }
+
+        // isPrototypeOf 用来判断对象 是否是另外一个对象的原型(包括原型链上的)。
+        // 用来认亲，或者说认后代。
+        /*console.log(Object.prototype.isPrototypeOf([]));
+        console.log(Object.prototype.isPrototypeOf(obj));
+        console.log(Array.prototype.isPrototypeOf(obj));
+        console.log(Array.prototype.isPrototypeOf([]));*/
+
+        var obj1 = {};
+        if (!obj.isPrototypeOf(obj1)) {
+            obj1.__proto__ = obj;
+            console.log(obj1.a);
+        }
+
+        // 练习铺垫
+        var itcast = {
+            getId: function () {
+                console.log(1);
+            }
+        };
+        var obj = Object.create(itcast);
+        obj.__proto__ == itcast;
+
+        function Student() {}
+        var studentXie = new Student();
+        studentXie.__proto__ == Student.prototype;
+
+        // 不建议覆盖为一个已存在的对象
+        Student.prototype = itcast;
+        var sudentZhang = new Student();
+        sudentZhang.__proto__ == itcast;
+
+        // extend
+        Student.prototype = Object.create(itcast);
+        var sudentGuo = new Student();
+        console.log(sudentGuo.getId);
+        //sudentGuo.__proto__ == 'Object.create(itcast)创建的对象';
+        //'Object.create(itcast)创建的对象'.__proto__ == itcast;
+
+    </script>
+</body>
+</html>

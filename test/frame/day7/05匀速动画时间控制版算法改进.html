@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: fuchsia;
+        }
+        button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <button>点击</button>
+    <script>
+        var div = document.getElementsByTagName('div')[0];
+        var but = document.getElementsByTagName('button')[0];
+        but.onclick = function () {
+            animate( div, {
+                width: 500
+            }, 800);
+        };
+
+        /*
+        * param { ele: DOM }  被修改的dom元素
+        * param { json: Object }  要修改的样式集合
+        * param { fn: Function }  回调
+        * */
+        function animate( ele, json, time, fn ) {
+            // 记录动画开始的时间
+            var startTime = +new Date,
+                    style = 'width';
+
+            // 记录元素初始的样式
+            var currentStyle = parseInt(getStyle( ele, style )) || 0;
+
+            // 计算每毫秒运动的速度
+            var speed = (json[style] - currentStyle)  / time;
+
+            ele.timer = setInterval(function () {
+                var isStop = true, step, delayTime = +new Date - startTime;
+
+                /*
+                * 当前元素的位置 = 初始位置 + 1毫秒速度 * 已经过去的毫秒
+                * 上面求speed的算法：speed = 变化量 / time(总时间)
+                * 那么，变化量 = speed * time(总时间)
+                * */
+                delayTime = delayTime > time? time : delayTime;  // 限制总时间不能超过设置的时间
+                ele.style[style] = (step = currentStyle + speed * delayTime) + 'px';
+
+                // 只要还有一个样式没有到达终点，就不能停止
+                if ( json[style] !== step ) {
+                    isStop = false;
+                }
+
+                // 停止动画，有回调，就执行回调
+                if ( isStop ){
+                    clearInterval( ele.timer );
+                    console.log( +new Date - startTime );
+                    fn && fn();
+                }
+            }, 50);
+        }
+
+        // 获取样式兼容性处理
+        function getStyle( ele, style ) {
+            if ( ele.currentStyle ) {
+                return ele.currentStyle[style];
+            }else {
+                return window.getComputedStyle(ele, null)[style]
+            }
+        }
+    </script>
+</body>
+</html>

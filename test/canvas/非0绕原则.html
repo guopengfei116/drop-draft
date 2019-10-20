@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<canvas id="cvs" width="600" height="400" style="border: 1px solid red"></canvas>
+<body>
+<script>
+    var cvs = document.getElementById('cvs');
+    var ctx = cvs.getContext('2d');
+
+    // 利用非0绕原则填充
+    ctx.arc(50, 50, 50, 0, 2*Math.PI);
+    ctx.arc(50, 50, 30, 0, 2*Math.PI, true);
+    ctx.stroke();
+    ctx.fill();
+
+    // 矩形构造函数
+    function JuXing(x, y, w, h, color) {
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + w, y);
+        ctx.lineTo(x + w, y + h);
+        ctx.lineTo(x, y + h);
+        ctx.lineTo(x, y);
+        ctx.fillStyle = color;
+    }
+
+    JuXing(200, 10, 100, 100, 'blue');
+
+    // 40 * 40
+    var x = 200 + (100 - 30) / 2;
+    var y = 10 + (100 - 30) / 2;
+    ctx.moveTo(x, y);
+    ctx.lineTo(x, y + 30);
+    ctx.lineTo(x + 30, y + 30);
+    ctx.lineTo(x + 30, y);
+    ctx.lineTo(x, y);
+    ctx.fill();
+</script>
+</body>
+</html>

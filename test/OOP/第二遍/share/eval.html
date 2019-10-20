@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+<body>
+    <script id="js-template" type="text/template">
+        // 预加载的代码
+        var body = window.document.body;
+        var div = document.createElement('div');
+        div.style = 'width:100px; height:100px; background:yellow;'
+        body.appendChild(div);
+    </script>
+
+    <button id="btn">执行脚本</button>
+
+    <script>
+        // 通过dom操作获取到未执行的代码，然后使用eval 或者 New Function来解析代码并执行。
+        var jsTemplate = document.getElementById('js-template');
+        var btn = document.getElementById('btn');
+        btn.onclick = function () {
+            eval(jsTemplate.innerHTML);
+            //jsTemplate.setAttribute('type', 'text/javascript')
+        };
+    </script>
+
+
+
+
+
+
+
+
+    <script>
+        // 好处，可以节省代码执行时占用的内存和性能
+
+        // 预加载懒执行：代码能够迅速执行，需要预先加载代码(在一开始需要占用网络带宽和代码空间)
+        // 懒加载并执行：代码执行可能会受网络带宽影响，不需要预先加载代码(最大限度进行了优先)。 现在比较流行这种方式。
+
+        // 传统方式：代码随着页面一起加载并执行，有很多并非一开始就需要的功能，就会大量的占用网络带宽和内存。
+    </script>
+</body>
+</html>

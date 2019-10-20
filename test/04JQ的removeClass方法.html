@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-2.2.0.js"></script>
+</head>
+<body>
+    <div class="aa bb you sbc nb"></div>
+    <div class="you"></div>
+    <div></div>
+    <script>
+        //$('div').removeClass('nb'); // 传参，删除指定的className
+        //$('div').removeClass(); // 不传参，把className全部删除
+
+        // 删除指定元素中的指定className
+        var div = document.querySelector('div');
+        div.className = (" " + div.className + " ")
+                .replace(' ' + 'nb' + ' ', " ")
+                .replace(/^\s*|\s*$/g, '');
+
+        console.log($('div').toggleClass('you'));;
+    </script>
+</body>
+</html>

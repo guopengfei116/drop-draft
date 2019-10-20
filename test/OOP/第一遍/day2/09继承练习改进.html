@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        var obj = {
+            run : function () {
+                console.log('奔跑');
+            },
+            eat : function () {
+                console.log('吃饭');
+            },
+            look : function () {
+                console.log('可以看');
+            }
+        };
+
+        // 需要有一个空对象，这个空对象继承自obj
+        // 然后让Person的原型属性修改为这个空对象，
+        // 这样给Person的原型添加属性和方法，就不会影响到obj对象。
+
+        // 实现继承的基本的4个步骤
+        /*
+         * 1、找到要继承的对象
+         * 2、准备一个构造函数
+         * 3、修改构造函数的原型为要继承的对象
+         * 4、通过构造函数创建对象
+         * */
+
+        /*
+         * PersonProto对象的目的很明确，就是为了继承obj。
+         * 在继承中并未添加额外属性和方法。
+         * 这部分是可以被复用的，这里唯一变化的部分就是要继承的对象。
+         * */
+        function PersonProto() {
+
+        }
+        PersonProto.prototype = obj;
+        var personProto = new PersonProto();
+
+
+        /*
+        * zhangsan对象目的，也是为了继承obj，
+        * 不过需要通过一个对象间接完成，
+        * 并且有一些通用的属性和方法被添加。
+        * */
+        function Person(name) {
+            this.name = name;
+        }
+
+        Person.prototype = personProto;
+
+        //  给原型添加Person类型的对象独有的方法
+        Person.prototype.say = function () {
+            console.log('说话');
+        };
+        Person.prototype.eat = function () {
+            console.log('使用工具吃饭');
+        };
+
+        obj.eat();
+
+        var zhangsan = new Person('zhangsan');
+        zhangsan.eat();
+        zhangsan.run();
+    </script>
+</body>
+</html>

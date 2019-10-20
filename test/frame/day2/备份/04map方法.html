@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script src="jquery-2.2.0.js"></script>
+    <script>
+        var arr = [1,2,3];
+        var obj = { name : 'obj', val : 'en' };
+
+      /*  // 原生数组map，不return则存储undefined
+        var newArr = arr.map(function (val, i) {
+            console.log(val, i, this);
+            //return 1;
+        });*/
+
+        /*
+         * JQ map方法回调先传入value，再传入key
+         * this为window。
+         * */
+        var newArr = $.map(arr, function (val, i) {
+            console.log(i, val, this);
+            return 1;
+        });
+
+        var newArr2= $.map(obj, function (val, key) {
+            console.log(key, val, this);
+            return 2;
+        });
+
+        console.log(arr, newArr);
+        console.log(obj, newArr2);
+    </script>
+</body>
+</html>

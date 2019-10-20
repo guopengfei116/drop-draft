@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var cvs = document.createElement( 'canvas' );
+    cvs.width = 500;
+    cvs.height = 400;
+    cvs.style.border = '1px solid red';
+    // 获得 cvsRenderingContext2D 对象
+    var ctx = cvs.getContext( '2d' );
+    document.body.appendChild( cvs );
+
+    function toRadian(angle) {
+        return Math.PI / 180 * angle;
+    }
+
+    var data = [14, 22, 45, 62, 31, 28];
+    var sum = 0;
+
+    // 求数据的和，然后360 / 和，得到1数据值对应的角度，
+    // 然后使用某数据 * 比例，得到某数值对应的角度。
+    data.forEach(function (val) {
+        sum += val;
+    });
+
+    // 比例
+    var ratio = 360 / sum;
+
+    // 画饼图
+    var x = cvs.width / 2,
+        y = cvs.height / 2,
+        r = 100;
+    var colors = 'red,blue,green,pink,deeppink,deepskyblue'.split(',');
+    var startAngle = -90;
+
+    for (var i = 0; i < data.length; i++) {
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+
+        // 注意，需要让开始角度自增到结束角度，那么下次绘制时从上个扇形的结束角度开始绘制
+        ctx.arc(x, y, r, toRadian(startAngle), toRadian(startAngle + data[i] * ratio));
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.fill();
+
+        // 文字向外延伸多少
+        var distance = 10;
+
+        // 绘制线
+        ctx.moveTo(x, y);
+        var textX = x + (r + distance)* Math.cos(toRadian(startAngle + data[i] * ratio / 2));
+        var textY = y + (r + distance) * Math.sin(toRadian(startAngle + data[i] * ratio / 2));
+        ctx.lineTo(textX, textY);
+        ctx.stroke();
+
+        // 文字
+        if (startAngle + data[i] * ratio / 2 > -90 && startAngle + data[i] * ratio / 2 < 0) {
+            console.log('左下角绘制');
+        }
+
+        // 计算玩文本坐标再加
+        startAngle += data[i] * ratio;
+    }
+
+</script>
+</body>
+</html>

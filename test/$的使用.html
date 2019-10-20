@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-1.12.0.js"></script>
+    <script>
+        /*
+         * $集成了很多功能：
+         *
+         * 如果传入一个函数，这个函数会在DOM-load完毕后被触发；
+         * 返回值：把document封装成JQ对象返回
+         *
+         * 如果传入一个DOM对象，
+         * 返回值：把DOM封装成JQ对象返回
+         *
+         * 如果传入一个html字符串，会把html字符串转换成DOM对象，
+         * 返回值：把得到的DOM对象封装成JQ对象返回
+         *
+         * 如果传入一个选择器字符串，会根据选择器字符串得到DOM对象，
+         * 返回值：把得到的DOM对象封装成JQ对象返回
+         * */
+
+    </script>
+</head>
+<body>
+    <div id="div"></div>
+    <script>
+        // 传入DOM对象，JQ会把这个DOM对象封装成JQ对象
+        console.log($(document.getElementById('div')));
+
+        // 传入JQ对象，返回传入的JQ对象
+        console.log($($('div')));
+
+        // 传入数组，把数组封装成一个新的JQ对象
+        console.log($([1,2,3,4,5,6,7,8]));
+    </script>
+</body>
+</html>

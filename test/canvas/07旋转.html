@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>rotate</title>
+</head>
+<body>
+<canvas id="cvs" width="500" height="500" style="border: 1px solid black;"></canvas>
+<script>
+    /*
+     * 整个游戏的调度者
+     * */
+    (function () {
+        var cvs = document.getElementById('cvs');
+        var ctx = cvs.getContext('2d');
+
+        /*
+        * translate 平移画布坐标系（从画布的0,0点开始进行平移）
+        * 语法：绘图上下文.translate(x轴平移多少像素，y轴平移多少像素)
+        * 修改坐标系之后，新绘制的内容就会参考最新的坐标系来进行计算，
+        * 该方法不会影响画布上已经存在的内容，只会影响将来所绘制的内容
+        * */
+
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = 'red';
+
+        // 从画布的左端画一条到右端的路径
+        ctx.moveTo(-500, 0);
+        ctx.lineTo(500, 0);
+
+        // 从画布的顶端画一条到底端的路径
+        ctx.moveTo(0, -500);
+        ctx.lineTo(0, 500);
+
+        // 绘制上面两条路径
+        ctx.stroke();
+
+        ctx.translate(100, 100);
+
+        /*
+         * rotate 旋转画布坐标系（以画布的0,0点为圆心进行旋转）
+         * 语法：绘图上下文.rotate(旋转的弧度)
+         * 旋转坐标系之后，新绘制的内容就会参考最新的坐标系来进行计算，
+         * 该方法不会影响画布上已经存在的内容，只会影响将来所绘制的内容
+         * */
+
+        // 把角度转换为弧度
+        function angleToRad(angle) {
+            return Math.PI / 180 * angle;
+        }
+
+        ctx.rotate(angleToRad(15));
+
+        ctx.beginPath();
+        ctx.strokeStyle = 'blue';
+
+        // 从画布的左端画一条到右端的路径
+        ctx.moveTo(-500, 0);
+        ctx.lineTo(500, 0);
+
+        // 从画布的顶端画一条到底端的路径
+        ctx.moveTo(0, -500);
+        ctx.lineTo(0, 500);
+
+        // 绘制上面两条路径
+        ctx.stroke();
+
+        ctx.fillRect(0, 0, 100, 100);
+    }());
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        var now = Date.now();
+
+        requestAnimationFrame(function () {
+            var current = Date.now();
+            var del = current - now;
+            console.log(del);
+        });
+
+        var a = 0;
+        for(var i = 0; i < 10000000; i++) {
+            a+=i;
+        }
+    </script>
+</body>
+</html>

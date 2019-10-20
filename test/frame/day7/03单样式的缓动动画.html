@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="itcast.js"></script>
+    <script src="select_sub.js"></script>
+    <script src="event.js"></script>
+    <script src="css&attr.js"></script>
+    <style>
+        div {
+            width: 50px;
+            height: 50px;
+            background-color: #0c60ee;
+        }
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div></div>
+<button>按钮</button>
+<script>
+    var but = document.getElementsByTagName( 'button' )[0];
+    var div = document.getElementsByTagName( 'div' )[0];
+    but.onclick = function () {
+        animation( div, {
+            marginLeft: 100
+        }, function () {
+            animation( div, {
+                height: 200
+            });
+        });
+    };
+
+    function animation( ele, json, fn ) {
+
+        // 假设json只有一个marginLeft属性值
+        var startTime = +new Date(), style = 'marginLeft';
+
+        ele.timer = setInterval( function () {
+            var currentStyle, speed, isStop = true, totalTime = 2000;
+
+            currentStyle = parseInt(getStyle( ele, style )) || 0;
+
+            // 速度公式
+            speed = (json[style] - currentStyle) / 10;
+
+            // 去除小数，取整为1
+            speed = speed > 0? Math.ceil( speed ) : Math.floor( speed );
+
+            ele.style[style] = (currentStyle = currentStyle + speed) + 'px';
+
+            // 只要有一个样式没到达终点，就不能结束
+            if ( json[style] !== currentStyle ) {
+                isStop = false;
+            }
+
+            if ( isStop ) {
+                clearInterval( ele.timer );
+                console.log(+new Date() - startTime);
+                fn && fn();
+            }
+        }, 20);
+    }
+
+    //兼容获取属性
+    function getStyle( ele, style ){
+        if( window.getComputedStyle ){
+            return window.getComputedStyle( ele, null )[style];
+        }
+        return ele.currentStyle[style];
+    }
+</script>
+</body>
+</html>

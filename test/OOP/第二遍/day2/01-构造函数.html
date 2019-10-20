@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        function Foo() {
+
+        }
+
+        Foo.prototype.sayHello = function () {
+            console.log(112);
+        };
+
+        var foo = new Foo();
+        console.log(foo.sayHello());
+
+        var foo1 = new Foo();
+        console.log(foo1.sayHello());
+    </script>
+</body>
+</html>

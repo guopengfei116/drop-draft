@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="c"></canvas>
+    <script>
+        var cv = document.getElementById("c");
+        var ctx = cv.getContext("2d");
+
+        cv.width = 600;
+        cv.height = 400;
+        cv.style.border = "1px solid #000";
+
+        // 角度转弧度方法
+        function toRadian(angle) {
+        	return angle / 180 * Math.PI;
+        }
+
+        function toAngle(radain) {
+        	return radian / Math.PI * 180;
+        }
+
+        // 数据中的value值的和 为: 1
+        var data = [{
+		    "value": .1,
+		    "color": "orange",
+		    "title": "社会招生"
+		},{
+		    "value": .1,
+		    "color": "pink",
+		    "title": "公务员"
+		},{
+		    "value": .1,
+		    "color": "gray",
+		    "title": "公开课"
+		},{
+		    "value": .1,
+		    "color": "#909090",
+		    "title": "前端"
+		},{
+		    "value": .2,
+		    "color": "red",
+		    "title": "应届生"
+		},{
+		    "value": .3,
+		    "color": "blue",
+		    "title": "程序员"
+		},{
+		    "value": .1,
+		    "color": "#abc",
+		    "title": "老司机"
+		}];
+		// var data = [{
+		//     "value": .9,
+		//     "color": "orange",
+		//     "title": "社会招生"
+		// },{
+		//     "value": .1,
+		//     "color": "pink",
+		//     "title": "公务员"
+		// }];
+
+		var startAngle = -90, 						// 起始角度
+			x0 = cv.width / 2, y0 = cv.height / 2,	// 圆心点坐标
+			radius = 100,	  						// 半径
+			curAngle = 0,	  						// 结束角度
+			textX = 0, textY = 0,					// 文字的坐标
+			textOffset = 20,						// 文字到饼型图的距离
+			textWidth = 0,							// 文字的宽度
+			text2Line = 0;							// 文字的起始位置到结束位置的长度
+
+		data.forEach(function(value, index) {
+			ctx.beginPath();
+
+			// 1 先绘制饼型图
+			curAngle = value.value * 360;
+			ctx.fillStyle = value.color;
+			ctx.moveTo(x0, y0);
+			ctx.arc(x0, y0, radius, toRadian(startAngle), toRadian( startAngle+curAngle));
+			ctx.fill();
+
+			// 2 绘制指向文字的线, 不要忘了将角度转化为弧度！！！
+			textX = x0 + (radius + textOffset) * Math.cos( toRadian(startAngle + curAngle / 2) );
+			textY = y0 +  (radius + textOffset) * Math.sin( toRadian(startAngle + curAngle / 2) );
+			ctx.strokeStyle = value.color;
+			ctx.moveTo(x0, y0);
+			ctx.lineTo(textX, textY);
+			ctx.stroke();
+
+			
+			// 3 绘制文字 和 文字的底线
+			// 获取文字的宽度
+			textWidth = ctx.measureText(value.title).width;
+			if(textX <= x0) {
+				// 设置文字的对齐方式 右对齐
+				ctx.textAlign = "right";
+
+				textOffset = -textOffset;
+				textWidth = -textWidth;
+			}
+			// 3.1 绘制文字
+			ctx.fillText(value.title, textX + textOffset, textY - 10);
+
+			// 3.2 绘制文字的底线
+			// 文字底线的长度 = 文字的x坐标 + 文字到线的偏移 + 文字的宽度
+			text2Line = textX + textOffset + textWidth;
+			ctx.moveTo(textX, textY);
+			ctx.lineTo(text2Line, textY);
+			ctx.stroke();
+
+
+
+			// 赋值
+			startAngle += curAngle;
+			// 每次执行完，需要重新初始化偏移值
+			// （因为上一次有可能改变了偏移值的符号）
+			textOffset = 20;
+		});
+    </script>
+</body>
+</html>

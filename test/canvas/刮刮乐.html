@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+<canvas id="cvs"></canvas>
+<script>
+    var cvs = document.getElementById('cvs');
+    cvs.width = 400;
+    cvs.height = 400;
+
+    // 擦除图形的半径
+    var r = 20;
+
+    // 鼠标是否按下
+    var isDown = false;
+
+    var ctx = cvs.getContext('2d');
+
+    // 擦除显示出来的图形
+    var img = new Image();
+    // *******图片可以换成自己的图片********
+    img.src = './birds.png';
+
+    img.onload = function() {
+        //初始化 canvas画布 的背景图，也是挂出来后看到的内容
+        cvs.style.backgroundImage = 'url(' + img.src +')';
+
+        // 初始化表层的图
+        ctx.fillStyle = 'silver';
+        ctx.fillRect(0,0,400,400);
+
+    };
+
+    cvs.onmousedown = function(e) {
+        isDown = true;
+    };
+
+    cvs.onmouseup = function( e ) {
+        isDown = false;
+        ctx.globalCompositeOperation =  'source-over';
+    };
+
+    cvs.onmousemove = function( e ) {
+        // 核心代码： 参考https://developer.mozilla.org/zh-TW/docs/Web/API/Canvas_API/Tutorial/Compositing
+        // 这个是设置绘制重叠的图形时显示的模式。
+        ctx.globalCompositeOperation =  'destination-out';
+        //ctx.globalCompositeOperation =  'source-out';
+
+        // 随着鼠标移动进行绘制擦除的圆形，可以加上touch的兼容代码，这里就不写了。
+        if( isDown ) {
+            console.log((e.clientX-cvs.offsetLeft)+ ' ' + (e.clientY-cvs.offsetTop) );
+
+            //这里有兼容问题，最好要处理一下。
+            var x = e.clientX - cvs.offsetLeft;
+            var y = e.clientY - cvs.offsetTop;
+
+            ctx.beginPath();
+            ctx.arc( x, y, r, 0, 2*Math.PI );
+            ctx.fillStyle = 'rgba(0,0,0,1)';
+            ctx.fill();
+        }
+    };
+
+</script>
+</body>
+
+</html>

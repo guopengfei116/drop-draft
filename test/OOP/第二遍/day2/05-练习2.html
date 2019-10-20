@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        /*
+        * 对于Animal构造函数来说，Animal.prototype 是 Animal的 原型属性，
+        * 对于Animal的实例对象来说，Animal.prototype 是 这些实例的 原型对象。
+        * */
+        function Animal() {
+
+        }
+        function Dog() {
+
+        }
+
+        var animal = new Animal();
+        Dog.prototype = animal;  // 区分
+
+        var dog = new Dog();
+
+        animal.run = function () {
+            console.log('跑起来');
+        };
+
+        Animal.prototype.tuiCount = 4;
+
+        Object.prototype.isObject = true;
+
+        dog.run();
+        console.log(dog.tuiCount);
+        console.log(dog.isObject);
+        console.log(dog.itcast);
+
+        /*
+        * 什么继承，和原型有关系
+        *
+        * 继承就是：一个对象可以访问另一个对象上的属性和方法，那么我们说这个对象继承自另一个对象。
+         * 继承作用：复用。
+         *
+         * 和原型的关系：依赖关系，没有原型就无法完成继承。
+         * 和属性查找机制关系：依赖关系，没有这个机制也无法完成继承。
+         *
+         * 可以通过修改对象的原型或者原型链，以自定义对象之间的继承关系。
+        * */
+    </script>
+</body>
+</html>

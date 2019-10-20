@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="artTemplate/artTemplate/template-debug.js"></script>
+	</head>
+	<body>
+		<script id="tpl" type="text/tpl">
+			<ul>
+				{{ each list }}
+				<li>
+					<h3>{{ $value.name }}</h3>
+					{{ if $index < 2 }}
+						<p>{{ #$value.img }}</p>
+					{{ else }}
+						<p>{{ #$value.img | imgFormat }}</p>
+					{{ /if }}
+				</li>
+				{{ /each }}
+			</ul>
+		</script>
+		<script>
+			var data = {
+				list: [
+					{
+						name: '小琪',
+						img: '<img src="abc.png" />'
+					},
+					{
+						name: '小林',
+						img: '<img src="poi.png" />'
+					},
+					{
+						name: '小郭',
+						img: '<img src="qwe.png" />'
+					},
+					{
+						name: '小飞飞',
+						img: '<img src="data:image/png;base64,xvsdfsd" />'
+					}
+				]
+			};
+			
+			// 过滤掉img字符串中的src属性
+			template.helper('imgFormat', function(imgStr) {
+				
+				// 替换" src="为新的class与data-src属性字符串
+				return imgStr.replace(/\ssrc=(?![\'\"]data:)/, function() {
+					return ' class="lazy" data-src=';
+				});
+			});
+			document.body.innerHTML = template('tpl', data);
+		</script>
+	</body>
+</html>

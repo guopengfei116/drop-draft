@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <a>111111aaaaaaaaaaaaaaaaa</a>
+    <span>
+        <a>22222222aaaaaaaaaaaaaaaaaaaaaaa</a>
+    </span>
+    <div>fg</div>
+    <div></div>
+    <script src="jquery-1.12.0.js"></script>
+    <script>
+        // 把添加的
+        //console.log($('span').appendTo('div'));
+
+        //console.log($('div').append('a'));
+
+        //console.log($('div').prepend('a'));
+        console.log($('div').css({
+            width: 50,
+            backgroundColor: 'pink',
+            height: 20,
+            marginTop: 10
+        }).animate({width:300, marginLeft:100}));
+    </script>
+</body>
+</html>

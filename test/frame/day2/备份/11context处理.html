@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="div">
+        <div>
+            <span>10000000000</span>
+        </div>
+        <div class="sub-div">
+            <span>11111111</span>
+            <span>11111111</span>
+            <a>11111111</a>
+            <a>11111111</a>
+            <span>11111111</span>
+            <a class="a">aaaa</a>
+        </div>
+        <span>2</span>
+        <a class="a">aaaa</a>
+        <a class="a">aaaaa</a>
+    </div>
+    <span>outspan</span>
+    <span>outspan</span>
+    <script src="select_reg_sub_context_sub.js"></script>
+    <script>
+        // 后代选择器测试
+        console.log(select('#div a'));
+        console.log(select('a'));
+        console.log(select('div span'));
+        console.log(select('div .sub-div .a'));
+    </script>
+</body>
+</html>

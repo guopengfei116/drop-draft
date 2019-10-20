@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<canvas id="cvs" width="600" height="400" style="border: 1px solid red"></canvas>
+<body>
+<script>
+    var cvs = document.getElementById('cvs');
+    var ctx = cvs.getContext('2d');
+
+    /*
+     * 画弧路径，arc。
+     * 这个方法画的是路径。
+     * 第4和第5个参数，不是设置弧的大小的，而是设置起点与结束点位置的。
+     * 语法：ctx.arc(圆心x坐标，圆心y坐标，半径，弧的起点，弧的结束点，是否逆时针画(可选));
+     * */
+
+    var isTure = false;
+    for (var j = 0; j < 6; j++) {
+        for (var i = 1; i <= 10; i++) {
+            ctx.beginPath();
+            if (j === 0 || j === 2 || j === 4) {
+                isTure = false
+            }else if (j === 1 || j === 3 || j === 5) {
+                isTure = true;
+            }
+            ctx.arc(20 * i + ((i - 1) * 10), 20 + j * 30, 10, 0, i/10 * 2*Math.PI, isTure);
+            if (j === 0 || j === 1) {
+                ctx.stroke();
+            }else if (j === 2 || j === 3) {
+                ctx.fill();
+            }else if (j === 4 || j === 5) {
+                ctx.closePath();
+                ctx.stroke();
+            }
+        }
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // arguments 模拟方法重载
+
+        /*function css(attr, val) {
+            console.log('修改样式');
+        }
+
+        function css(attr) {
+            console.log('获取样式');
+        }*/
+
+        /*
+        * arguments.length 通过实参的长度来确定干什么
+        * 完成模拟方法重新的事情
+        * */
+        function css() {
+            var attr = arguments[0];
+            var val = arguments[1];
+            console.log(attr);
+            console.log(val);
+            if (arguments.length == 1) {
+                console.log('获取样式');
+            } else if(arguments.length == 2) {
+                console.log('修改样式');
+            }
+        }
+
+        //css('width');
+
+        // 配合函数形参的个数，我们可以判断函数所属的参数个数符不符合要求
+        function join(arr, fengefu) {
+            if (arguments.length === join.length) {
+                console.log(arr.join(fengefu));
+            }else {
+                console.log('抱歉，参数个数不合格！');
+            }
+        }
+
+        join([1,2], '-');
+    </script>
+</body>
+</html>

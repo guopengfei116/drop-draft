@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var cvs = document.createElement( 'canvas' );
+    cvs.width = 500;
+    cvs.height = 400;
+    cvs.style.border = '1px solid red';
+    // 获得 cvsRenderingContext2D 对象
+    var ctx = cvs.getContext( '2d' );
+    document.body.appendChild( cvs );
+
+    function toRadian(angle) {
+        return Math.PI / 180 * angle;
+    }
+
+    var data = [
+        { value : 11, text : '喜喜喜喜' },
+        { value : 22, text : '愉愉愉愉' },
+        { value : 34, text : '乐乐乐乐' },
+        { value : 53, text : '笑笑笑笑' },
+        { value : 98, text : '悦悦悦悦' },
+        { value : 55, text : '怡怡怡怡' },
+        { value : 61, text : '幸幸幸幸' }
+    ];
+    var sum = 0;
+
+    // 求数据的和，然后360 / 和，得到1数据值对应的角度，
+    // 然后使用某数据 * 比例，得到某数值对应的角度。
+    data.forEach(function (obj) {
+        sum += obj.value;
+    });
+
+    // 比例
+    var ratio = 360 / sum;
+
+    // 画饼图
+    var x = cvs.width / 2,
+        y = cvs.height / 2,
+        r = 100,
+        lineWidth = 20;
+    var colors = 'red,blue,green,pink,deeppink,deepskyblue'.split(',');
+    var startAngle = -90;
+
+    var renderAngle, tempTextX, tempTextY;
+
+    ctx.textBaseline = 'bottom';
+
+    for (var i = 0; i < data.length; i++) {
+        renderAngle = data[i].value * ratio;
+
+        // 画扇
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        // 注意，需要让开始角度自增到结束角度，那么下次绘制时从上个扇形的结束角度开始绘制
+        ctx.arc(x, y, r, toRadian(startAngle), toRadian(startAngle + renderAngle));
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.fill();
+
+        // 画线
+        ctx.moveTo(x, y);
+        tempTextX = x + (r + lineWidth) * Math.cos(toRadian(startAngle + renderAngle / 2));
+        tempTextY = y + (r + lineWidth) * Math.sin(toRadian(startAngle + renderAngle / 2));
+        ctx.lineTo(tempTextX, tempTextY);
+
+        // 画文字
+        if (startAngle + renderAngle > 90) {
+            ctx.textAlign = 'right';
+            ctx.lineTo(tempTextX - ctx.measureText(data[i].text).width, tempTextY);
+        }else {
+            ctx.textAlign = 'left';
+            ctx.lineTo(tempTextX + ctx.measureText(data[i].text).width, tempTextY);
+        }
+
+        ctx.stroke();
+        var tempRatio = data[i].value / sum;
+        ctx.fillText(data[i].text + (tempRatio + '').slice(2, 4) + '%', tempTextX, tempTextY - 5);
+
+        // 求下一个扇形的起始角度
+        startAngle += renderAngle;
+    }
+</script>
+</body>
+</html>

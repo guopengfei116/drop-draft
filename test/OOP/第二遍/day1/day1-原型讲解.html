@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        /*
+        * 原型是什么？能干什么？
+        * 能干什么？  让我们的对象共享方法体或者属性
+        * 原型是什么？  原型就是函数的一个属性prototype，并且这个是json对象。
+        * */
+        function Person() {
+            /*this.sayHello = function () {
+                console.log('我要说话');
+            }*/
+        }
+
+        Person.prototype.sayHello = function () {
+            console.log('我要说话');
+        };
+
+        var zhangsan = new Person();
+        var lisi = new Person();
+
+        zhangsan.sayHello();
+        lisi.sayHello();
+
+        /*
+        * 对象的属性查找机制，原型的运作机制。
+        * 如果访问对象的属性，先从自身上去查找，如果找到了，则返回，
+        * 如果没有找到，就去对应的构造函数的prototype对象上去找
+        * */
+
+    </script>
+</body>
+</html>

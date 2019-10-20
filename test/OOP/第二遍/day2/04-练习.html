@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+         function Cat() {
+
+        }
+
+        var cat = new Cat();
+
+        /*
+        * 先分析一下每一步是什么，
+        * 然后在把他们之间的关系画出来。
+        * */
+
+        /*
+        * 创建一个构造函数Cat。
+        * 通过构造函数创建了一个cat对象。
+        *
+        * 构造函数Cat 有哪些属性和方法。
+        * cat对象有哪儿属性和方法。
+        * 然后标出他们之间的关系。
+        *
+        * */
+
+        // 画出Cat.prototype的__proto__
+        //  就是画出Object.prototype。(所有的对象默认都继承自Object.prototype)。
+
+
+        /*
+        * 再画出如下代码的内存结构图
+        * */
+        function Dog(age) {
+            this.age = age;
+        }
+
+        var dogXiong = new Dog(1);
+        var dogHu = new Dog(2);
+
+        /*
+        * 创建构造函数Dog，有一个属性prototype,
+        * Dog.prototype是一个json对象，有一个__proto__和一个constructor属性，
+        * 其中Dog.prototype.__proto__指向Object.prototype, constructor 指向 构造函数Dog。
+        *
+        * 通过Dog构造函数创建dogXiong对象，有一个属性__proto__,
+        * dogXiong.__proto__指向构造函数Dog.prototype。
+        * 然后给digXiong添加了一个age属性，值为1。
+        *
+        * 通过Dog构造函数创建dogHu对象，有一个属性__proto__,
+         * dogHu.__proto__指向构造函数Dog.prototype。
+         * 然后给digHu添加了一个age属性，值为2。
+        * */
+
+
+        /*
+        * 通过合并两张图
+        * 我们发展，无论通过哪种构造函数创建的对象，
+        * 最终都继承自Object.prototype
+        * */
+
+        Object.prototype.xuexi = function () {
+            console.log('学习');
+        }
+
+         dogXiong.xuexi();
+         cat.xuexi();
+    </script>
+</body>
+</html>

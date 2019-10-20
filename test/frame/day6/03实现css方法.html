@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="select_sub.js"></script>
+    <script src="itcast.js"></script>
+    <script src="events.js"></script>
+</head>
+<body>
+    <p>123</p>
+    <p>456</p>
+    <script>
+        $.extend({
+            getStyle: function ( ele, name ) {
+                if ( ele.currentStyle ) {
+                    return ele.currentStyle[ name ];
+                }else {
+                    return window.getComputedStyle( ele )[ name ];
+                }
+            }
+        });
+
+        $.fn.extend({
+            css: function ( name, val ) {
+                var len = arguments.length;
+
+                // 一参数，获取或者批量样式设置
+                if ( len === 1 ) {
+
+                    // 获取第一个元素的样式
+                    if ( $.isString( name ) ) {
+                        return $.getStyle( this[0], name );
+                    }
+
+                    // 批量设置样式
+                    else if ( typeof name === 'object' ) {
+                        this.each( function () {
+                            var that = this;
+                            $.each(name, function ( key, val ) {
+                                that.style[ key ] = val;
+                            });
+                        });
+                    }
+                }
+
+                // 二参数，单一样式设置
+                else if ( len === 2 ) {
+                    this.each( function () {
+                        this.style[ name ] = val;
+                    });
+                }
+
+                return this;
+            }
+        });
+    </script>
+    <script>
+        console.log($('p').css({height: '20px', backgroundColor: 'red'})
+                .css('marginBottom', '10px').css('marginBottom'));
+    </script>
+</body>
+</html>

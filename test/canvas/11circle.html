@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="cvs" width="500px"; height="500px"; style="border:1px solid black;"></canvas>
+<script>
+    // 得到canvas标记的DOM对象
+    var cvs = document.getElementById('cvs');
+    var ctx = cvs.getContext('2d');
+
+    // 圆类
+    function Circle() {
+        this.A = Math.random() + 0.5;
+        this.R = Math.floor(Math.random() * 256);
+        this.G = Math.floor(Math.random() * 256);
+        this.B = Math.floor(Math.random() * 256);
+        // 随机生成圆的半径为1到5之间
+        this.r = Math.floor(Math.random() * 5) + 1;
+        // 圆的x坐标为0到500之间
+        this.x = Math.floor(Math.random() * 500);
+        // 圆的y坐标默认都为 画布高 + 圆半径
+        this.y = cvs.height + this.r * 2 + Math.floor(Math.random() * cvs.height);
+        // 随机生成圆的运动速度为负的0.5到2.5之间
+        this.speed = -(Math.random() * 2 + 0.1);
+        // 设置圆大概在100到200的位置消失，重新在下面生出来
+        this.maxY = Math.floor(Math.random() * 200) + 100;
+        // 减速度
+        this.speedMinus = 0.1;
+    }
+
+    // 给实例添加方法
+    Circle.prototype = {
+        constructor: Circle,
+        draw: function () {
+            ctx.beginPath();
+            ctx.fillStyle = 'rgba(' + this.R + ',' + this.G + ',' + this.B + ',' + this.A + ')';
+            ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+            ctx.fill();
+        },
+
+        update: function () {
+            this.y += this.speed;
+
+            if (this.y < this.maxY) {
+                this.A *= 0.88;
+            }
+
+            // 如果走到200位置，重新从下面出现
+            //if (this.y < this.maxY) {
+            // 透明后，重新从下面出现
+            if (this.A < 0.05) {
+                this.y = cvs.height + this.r;
+                this.A = Math.random() + 0.5;
+            }
+        }
+    };
+
+    // 创建圆的实例
+    var circles = [];
+    for (var i = 0; i < 300; i++) {
+        circles.push(new Circle());
+    }
+
+    // 绘制全部的圆
+    (function drawEachCircle() {
+        ctx.clearRect(0, 0, cvs.width, cvs.height);
+        circles.forEach(function (val) {
+            val.draw();
+            val.update();
+        });
+        requestAnimationFrame(drawEachCircle);
+    }());
+</script>
+</body>
+</html>

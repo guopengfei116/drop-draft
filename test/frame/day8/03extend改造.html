@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        var extend = function( ) {
+            var arg = arguments,
+                argLen = arg.length,
+                i = 1, target = arguments[0];
+
+            // 如果只传了一个对象，
+            // 则把这个对象的内容copy到this身上
+            if ( argLen === 1 ) {
+                i--;
+                target = this;
+            }
+
+            for ( ; i < argLen; i++ ) {
+                // 把第二个对象内容copy到第一个对象中
+                for (var key in arg[i]) {
+                    target[key] = arg[i][key];
+                }
+            }
+
+            return target;
+        };
+
+        var obj = {};
+        var obj2 = {value: 2};
+        var obj3 = {name: 'hei'};
+
+        var objThis = { extend: extend };
+
+        console.log(extend(obj, obj2, obj3));
+        console.log(objThis.extend(obj2));
+    </script>
+</body>
+</html>

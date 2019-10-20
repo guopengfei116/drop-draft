@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var canvas = document.createElement( 'canvas' );
+    canvas.width = 500;
+    canvas.height = 500;
+    canvas.style.border = '1px dashed red';
+    // 获得 CanvasRenderingContext2D 对象
+    var ctx = canvas.getContext( '2d' );
+    document.body.appendChild( canvas );
+
+    function toRadian(angle) {
+        return Math.PI / 180 * angle;
+    }
+
+    /*
+    * Math.sin 和 Math.cos 与坐标轴的象限有关，
+    *
+    * Math.sin 弧度对应为在0-180角度时候，结果为正，其余为负
+    * 即下半拉圆，为正，因为代表y轴
+    *
+    * Math.cos 弧度对应为在0-90，270-360角度时候，结果为正，其余为负
+    * 即右半拉圆，为正，因为代表x轴
+    * */
+
+    // 封装画五角星函数
+    function drawStar(ctx, x, y, inR, ouR) {
+
+        var angleTotal = 5,
+            stepAngle = 360 / angleTotal,
+            startAngle = -90;
+
+        ctx.beginPath();
+
+        for (var i = 0; i < angleTotal; i++) {
+            ctx.lineTo(x + ouR * Math.cos( toRadian(startAngle) ),
+                    y + ouR * Math.sin( toRadian(startAngle) ));
+
+            ctx.lineTo(x + inR * Math.cos( toRadian(startAngle + stepAngle / 2) ),
+                    y + inR * Math.sin( toRadian(startAngle + stepAngle / 2) ));
+
+            startAngle += stepAngle;
+            ctx.stroke();
+        }
+
+        ctx.closePath();
+        ctx.stroke();
+    }
+
+    drawStar(ctx, 250, 250, 100, 200);
+</script>
+</body>
+</html>

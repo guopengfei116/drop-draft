@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        var o = {};
+        // o ==> Object.prototype ==> null
+
+        function Person() {}
+        var zhangsan = new Person();
+        // zhangsan ==> Person.prototype ==> Object.prototype ==> null
+
+        function Student() {}
+        Student.prototype = new Person();
+        var lisi = new Student();
+        // lisi ==> Student.prototype ==> Person.prototype ==> Object.prototype ==> null
+
+        // create 创建一个新对象，可以根据传入的参数设置该对象继承的对象。
+        var Animal = {};
+        var cat = Object.create(Animal);
+
+        //Object.prototype上的方法:
+        // 1、Object.prototype.constructor 指向 Object
+        // 2、hasOwnProperty 用来判断属性是不是自己的
+        // 3、isPrototypeOf 用来判断一个对象是不是继承自己(判断是不是自己的后代)
+        // 4、propertyIsEnumerable 在hasOnwProperty的基础上，进一步判断属性是不是可枚举的
+        // 5、toLocaleString 根据传入的数据类型调用对应的数据类型的构造函数原型上的tostring方法
+        // 6、toString
+        // 7、valueOf 根据传入的数据类型转换为对应数据类型的对象。number、string、boolean
+    </script>
+</body>
+</html>

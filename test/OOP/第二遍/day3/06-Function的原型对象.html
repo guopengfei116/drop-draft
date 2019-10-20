@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // Function的原型对象是谁？
+
+        /*
+        * Function是什么？
+        * 是函数，或者说是函数对象。
+        *
+        * 原型对象的好处？
+        * 共享。
+        *
+        * 如果想让函数共享一个属性或者方法，怎么办？
+        * 在Function.prototype里添加属性或方法即可。
+        *
+        * 在Function.prototype里添加的属性，Function可以直接访问到吗?
+        * 可以。
+        * */
+        Function.prototype.itcast = 'czbk';
+
+        function fn1() {}
+        function fn2() {}
+        fn1.prototype.it = 'it';
+        /*console.log(fn1.it);
+        console.log(fn1.itcast);
+        console.log(fn2.itcast);
+        console.log(Function.itcast);*/
+
+
+        // 为什么可以访问的到？如果让大家解释，你做如何解释？
+        // 继承
+        console.log(Function.__proto__ === Function.prototype);
+
+        // 所有的函数继承自Function.prototype,Function也是一个函数，那么也就应该继承自Function.prototype。
+        // 同时Object也是一个函数，那么他也继承自Function.prototype。
+
+        // 所有的对象都继承自Object.prototype
+
+
+        console.log(Object.itcast);
+        console.log(Object.__proto__ === Function.prototype);
+
+        // Object ==> Function.prototype ==> Object.prototype ==> null
+        // Function ==> Function.prototype ==> Object.prototype ==> null
+
+        // 所有函数都继承自Function.prototype
+        // 所有对象(包括函数对象)都继承自Object.prototype
+
+        // instanceof 用来判断一个对象是否是一个构造函数的实例(实际是判断一个对象 能否访问到 构造函数的原型)
+        console.log(Function instanceof Function);  // 可以理解为Function 是自己的实例。
+
+
+    </script>
+</body>
+</html>

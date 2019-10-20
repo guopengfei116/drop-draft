@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var cvs = document.createElement( 'canvas' );
+    cvs.width = 500;
+    cvs.height = 400;
+    cvs.style.border = '1px solid red';
+    // 获得 cvsRenderingContext2D 对象
+    var ctx = cvs.getContext( '2d' );
+    document.body.appendChild( cvs );
+
+    var paddingLeft = 10,
+        paddingTop = 10,
+        paddingBottom = 20,
+        paddingRight = 10;
+
+    var arrowWidth = 10,
+        arrowHeight = 20;
+
+    // 坐标轴源点
+    var x = paddingLeft;
+    var y = cvs.height - paddingBottom;
+
+    // 先画竖线，再画横线
+    ctx.moveTo(x, paddingTop);
+    ctx.lineTo(x, y);
+    ctx.lineTo(cvs.width - paddingRight, y);
+
+    /*// 绘制上箭头
+    ctx.moveTo(x, paddingTop);
+    ctx.lineTo(x - arrowWidth / 2, paddingTop + arrowHeight);
+    ctx.moveTo(x, paddingTop);
+    ctx.lineTo(x + arrowWidth / 2, paddingTop + arrowHeight);
+
+    // 绘制右箭头
+    ctx.moveTo(cvs.width - paddingRight, y);
+    ctx.lineTo(cvs.width - paddingRight - arrowHeight, y - arrowWidth / 2);
+    ctx.moveTo(cvs.width - paddingRight, y);
+    ctx.lineTo(cvs.width - paddingRight - arrowHeight, y + arrowWidth / 2);*/
+
+    // 绘制重叠上箭头
+    ctx.moveTo(x, paddingTop);
+    ctx.lineTo(x - arrowWidth / 2, paddingTop + arrowHeight);
+    ctx.lineTo(x, paddingTop + arrowHeight / 2);
+    ctx.lineTo(x + arrowWidth / 2, paddingTop + arrowHeight);
+    ctx.closePath();
+
+    // 绘制重叠右箭头
+    ctx.moveTo(cvs.width - paddingRight, y);
+    ctx.lineTo(cvs.width - paddingRight - arrowHeight, y - arrowWidth / 2);
+    ctx.lineTo(cvs.width - paddingRight - arrowHeight / 2, y);
+    ctx.lineTo(cvs.width - paddingRight - arrowHeight, y + arrowWidth / 2);
+    ctx.closePath();
+
+    // 画点
+    var points = [ [10, 10], [50, 250], [90, 120], [150, 370] ];
+    var pointWidth = 6, tempPointX, tempPointY;
+
+    points.forEach(function (val) {
+        tempPointX = x + val[0];
+        tempPointY = y - val[1];
+        ctx.fillRect(tempPointX - pointWidth / 2, tempPointY - pointWidth / 2, pointWidth, pointWidth);
+    });
+
+    ctx.stroke();
+</script>
+</body>
+</html>

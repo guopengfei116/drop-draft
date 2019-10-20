@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="div1"></div>
+    <script>
+        'use strict';
+        var div1 = document.getElementById('div1');
+        div1.width = '100px';
+        // 为什么要学习面向对象？
+        /*
+        * 1、我们虽然已经在使用对象了，但是对象这些内置对象运行规则并不了解。
+        * 2、内置的对象远远不能满足我们的开发需求，我们需要自己能够创建对象并使用。
+        * 3、为了大家能够顺利找到工作，拿到高薪。
+        * */
+
+
+        // 1、如何创建对象
+        // 2、了解内置对象的运行原理
+        // 3、学会利用自己创建的对象解决问题
+
+
+        var obj = {
+            self: '',
+            name: '百合',
+            width: '100px',
+            height: '100px',
+            age: 0,
+            huakai: function () {
+
+            },
+            huaxie: function () {
+
+                this.age++;
+            }
+        };
+
+    </script>
+</body>
+</html>

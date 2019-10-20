@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: fuchsia;
+        }
+        button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <button>点击</button>
+    <script>
+        var div = document.getElementsByTagName('div')[0];
+        var but = document.getElementsByTagName('button')[0];
+        but.onclick = function () {
+            animate( div, {
+                width: 500
+            }, 800, function () {
+                animate( div, {
+                    marginLeft: 500
+                }, 800);
+            });
+        };
+
+        /*
+        * param { ele: DOM }  被修改的dom元素
+        * param { json: Object }  要修改的样式集合
+        * param { fn: Function }  回调
+        * */
+        function animate( ele, json, time, fn ) {
+            // 记录动画开始的时间
+            var startTime = +new Date,
+                style = 'width';
+
+            // 记录元素初始的样式
+            var currentStyle = parseInt(getStyle( ele, style )) || 0;
+
+            ele.timer = setInterval(function () {
+                var isStop = true, step;
+
+                // 求已经当前距离动画开始已经过去的时间，
+                // 并限制总时间不能超过设置的时间
+                var delayTime = +new Date - startTime;
+                delayTime = delayTime > time? time : delayTime;
+
+                // 通过算法得到当前时间，元素所在的位置
+                ele.style[style] = (step = line( currentStyle, json[style] - currentStyle, delayTime, time )) + 'px';
+
+                // 停止动画，有回调，就执行回调
+                if ( delayTime >= time ){
+                    clearInterval( ele.timer );
+                    console.log( +new Date - startTime );
+                    fn && fn();
+                }
+            }, 50);
+        }
+
+        //  初始值   总变化值   总运动时间   当前运动时间
+        //  求元素某个时间段，在那个位置的算法
+        //  初始值 + 总变化值 / 总运动时间 * 当前运动时间
+        /*
+        * b：beginVal
+        * c: changeVal
+        * t: currentRunTime
+        * d: duration
+        * */
+        function line( b, c, t, d ) {
+           // return changeVal / totalTime * currentTime + initVal;
+            return c*(t/=d)*t + b;
+        }
+
+        // x ：时间进度，相当于 t / d
+        // t: currentRunTime
+        // c: changeVal
+        // t: currentRunTime
+        // d: duration
+        function easeInQuad(x, t, b, c, d) {
+            return c*(t/=d)*t + b;
+        }
+
+        // 获取样式兼容性处理
+        function getStyle( ele, style ) {
+            if ( ele.currentStyle ) {
+                return ele.currentStyle[style];
+            }else {
+                return window.getComputedStyle(ele, null)[style]
+            }
+        }
+    </script>
+</body>
+</html>

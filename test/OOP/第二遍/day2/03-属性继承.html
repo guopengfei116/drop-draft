@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Person.prototype.say = function () {
+            console.log('我要说话了啊');
+        };
+        Person.prototype.run = function () {
+            console.log('走路了');
+        };
+
+        function Student(name, age) {
+            Student.prototype = new Person(name, age);
+        }
+
+        /*Student.prototype = {
+            constructor: Student,
+            say : function () {
+                console.log('说话');
+            },
+            run : function () {
+                console.log('走路了');
+            },
+            xuexi : function () {
+                console.log('学习');
+            }
+        };*/
+
+        var student = new Student('小名', 10);
+        var student1 = new Student('小王', 18);
+        console.log(student.name);
+        console.log(student1.name);
+    </script>
+</body>
+</html>

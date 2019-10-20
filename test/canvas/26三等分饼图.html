@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var cvs = document.createElement( 'canvas' );
+    cvs.width = 500;
+    cvs.height = 400;
+    cvs.style.border = '1px solid red';
+    // 获得 cvsRenderingContext2D 对象
+    var ctx = cvs.getContext( '2d' );
+    document.body.appendChild( cvs );
+
+    function toRadian(angle) {
+        return Math.PI / 180 * angle;
+    }
+
+    // 画饼图
+    var x = cvs.width / 2,
+        y = cvs.height / 2,
+        r = 100;
+    var colors = 'reb,blue,green'.split(',');
+    var startAngle = -90;
+
+    for (var i = 0; i < 3; i++) {
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        // 注意，需要让开始角度自增到结束角度，那么下次绘制时从上个扇形的结束角度开始绘制
+        ctx.arc(x, y, r, toRadian(startAngle), toRadian(startAngle += 120));
+        ctx.fillStyle = colors[i % 3];
+        ctx.fill();
+    }
+
+</script>
+</body>
+</html>

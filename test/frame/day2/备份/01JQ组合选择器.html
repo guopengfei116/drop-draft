@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <ul>
+        <li>111</li>
+        <li>222</li>
+        <li>333</li>
+    </ul>
+    <script src="jquery-2.2.0.js"></script>
+    <script>
+        var tags = $('ul, li');
+
+        // each方法中，this与value相同
+        tags.each(function (index, value) {
+            console.log(value, this);
+        });
+
+        // 伪数组对象
+        [].forEach.call(tags, function (value, index) {
+            console.log(value, this);
+        });
+    </script>
+</body>
+</html>

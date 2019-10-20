@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="util.js"></script>
+    <script src="bird.js"></script>
+</head>
+<body>
+    <div id="conta"></div>
+    <script>
+        // 初始化画布
+        var conta = document.getElementById('conta');
+        var cvs = document.createElement('canvas');
+        cvs.style.border = '1px solid red';
+        conta.appendChild(cvs);
+        var ctx = cvs.getContext('2d');
+        ctx.fillRect(10, 10, 200, 200);
+
+        // 默认情况下，所有的图片都没有下载完毕
+        var imgIsAllLoaded = false;
+        // 已经加载完毕多少张图片
+        var loadedTotal = 0;
+
+        var skyImg = new Image();
+        skyImg.src = './imgs/sky.png';
+        skyImg.addEventListener('load', function () {
+            cvs.width = skyImg.width;
+            cvs.height = skyImg.height;
+
+
+        });
+
+        var birdImg = new Image();
+        birdImg.src = './imgs/bird.png';
+        birdImg.addEventListener('load', function () {
+            // 创建实例
+            var bird = new Bird({
+                ctx: ctx,
+                img: birdImg,
+                widthMaxFrame: 3,
+                width: 50,
+                height: 50
+            });
+
+            // 渲染游戏画面
+            (function renderGame() {
+                ctx.clearRect( 0, 0, cvs.width, cvs.height );
+                bird.draw();
+                bird.update();
+                sky.draw();
+                sky.update();
+                requestAnimationFrame(renderGame);
+            }());
+
+        });
+    </script>
+</body>
+</html>

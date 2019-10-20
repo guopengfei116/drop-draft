@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="select_sub.js"></script>
+    <script src="itcast.js"></script>
+</head>
+<body>
+    <p>123</p>
+    <p>456</p>
+    <script>
+        // 原型添加一个点击事件
+        $.fn.extend({
+
+            // 给每一个元素绑定指定的事件
+            on: function ( type, fn ) {
+                $.each( this, function () {
+                    if ( this.addEventListener ) {
+                        this.addEventListener( type, fn );
+                    }else {
+                        this.attachEvent( 'on'+ type, fn );
+                    }
+                });
+
+                return this;
+            },
+
+            off: function ( type, fn ) {
+                $.each( this, function () {
+                    if ( this.removeEventListener ) {
+                        this.removeEventListener( type, fn );
+                    }else {
+                        this.detachEvent( 'on'+ type, fn );
+                    }
+                });
+
+                return this;
+            },
+
+            click: function ( fn ) {
+                this.on( 'click', fn );
+                return this;
+            }
+        });
+
+        // 绑定多个事件进行测试
+        $('p').click(function () {
+            alert('事件1');
+        }).click(function () {
+            alert('事件2');
+        }).on('click', function () {
+            alert('事件3')
+        }).on('click', fn);
+
+        function fn() { alert('外面实现的事件'); }
+
+        //$('p').off('click', fn);
+    </script>
+</body>
+</html>

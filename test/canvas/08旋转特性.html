@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>rotate</title>
+</head>
+<body>
+<canvas id="cvs" width="1000" height="1000" style="border: 1px solid black;"></canvas>
+<script>
+    /*
+     * 整个游戏的调度者
+     * */
+    (function () {
+        var cvs = document.getElementById('cvs');
+        var ctx = cvs.getContext('2d');
+
+        /*
+        * translate 平移画布坐标系（从画布的0,0点开始进行平移）
+        * 语法：绘图上下文.translate(x轴平移多少像素，y轴平移多少像素)
+        * 修改坐标系之后，新绘制的内容就会参考最新的坐标系来进行计算，
+        * 该方法不会影响画布上已经存在的内容，只会影响将来所绘制的内容
+        * */
+
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = 'red';
+
+        // 从画布的左端画一条到右端的路径
+        ctx.moveTo(-1000, 0);
+        ctx.lineTo(1000, 0);
+
+        // 从画布的顶端画一条到底端的路径
+        ctx.moveTo(0, -1000);
+        ctx.lineTo(0, 1000);
+
+        // 绘制上面两条路径
+        ctx.stroke();
+
+        ctx.translate(100, 100);
+
+        // 先旋转之后先绘制一堆矩形
+        ctx.strokeRect(-25, -25, 50, 50);
+        ctx.strokeRect(100, 0, 50, 50);
+        ctx.strokeRect(200, 0, 50, 50);
+        ctx.strokeRect(300, 0, 50, 50);
+        ctx.strokeRect(400, 0, 50, 50);
+        ctx.strokeRect(500, 0, 50, 50);
+        ctx.strokeRect(600, 0, 50, 50);
+        ctx.strokeRect(700, 0, 50, 50);
+
+        /*
+         * rotate 旋转画布坐标系（以画布的0,0点为圆心进行旋转）
+         * 语法：绘图上下文.rotate(旋转的弧度)
+         * 旋转坐标系之后，新绘制的内容就会参考最新的坐标系来进行计算，
+         * 该方法不会影响画布上已经存在的内容，只会影响将来所绘制的内容
+         * */
+
+        // 把角度转换为弧度
+        function angleToRad(angle) {
+            return Math.PI / 180 * angle;
+        }
+
+        ctx.rotate(angleToRad(15));
+
+        ctx.beginPath();
+        ctx.strokeStyle = 'blue';
+
+        // 从画布的左端画一条到右端的路径
+        ctx.moveTo(-1000, 0);
+        ctx.lineTo(1000, 0);
+
+        // 从画布的顶端画一条到底端的路径
+        ctx.moveTo(0, -1000);
+        ctx.lineTo(0, 1000);
+
+        // 绘制上面两条路径
+        ctx.stroke();
+
+        // 在旋转之后把刚才绘制的矩形全部从新绘制，进行观察
+        ctx.strokeRect(-25, -25, 50, 50);
+        ctx.strokeRect(100, 0, 50, 50);
+        ctx.strokeRect(200, 0, 50, 50);
+        ctx.strokeRect(300, 0, 50, 50);
+        ctx.strokeRect(400, 0, 50, 50);
+        ctx.strokeRect(500, 0, 50, 50);
+        ctx.strokeRect(600, 0, 50, 50);
+        ctx.strokeRect(700, 0, 50, 50);
+
+
+        /*
+        * 如果想要以一个图形为中心进行旋转，
+        * 那么需要先计算好这个图形的中心位置在哪，
+        * 然后把坐标平移到这个中心位置，
+        * 然后按照想要的弧度旋转坐标系，
+        * 接下来在绘制图形的时候，
+        * 需要以0，0为中心进行绘制，
+        * 那么就需要设置所绘图形的X坐标为 ：-width / 2，
+        * 所绘图形的Y坐标为 ：-height / 2，
+        * 最终绘制的图形，就相当于是以自身为中心点旋转后的图形。
+        * */
+    }());
+</script>
+</body>
+</html>

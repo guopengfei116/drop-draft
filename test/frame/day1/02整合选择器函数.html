@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    * {
+        height: 10px;
+    }
+</style>
+<body>
+    <div>
+        <span>同学爱吃：羊腰子</span>
+        <span>生蚝生蚝</span>
+        <span>扇贝扇贝</span>
+        <span>皮皮虾皮皮虾</span>
+        <a>螃蟹螃蟹</a>
+        <a id="myA">多宝鱼</a>
+        <a></a>
+    </div>
+    <div id="div">
+        <ul>
+            <li>a</li>
+            <li>b</li>
+        </ul>
+        <p class="p">1</p>
+        <p class="p">2</p>
+        <p class="ppp">3</p>
+        <p class="ppp">4</p>
+    </div>
+    <script>
+        // 按照之前的套路，把byId，byTagName，byClassName，byAll方法封装为一个方法。
+
+        /*
+        * Function { select } 选择器函数
+        * param { selector : string } 选择器
+        * param { arr : Array } 指定用于存放元素的数组
+        * */
+        function select ( selector, arr ) {
+            arr = arr || [];
+
+            var firstChar, selectorNew, temResult;
+
+            // ''、!string
+            if (!selector || typeof selector !== 'string') {
+                return;
+            }
+
+            // 先获取selector中的第一个字符，用来区分选择器的类型
+            // 再去掉selector中的第一个字符，用来获取元素
+            firstChar = selector.charAt(0);
+            selectorNew = selector.slice(1);
+
+            // 获取元素
+            if (firstChar === '*') {
+                arr.push.apply(arr, document.getElementsByTagName('*'));
+            }
+            else if (firstChar === '#'){
+                // 过滤null
+                if (temResult = document.getElementById(selectorNew)) {
+                    arr.push(temResult);
+                }
+            }
+            else if (firstChar === '.'){
+                arr.push.apply(arr, document.getElementsByClassName(selectorNew));
+            }
+            else {
+                arr.push.apply(arr, document.getElementsByTagName(selector));
+            }
+
+            return arr;
+        }
+
+        /*
+        * 注意：
+        * 1、获取全部标签通过getElementsByTagName来解决
+        * 2、id、class选择器需要截取掉第一个字符；
+        * 3、tag选择器不需要截取字符；
+        * */
+        console.log(select('#myA'));
+        console.log(select('.p'));
+        console.log(select('*'));
+        console.log(select('div'));
+    </script>
+</body>
+</html>

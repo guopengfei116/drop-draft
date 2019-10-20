@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="cvs" width="600px"; height="500px"; style="border:1px solid black;"></canvas>
+<script>
+    // 得到canvas标记的DOM对象
+    var cvs = document.getElementById('cvs');
+    var ctx = cvs.getContext('2d');
+
+    ctx.moveTo(20, 20);
+    ctx.lineTo(120, 120);
+    ctx.lineTo(200, 120);
+    ctx.lineTo(400, 300);
+    ctx.textAlign = 'right';
+    ctx.fillText('400, 300', 400, 300);
+    ctx.lineTo(500, 500);
+    ctx.lineTo(50, 200);
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(20, 20);
+    ctx.lineTo(120, 120);
+    ctx.lineTo(200, 120);
+    ctx.lineTo(400, 300);
+    ctx.arcTo(500, 500, 50, 200, 30);
+    ctx.strokeStyle = 'red';
+    ctx.stroke();
+
+    /*
+    * 结论：arcTo
+    *
+    * */
+
+
+
+</script>
+</body>
+</html>

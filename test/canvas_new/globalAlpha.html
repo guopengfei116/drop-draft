@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="div"></div>
+<script src="./js/getCanvasContext.js"></script>
+<script src="./js/getImage.js"></script>
+<script>
+    var ctx = getCanvasContext('div', 500, 500, true);
+
+    // globalAlpha会将所有像素的alpha值与之相乘，绘制图像也如此。
+    getImage({ ziyou: './imgs/ziyou.jpg' }, function ( imgs ) {
+        ctx.globalAlpha = 0.5;
+        ctx.drawImage( imgs.ziyou, 0, 0 );
+    });
+</script>
+</body>
+</html>

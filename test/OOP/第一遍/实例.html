@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        /*
+        * 什么是实例？
+        * 通过一个对象创建的另一个对象，被创建的对象就叫实例。
+        * 在面向对象编程当中，通过构造函数(类)创建的对象，这个对象就是构造函数(类)的实例。
+        *
+        * 对象和实例有什么区别？
+        * 在面向对象编程当中，对象和实例都是用来描述对象的，对象听起来比较泛指，而实例听起来更具象化。
+        * 比如在描述Person的对象，首先想到的是这个对象是Person类型的，需要大脑推理出这个对象是通过Person创建的，
+        * 而Person的实例，则在字面上就把对象的创建过程给描述了出来。
+        *
+        * 对象一般用来描述一堆对象上，而实例一般用来描述单个对象上。
+        *
+        * js专门提供了一个运算符，用来判断对象是不是某个构造函数的实例。
+        * 这个运算符就是instanceof。
+        * 语法： 要判断的对象 instanceof 构造函数
+        * 判断左边的对象是不是右边构造函数的实例。
+        *
+        * instanceof运算符通过判断右边构造函数的原型在不在左边对象的原型链上，
+        * 判断左边对象的原型链上有没有构造函数的原型。
+        * */
+
+        function Animal() {
+
+        }
+
+        var lisi = new Animal();
+
+        function Cat() {
+
+        }
+
+        var miaomiao = new Cat();
+
+        console.log(lisi instanceof Animal);
+        console.log(miaomiao instanceof Cat);
+        console.log(lisi instanceof Cat);
+
+
+        //Cat.prototype = new Animal();
+
+        var xiaoxiong = new Cat();
+        //xiaoxiong.run();
+
+
+        console.log(xiaoxiong instanceof Cat);
+        console.log(miaomiao instanceof Cat);
+        // miaomiao ==> Animal.prototype(旧版本的) ==> object.prototype ==> null
+
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var canvas = document.createElement( 'canvas' );
+    canvas.width = 500;
+    canvas.height = 400;
+    canvas.style.border = '1px dashed red';
+    var ctx = canvas.getContext( '2d' );
+    document.body.appendChild( canvas );
+
+    /*
+     * 正数从左向右抵消，
+     * 负数从右向左抵消。
+     * 算法：
+     * 1、ctx.lineDashOffset %= ctx.getLienDash()的和；
+     * 2、剩余的数从左抵消或者从右抵消。
+     * */
+
+    // 画虚线思路：
+    // 先画一条实线，然后画下一条实线时先moveTo一定距离再画。
+    var startX = 10;
+    var startY = 30;
+    var endX = 200;
+    var endY = 100;
+    var stepX = 5;
+    var stepY =  (endY - startY) / (endX - startX) * 5;  // 通过x轴移动步伐计算y轴步伐
+    ctx.moveTo(10, 10);
+    ctx.lineTo(10 + stepX, 10 + stepY);
+    ctx.moveTo(10 + stepX * 2, 10 + stepY * 2);
+    ctx.lineTo(10 + stepX * 3, 10 + stepY * 3);
+    ctx.moveTo(10 + stepX * 4, 10 + stepY * 4);
+    ctx.stroke();
+
+    // for循环改造
+    var startX = 10;
+    var startY = 30;
+    var endX = 200;
+    var endY = 100;
+    var stepX = 5;  // x轴移动步伐
+    var stepY =  (endY - startY) / (endX - startX) * 5;  // 通过x轴移动步伐计算y轴步伐
+    while(true) {
+        ctx.moveTo(startX, startY); // 先移动到开始位置
+        ctx.lineTo(startX += stepX, startY += stepY); // 画实线
+        if (startX >= endX || startY >= endY) {  // 到达终点则停止
+            break;
+        }
+        startX += stepX; // 空白
+        startY += stepY; // 空白
+    }
+    ctx.stroke();
+</script>
+</body>
+</html>

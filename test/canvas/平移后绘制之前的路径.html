@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>rotate</title>
+</head>
+<body>
+<canvas id="cvs" width="500" height="500" style="border: 1px solid black;"></canvas>
+<script>
+    /*
+     * 整个游戏的调度者
+     * */
+    (function () {
+        var cvs = document.getElementById('cvs');
+        var ctx = cvs.getContext('2d');
+
+        /*
+        * translate 平移画布坐标系
+        * 修改坐标系之后，新绘制的内容就会参考最新的坐标系来进行计算，
+        * 该方法不会影响画布上已经存在的内容，只会影响将来所绘制的内容
+        * */
+
+        ctx.rect(10, 10, 50, 50);
+
+        ctx.translate(100, 100);
+        ctx.rotate(Math.PI/3);
+
+        ctx.fill();
+    }());
+</script>
+</body>
+</html>

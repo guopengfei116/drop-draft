@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <canvas id="cvs" width="600" height="400" style="border: 1px solid red"></canvas>
+    <script>
+        var cvs = document.getElementById('cvs');
+        var ctx = cvs.getContext('2d');
+        var video = document.createElement( 'video' );
+        video.controls = "true";
+        document.body.appendChild( video );
+
+        // 不触发
+        video.addEventListener( 'canplay ', function() {
+            console.log(22);
+            video.play();
+        } );
+        video.oncanplay = function() {
+            console.log(11);
+            video.play();
+            // 不能马上绘制成功，需要播放了第一帧之后才可以
+            // ctx.drawImage( video, 0, 0, cvs.width, cvs.height );
+            drawVideo();
+        }
+        video.onloadeddata = function() {
+            console.log(22);
+            // 不能马上绘制成功，需要播放了第一帧之后才可以
+            // ctx.drawImage( video, 0, 0, cvs.width, cvs.height );
+        }
+
+        video.src = './test.MP4';
+
+        // 把video当前播放到的画面绘制到画布上
+        function drawVideo() {
+            ctx.drawImage( video, 0, 0, cvs.width, cvs.height );
+            ctx.fillText( '哈哈！！！', 200, 200 );
+            requestAnimationFrame( drawVideo );
+        }
+    </script>
+</body>
+</html>

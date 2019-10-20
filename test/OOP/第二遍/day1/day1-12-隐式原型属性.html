@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // __proto__
+
+        function Person() {
+
+        }
+        Person.prototype.say = function () {
+            console.log('我要说话了啊');
+        };
+        Person.prototype.run = function () {
+            console.log('走路了');
+        };
+
+        function Student() {
+
+        }
+
+        Student.prototype.xuexi = function () {
+            console.log('我正在学习');
+        };
+
+        Student.prototype.__proto__ = Person.prototype;
+
+        var person = new Person();
+        var student = new Student();
+        student.xuexi();
+        student.say();
+
+        var student2 = new Student();
+        student2.run();
+
+        // ie8 以前不知道访问__proto__属性，__proto__不是规范中定义的属性。
+
+        //  Person.prototype的原型对象是谁，或者说Person.prototype.__proto__是什么？
+    </script>
+</body>
+</html>

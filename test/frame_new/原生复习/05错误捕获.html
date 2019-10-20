@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        /*
+        * 错误捕获语句
+        * try { 要捕获的代码 }catch(e){ 对错误进行处理 }finally{ 无论错误是否发送，一定执行代码 }
+        * */
+
+        try {
+            console.log(b);
+        }catch (e){
+            // 如果发生错误，该如何解决
+            console.log(e);
+        }finally {
+            console.log( '无论错误是否发送，我一定执行' );
+        }
+        console.log(222);
+    </script>
+</body>
+</html>

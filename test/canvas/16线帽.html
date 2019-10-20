@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var canvas = document.createElement( 'canvas' );
+    canvas.width = 500;
+    canvas.height = 400;
+    canvas.style.border = '1px dashed red';
+    // 获得 CanvasRenderingContext2D 对象
+    var ctx = canvas.getContext( '2d' );
+    document.body.appendChild( canvas );
+
+    ctx.lineWidth = 10;
+
+    // 设置线条两段样式，round圆头，butt默认，square根据线宽延长
+    ctx.lineCap = 'round';
+    ctx.moveTo(10, 10);
+    ctx.lineTo(210, 10);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.lineCap = 'square';
+    ctx.moveTo(10, 50);
+    ctx.lineTo(210, 50);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.lineCap = 'butt';
+    ctx.moveTo(10, 100);
+    ctx.lineTo(210, 100);
+    ctx.stroke();
+</script>
+</body>
+</html>

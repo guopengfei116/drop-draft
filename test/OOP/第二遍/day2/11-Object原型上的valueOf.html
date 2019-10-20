@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // Object.prototype.valueOf 把数据类型转换为对应的对象,例：数字就转换为Number类型
+        var num = 1;
+        //num.ValOf = Object.prototype.valueOf; num.ValOf();
+        //console.log(Object.prototype.valueOf.call(num));
+        //console.log(typeof Object.prototype.valueOf.call(num));
+
+        // 如果传入的数据已经是对象类型了，那么方法返回这个对象。
+        //console.log(Object.prototype.valueOf.call([1,2]));
+        //console.log(Object.prototype.valueOf.call({a:1}));
+
+        // 如果传入的数据是基本数据类型(null和undefined除外)，则把他们转换为对应的对象类型，然后返回。
+        //console.log(Object.prototype.valueOf.call('ab'));
+        //console.log(('abc').length);
+        //console.log(Object.prototype.valueOf.call(false));
+
+        // 如果传入的数据为null或undefined，则报类型错误。
+        //console.log(Object.prototype.valueOf.call(null));
+        //console.log(Object.prototype.valueOf.call(undefined));
+
+        // 数值有对应的Number构造函数，字符串有对应的String构造函数，布尔有对应的Boolean构造函数
+        // null ==> Null  , undefined ==> Undefined
+
+        //console.log(Null); // 报错，不存在这样一个构造函数
+        //console.log(Undefined);  // 报错，不存在这样一个构造函数
+
+        /*
+        *  Object.prototype.valueOf 把数据类型转换为对应的对象,
+        *  如果要转换的数据已经是对象，则不再进行转换，直接返回这个值，
+        *  如果要转换的数据是null或者undefined，则不进行转换，报类型错误，
+        *  如果要转换的数据为nubmer、string、boolean，则通过调用对应的构造函数创建对应的对象，并返回。
+        * */
+
+        // 对象的原型链结构，以及继承概念
+        // 函数的原型链结构。
+    </script>
+</body>
+</html>

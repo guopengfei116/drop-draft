@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-1.12.0.js"></script>
+</head>
+<body>
+    <div id="div1"></div>
+    <div id="div2"></div>
+    <script>
+        /*
+        * 有两种设置和获取属性的方式：
+        *
+        * 1、 直接点的方式 添加 和 获取
+        * 2、 通过getAttribute  和 setAttribute 方法获取 与 添加
+        *
+        * 在 IE7 和8 中，这两种方式没有任何却别，
+        *
+        * 在 现代浏览器中，通过方法添加的属性，是属性节点，
+        * 可以通过DOM对象的attributes属性中获取，
+        * 并且这种方式添加的属性，可以在html结构中看到；
+        *
+        * 而通过.方式添加的属性，不是属性节点。
+        *
+        * 注意：在现代浏览器中，通过.方式获取不到setAttribute添加的属性；
+        * 反过来，getAttribute  也获取不到 .方式添加的属性。
+        * */
+    </script>
+    <script>
+        // 添加自定义属性
+        $('div').get(0).dianShuXing = '点属性';
+
+        // 添加属性节点
+        $('div').get(0).setAttribute('fangFaShuXing', '方法属性');
+
+        // 两种方式设置的属性，互相获取不到
+        console.log($('div').get(0).dianShuXing);
+        console.log($('div').get(0).fangFaShuXing);
+        console.log($('div').get(0).getAttribute('fangFaShuXing'));
+        console.log($('div').get(0).getAttribute('dianShuXing'));
+    </script>
+</body>
+</html>

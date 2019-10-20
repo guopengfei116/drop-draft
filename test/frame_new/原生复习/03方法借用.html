@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        function Fn() {
+
+        }
+        Fn.prototype.push = [].push;  // 把数组的push方法添加到原型中，供实例使用
+        Fn.prototype.sort = [].sort;  // 把数组的sort方法添加到原型中，供实例使用
+
+        var obj = new Fn();
+        obj.push( 1 );  // 方法调用模式，push执行时内部this指向obj，类似与[].push.call( obj, 1 )
+        obj.push( 20 );  // 方法调用模式，push执行时内部this指向obj，类似与[].push.call( obj, 1 )
+        obj.push( 30 );  // 方法调用模式，push执行时内部this指向obj，类似与[].push.call( obj, 1 )
+        obj.push( 15 );  // 方法调用模式，push执行时内部this指向obj，类似与[].push.call( obj, 1 )
+        console.log( obj );
+
+        obj.sort( function( a, b ) {
+            return a > b;
+        } );
+        console.log( obj );
+    </script>
+</body>
+</html>

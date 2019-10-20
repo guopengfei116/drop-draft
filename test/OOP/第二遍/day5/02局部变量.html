@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+
+        (function fn() {
+
+            console.log(a);
+
+            for (var i = 0; i < 1; i++) {
+                var a = 1;
+            }
+
+            (function f() {
+                console.log(a);
+                (function () {
+                    console.log(a + 10);
+                })();
+            })();
+
+            if (true) {
+                console.log(a);
+            }
+
+            for (var i = 0; i < 1; i++) {
+                console.log(a);
+            }
+        })();
+
+        // 函数外无法访问局部变量a，同时因为没有全局变量a，所以报错。
+        // console.log(a);
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var canvas = document.createElement( 'canvas' );
+    canvas.width = 500;
+    canvas.height = 400;
+    canvas.style.border = '1px dashed red';
+    // 获得 CanvasRenderingContext2D 对象
+    var ctx = canvas.getContext( '2d' );
+    document.body.appendChild( canvas );
+
+    function jianbian(starX, startY, width, height, direction, startColor, endColor) {
+        var width = width;  // 绘制宽度
+        var height = height;  // 绘制高度
+        var startColor = startColor || 1;
+        var endColor = endColor || 250;
+        var colorStep;
+
+        if (direction === 'toRight') {
+            // 横向渐变
+            colorStep = (endColor - startColor) / width;
+            for (var i = 1; i <= width; i++) {
+                ctx.beginPath();
+
+                // 根据长度计算每一条线的颜色
+                ctx.strokeStyle = 'rgb(' + Math.ceil( colorStep * i + startColor) +
+                        ',' + Math.ceil( colorStep * i + startColor) + ', 0)';
+                console.log(Math.ceil((endColor - startColor) / width * i  + startColor));
+
+                // 依次从左向右绘制
+                ctx.moveTo(starX + i, startY);
+                ctx.lineTo(starX + i, startY + height);
+
+                ctx.stroke();
+            }
+        }else if(direction === 'toDown') {
+            // 纵向渐变
+            colorStep = (endColor - startColor) / height;
+            for (var i = 1; i <= height; i++) {
+                ctx.beginPath();
+
+                // 根据长度计算每一条线的颜色
+                ctx.strokeStyle = 'rgb(' + Math.ceil( colorStep * i + startColor) + ', 0, 0)';
+                console.log(Math.ceil( colorStep * i + startColor));
+
+                // 依次从左向右绘制
+                ctx.moveTo(starX, startY + i);
+                ctx.lineTo(starX + width, startY + i);
+
+                ctx.stroke();
+            }
+        }
+    }
+
+    jianbian(10, 10, 150, 120, 'toRight');
+</script>
+</body>
+</html>

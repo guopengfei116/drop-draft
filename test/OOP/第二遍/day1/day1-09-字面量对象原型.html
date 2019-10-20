@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+       /* var getDome = {
+            id: function (id) {
+                return document.getElementById(id);
+            },
+            name: function (name) {
+                return document.getElementsByTagName(name);
+            }
+        };
+*/
+        /*var obj = new Object();
+        obj.name = '小王';
+        console.log(obj);*/
+        // constructor 获取对象的构造函数
+        //console.log(getDome.constructor);
+        //console.log(getDome.toString === getDome.constructor.prototype.toString);
+        //console.log(getDome.constructor.prototype);
+
+        // 通过字面量定义的对象，一样有原型对象可以对其进行访问。这个对象原型来自于Object
+        // 同时说明所有通过字面量定义的对象，构造函数都是Object
+
+        /*var arr = [1,2,3,4,6];*/
+        //console.log(arr.push === Array.prototype.push);
+        // 所有的数组，构造函数都是Array，也可以称之为数组是Array的实例
+
+        /*var arr1 = new Array(1,2,3,4,6);
+        console.log(arr1);*/
+
+        var str = 'abc';
+        //console.log(str.indexOf('b'));
+        console.log(str.constructor);
+
+        // 字符串的构造函数是String
+
+        var str1 = new String('abcndnfdfdssdf');
+        console.log(str1);
+
+
+    </script>
+</body>
+</html>

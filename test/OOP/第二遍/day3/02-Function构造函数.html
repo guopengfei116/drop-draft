@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // Function 是一个构造函数，也是一个对象。
+        // 对象的特征：有属性有方法，并且可以添加属性和方法
+
+        // 我们的Function可以像其他对象一样，添加自定义属性或者方法。
+        console.log(Function.toString());
+        Function.itcast = '传智';
+        console.log(Function.itcast);
+        Function.run = function () {
+            console.log('我正在运行');
+        };
+        Function.run();
+        console.log(Function());
+
+        /*
+        * 当一个基础数据类型访问属性的时候，js解析引擎会自动帮我们把这个数据转换为对象类型，
+        * 然后调用对象的属性，调用完毕后，这个对象释放。
+        * */
+        var str = 'abc';
+        console.log(str.length);
+        str.itcast = '传智';
+        console.log(str.itcast); // undefined
+
+        // 普通函数是一个对象吗
+        function Person() {}
+        Person.dong = function () {
+            console.log('我在健身');
+        };
+        Person.dong();
+    </script>
+</body>
+</html>

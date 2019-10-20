@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <p>
+        <a>小a</a>
+        <a>小a</a>
+    </p>
+    <p></p>
+    <p>
+        <a>大a</a>
+    </p>
+    <script src="select_sub.js"></script>
+    <script>
+        (function (w) {
+
+            var arr = [],
+                slice = arr.slice,
+                push = arr.push;
+
+            // 工厂函数$
+            function itcast( selector ) {
+                return new itcast.fn.init( selector );
+            }
+
+            // 给itcast的原型起和简称
+            itcast.fn = itcast.prototype = {
+                constructor: itcast,
+                selector: "",   // 默认的选择器
+                length: 0,      // 默认的length属性值
+                each: function ( fn ) {
+                    each( this, fn );
+                },
+                map: function ( fn ) {
+                    map( this, fn );
+                }
+            };
+
+            // 添加可扩展的方法extend
+            itcast.extend = itcast.fn.extend = function ( target, source ) {
+
+                // 如果只传入了1个参数，那么copy到itcast或init实例对象上
+                if (arguments.length === 1) {
+                    source = target;
+                    target = this;
+                }
+
+                // copy
+                for (var key in source) {
+                    if (source.hasOwnProperty(key)) {
+                        target[key] = source[key];
+                    }
+                }
+
+                return target;
+            };
+
+            // 添加一些静态方法
+            itcast.extend({
+                isString: function ( str ) {
+                    return typeof str === 'string';
+                },
+
+                isFunction: function ( obj ) {
+                    return typeof obj === 'function';
+                },
+
+                isDOM: function ( obj ) {
+                    return !!obj && !!obj.nodeType;
+                },
+
+                isItcast: function ( obj ) {
+                    return !!obj && 'selector' in obj;
+                },
+
+                isWindow: function ( obj ) {
+                    return !!obj && obj === obj.window;
+                },
+
+                // 类数组：真数组，以及伪数组对象(有length属性)
+                // 由于window和函数也有length属性，但不是伪数组对象，所以将它们过滤掉
+                isArrayLike: function ( obj ) {
+                    if ( itcast.isFunction(obj) || itcast.isWindow(obj) ) {
+                        return false;
+                    }
+                    return !!obj && obj.length >= 0;
+                }
+            });
+
+            // 真正的构造函数隐居在此
+            var init = itcast.fn.init = function ( selector ) {
+
+                if (typeof selector === 'function') {
+
+                }
+
+                // 要么是创建html元素，要么是获取元素
+                if (typeof selector === 'string') {
+
+                    // 如果selector为html字符串，那么调用parseHTML处理
+                    if (selector.charAt(0) === '<' && selector.charAt(selector.length - 1) === '>' && selector.length > 3) {
+
+                        // 不能直接return结果，因为这个结果是数组，不能使用JQ原型上的方法
+                        //return parseHTML( selector );
+
+                        // 把parseHTML的结果通过push添加到this身上,
+                        // 因为push可以自动的给实例按照下标的方式添加属性值
+                        push.apply(this, parseHTML( selector ))
+
+                    }else {
+
+                        // 不能直接return结果，因为这个结果是数组，不能使用JQ原型上的方法
+                        push.apply(this, select( selector ));
+                    }
+                }
+
+            };
+
+            // 解析html字符串
+            function parseHTML( html, arr ) {
+                arr = arr || [];
+
+                // 利用innerTHML的特性让浏览器把html转换为DOM
+                var div = document.createElement('div');
+                div.innerHTML = html;
+
+                // 遍历转换后的DOM元素，依次添加到arr中
+                for (var i = 0, len = div.childNodes.length; i < len; i++) {
+                    arr.push(div.childNodes[i]);
+                }
+
+                return arr;
+            }
+
+            /*
+             * 模拟JQ实现each
+             * */
+            function each(obj, fn) {
+                // 数组 或者 伪数组
+                if (({}).toString.call(obj) === '[object Array]' || obj.length > 0) {
+                    for (var i = 0, len = obj.length; i < len; i++) {
+                        // 为了和JQ保持一样，同样的把fn函数内的this改为对应的value；
+                        // 把遍历到的index与value以调用的方式依次传给回调。
+                        fn.call(obj[i], i, obj[i]);
+                    }
+                }else {
+                    for (var key in obj) {
+                        // 为了和JQ保持一样，同样的把fn函数内的this改为对应的value；
+                        // 把遍历到的key与value以调用的方式依次传给回调。
+                        fn.call(obj[key], key, obj[key]);
+                    }
+                }
+            }
+
+            /*
+             * 模拟JQ实现map
+             * */
+            function map(obj, fn) {
+                var i, len, tem, result = [];
+
+                // 数组 或 伪数组
+                if (({}).toString.call(obj) === '[object Array]' || obj.length > 0) {
+                    for (i = 0, len = obj.length; i < len; i++) {
+                        // map和each的区别就是map要使用回调函数的返回值
+                        tem = fn(obj[i], i);
+                        // 过滤掉null 和 undefined
+                        if ( tem != null ) {
+                            result.push(tem);
+                        }
+                    }
+                }else {
+                    for (i in obj) {
+                        // map和each的区别就是map要使用回调函数的返回值
+                        tem = fn(obj[i], i);
+                        // 过滤掉null 和 undefined
+                        if ( tem != null ) {
+                            result.push(tem);
+                        }
+                    }
+                }
+
+                return result;
+            }
+
+            // 因为对外暴漏的是itcast工厂函数，
+            // 那么让init的原型等于itcast的原型，
+            // 这样外界就可以通过itcast.fn给原型扩充方法让init实例使用了
+            init.prototype = itcast.fn;
+
+            // 对外暴漏两个
+            w.$ = w.itcast = itcast;
+
+        })(this);
+
+        $.fn.extend = function () {};
+        $('p a').each(function ( index, value ) {
+            console.log(index, value);
+        });
+    </script>
+</body>
+</html>

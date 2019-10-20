@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        function fn(n) {
+            if (n === 0) {
+                return 1;
+            }
+            return fn(n - 1) * n;
+        }
+        console.log(fn(46));
+
+        function fn2(n) {
+            // 默认是0！
+            var result = 1;
+            for (var i = 1; i <= n; i++) {
+                result *= i;
+            }
+            return result;
+        }
+        console.log(fn2(46));
+
+        function fibonacci(n) {
+            var one = 1, two = 1, result = 1;
+            for (var i = 3; i <= n; i++) {
+                result = one + two;
+                one = two;
+                two = result;
+            }
+            return result;
+        }
+        console.log(fibonacci(6));
+    </script>
+</body>
+</html>

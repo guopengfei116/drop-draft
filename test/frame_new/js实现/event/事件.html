@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../core.js"></script>
+</head>
+<body>
+    <div>
+        <span>1</span>
+        <span>2</span>
+    </div>
+    <div>
+        <span>3</span>
+        <span>4</span>
+    </div>
+    <script>
+        $.extend({
+            // 处理事件绑定兼容性
+            addEvent: function( ele, type, fn ) {
+                if ( ele.addEventListener ) {
+                    ele.addEventListener( type, fn );
+                }else {
+                    ele.attachEvent( 'on' + type, fn );
+                }
+            },
+            // 处理事件移除兼容性
+            removeEvent: function( ele, type, fn ) {
+                if ( ele.removeEventListener ) {
+                    ele.removeEventListener( type, fn );
+                }else {
+                    ele.detachEvent( 'on' + type, fn );
+                }
+            }
+        });
+        $.fn.extend({
+            /*
+             * function { on } 给所有元素绑定对应事件的事件句柄
+             * param { type: string } 要绑定的事件类型
+             * param { fn: Function } 要绑定的事件句柄
+             * */
+            on: function( type, fn ) {
+                this.each( function() {
+                    jQuery.addEvent( this, type, fn );
+                } );
+
+                // 为了链式编程
+                return this;
+            },
+
+            /*
+             * function { off } 删除所有元素指定的事件句柄
+             * param { type: string } 要删除的事件类型
+             * param { fn: Function } 要删除的事件句柄
+             * */
+            off: function( type, fn ) {
+                this.each( function() {
+                    jQuery.removeEvent( this, type, fn );
+                });
+
+                // 为了链式编程
+                return this;
+            },
+
+            /*
+            * function { click } 给所有元素绑定点击事件
+            * param { fn: Function } 事件句柄
+            * */
+            click: function( fn ) {
+                this.each( function() {
+                    jQuery.addEvent( this, type, fn );
+                });
+
+                // 为了链式编程
+                return this;
+            },
+
+            /*
+             * function { click } 给所有元素绑定点击事件
+             * param { fn: Function } 事件句柄
+             * */
+            _click: function( fn ) {
+                return this.on( 'click', fn );
+            }
+        });
+
+        function fn1() {
+            console.log('点击1');
+        }
+        function fn2() {
+            console.log('点击2');
+        }
+
+        // 测试
+        $('div').on( 'click', fn1 ).on( 'click', fn2 )._click(function() {
+            console.log('第三次绑定');
+        })._click(function() {
+            console.log('第四次绑定');
+        });
+    </script>
+</body>
+</html>

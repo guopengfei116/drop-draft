@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        (function () {
+            if (true) {
+                var a = 1;
+            }
+            (function () {
+                //var a = 2;
+                console.log(a);
+            })();
+        })();
+
+        /*
+        * 函数可以分隔作用域，函数作用域。
+        * js属于函数作用域规则。
+        *
+        * 扩展：块级作用域,使用大括号来分隔作用域。
+        * 块级作用域包含函数作用域。
+        * */
+
+    </script>
+</body>
+</html>

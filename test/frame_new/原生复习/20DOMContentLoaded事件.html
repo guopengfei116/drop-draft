@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        /*
+        * onload：页面所有资源加载完毕后触发。
+        *
+        * DOMContentLoaded: DOM树构建完毕后触发。
+        * 这个事件触发比onload要快。IE9和现代浏览器都支持该事件。
+        * */
+
+        document.addEventListener('readystatechange', function () {
+            console.log(document.readyState);
+            if ( document.readyState == 'complete' ) {
+                console.log('测试readystatechange');
+            }
+        });
+
+        console.log(00000);
+        window.addEventListener('load', function () {
+            console.log(1111);
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log(222);
+        });
+        console.log(3333);
+
+        /*
+        * ready可以接收多个函数，这些函数统一在DOMContentLoaded事件触发时被执行
+        * 1、既然可以接收多个函数，
+        * */
+        function ready( fn ) {
+            document.addEventListener('DOMContentLoaded', fn);
+        }
+
+        // 给ready传入函数
+        ready(function () {
+            console.log('传给ready的函数1');
+        });
+
+        ready(function () {
+            console.log('传给ready的函数2');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<canvas id="cvs" width="600" height="400" style="border: 1px solid red"></canvas>
+<body>
+<script>
+    var cvs = document.getElementById('cvs');
+    var ctx = cvs.getContext('2d');
+
+    ctx.fillStyle = 'silver';
+    ctx.fillRect(0, 0, cvs.width, cvs.height);
+    ctx.globalCompositeOperation =  'destination-out';
+    ctx.fillStyle = 'rgba(0, 0, 0, 1)';
+    ctx.fillRect(100, 100, 50, 50);
+</script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        var c = 'var json = {a:1, b:2}';
+        oScript = document.createElement('script');
+        oScript.innerHTML = c;
+        oBody = document.body.appendChild(oScript);
+        console.log(json);
+    </script>
+</body>
+</html>

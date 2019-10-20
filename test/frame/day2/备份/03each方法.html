@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script src="jquery-2.2.0.js"></script>
+    <script>
+        var arr = [1,2,3];
+        var obj = { name : 'obj', val : 'en' };
+
+        // 原生数组forEach
+        arr.forEach(function (val, i) {
+            console.log(val, i, this);
+        });
+
+        // 原生数组map，不return则存储undefined
+        var newArr = arr.map(function (val, i) {
+            console.log(val, i, this);
+            //return 1;
+        });
+
+        // 新旧数组对比
+        console.log(arr, newArr);
+
+        /*
+         * JQ each方法回调先传入key，再传入值
+         * */
+        $.each(arr, function (i, val) {
+            console.log(i, val, this);
+
+        });
+
+        $.each(obj, function (key, val) {
+            console.log(key, val, this);
+        });
+    </script>
+</body>
+</html>

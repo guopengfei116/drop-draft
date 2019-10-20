@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-2.2.0.js"></script>
+</head>
+<body>
+    <div>
+        <p>xxxx</p>
+    </div>
+    <div></div>
+    <ul></ul>
+    <ul></ul>
+    <script>
+        // JQ的appendTo，支持DOM对象、选择器、JQ对象
+        /*$('<a>1</a><a>2</a>').appendTo(document.body);
+        $('<span>111</span><span>222</span>').appendTo('div');
+        $('<li>111111</li><li>2222222</li>').appendTo($('ul'));*/
+
+        // appendTo的返回值
+//        console.log($('<a>1</a><a>2</a>').appendTo(document.body));
+//       console.log($('<span>111</span><span>222</span>').appendTo('div'));
+        //console.log($('<li>111111</li><li>2222222</li>').appendTo($('ul')));
+
+        console.log($('<a>1</a><a>2</a>').appendTo('<div></div><div></div>'));
+        //console.log($('p').appendTo($('div')));
+    </script>
+</body>
+</html>

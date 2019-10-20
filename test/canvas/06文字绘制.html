@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="cvs" width="500"; height="500"; style="border:1px solid black;"></canvas>
+<script>
+    // 得到canvas标记的DOM对象
+    var cvs = document.getElementById('cvs');
+
+    // 得到绘图上下文
+    var ctx = cvs.getContext('2d');
+
+    /*
+    * strokeText 绘制描边文字
+    * param 1 要绘制的文字
+    * param 2 要绘制的文字的X轴坐标点
+    * param 3 要绘制的文字的Y轴坐标点
+    *
+    * fillText 绘制填充文字
+    * param 1 要绘制的文字
+    * param 2 要绘制的文字的X轴坐标点
+    * param 3 要绘制的文字的Y轴坐标点
+    * 文字绘制默认的坐标参考位置是文字的左下角
+    * */
+
+
+    // 参考点
+    ctx.arc(100, 100, 2, 0, 2 * Math.PI);
+    ctx.fill();
+
+ /*   ctx.font = '20px 微软雅黑';
+    ctx.strokeText('hellow', 100, 100);
+
+    ctx.fillText('word', 200, 100);*/
+
+    /*
+    * textAlign 设置文本水平显示方向
+    * left right center
+    * */
+  /*  ctx.textAlign = 'right';
+    ctx.font = '20px 微软雅黑';
+    ctx.strokeText('hellow', 100, 100);
+
+    ctx.fillText('word', 200, 100);*/
+
+    /*
+     * textBaseline 设置文本垂直显示方向
+     * top middle bottom
+     * */
+    ctx.textBaseline = 'bottom';
+    ctx.font = '20px 微软雅黑';
+    ctx.strokeStyle = 'blue';
+    ctx.strokeText('xhellowyY√', 100, 100);
+
+    ctx.fillText('word', 200, 100);
+</script>
+</body>
+</html>

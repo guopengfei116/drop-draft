@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var canvas = document.createElement( 'canvas' );
+    canvas.width = 500;
+    canvas.height = 400;
+    canvas.style.border = '1px dashed red';
+    // 获得 CanvasRenderingContext2D 对象
+    var ctx = canvas.getContext( '2d' );
+    document.body.appendChild( canvas );
+
+    ctx.lineWidth = 60;
+
+    // 设置线条两段样式，round圆头，miter默认值两线斜接，bevel两线头构成斜面
+    ctx.lineJoin = 'round';
+    ctx.moveTo(10, 10);
+    ctx.lineTo(110, 110);
+    ctx.lineTo(210, 10);
+    ctx.stroke();
+
+    ctx.miterLimit = 3;
+    ctx.beginPath();
+    ctx.lineJoin = 'bevel';
+    ctx.moveTo(10, 110);
+    ctx.lineTo(110, 210);
+    ctx.lineTo(150, 110);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.miterLimit = 2;
+    ctx.lineJoin = 'miter';
+    ctx.moveTo(10, 210);
+    ctx.lineTo(110, 310);
+    ctx.lineTo(110, 210);
+    ctx.stroke();
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="itcast.js"></script>
+    <script src="select_sub.js"></script>
+    <script src="event.js"></script>
+    <script src="css&attr.js"></script>
+    <style>
+        div {
+            width: 50px;
+            height: 50px;
+            background-color: #0c60ee;
+        }
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div></div>
+<button>按钮</button>
+<script>
+    var but = document.getElementsByTagName( 'button' )[0];
+    var div = document.getElementsByTagName( 'div' )[0];
+    but.onclick = function () {
+        animation( div, {
+            marginLeft: 100
+        }, 500, null, function () {
+            animation( div, {
+                height: 200
+            });
+        });
+    };
+
+    function animation( ele, json, time, easing, fn ) {
+
+        // 假设json只有一个marginLeft属性值
+        var startTime = +new Date(), style,
+            totalTime = time;
+
+        // 计算速度的公式，相比之前与时间无关的版本，需要移出定时器来计算
+        var currentStyle, computedStyles = {};
+
+        // 获取所有样式的初始值，存储起来
+        for (style in json) {
+            currentStyle = parseInt(getStyle( ele, style )) || 0;
+            computedStyles[style] = currentStyle;
+        }
+
+        ele.timer = setInterval( function () {
+            var speed, isStop = true, delayTime, style;
+
+            for ( style in  computedStyles ) {
+
+                // 速度公式
+                delayTime = +new Date() - startTime;
+                delayTime = delayTime > totalTime? totalTime : delayTime;
+
+                // 速度 = 总路程 / 总时长
+                speed = (json[style] - computedStyles[style]) / totalTime;
+
+                // 显示的样式 = 最初样式 + 由时间控制的样式
+                ele.style[style] = currentStyle + speed * delayTime + 'px';
+
+                // 时间版本的动画需要4个变量：初始样式值、样式总变化值、总运动时长、当前运动时长
+                // ele.style[style] = Tween[method](currentTime, initVal, changeVal, delayTime);
+
+                // 时间到了，就可以停止了
+                if ( delayTime >= totalTime ) {
+                    clearInterval( ele.timer );
+                    console.log(+new Date() - startTime);
+                    fn && fn();
+                }
+            }
+        }, 20);
+    }
+
+    //兼容获取属性
+    function getStyle( ele, style ){
+        if( window.getComputedStyle ){
+            return window.getComputedStyle( ele, null )[style];
+        }
+        return ele.currentStyle[style];
+    }
+</script>
+</body>
+</html>

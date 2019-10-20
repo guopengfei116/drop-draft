@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>save&restore</title>
+</head>
+<body>
+<canvas id="cvs" width="1000" height="500" style="border:1px solid black;"></canvas>
+<script>
+    // 得到canvas标记的DOM对象
+    var cvs = document.getElementById('cvs');
+
+    // 得到绘图上下文
+    /*
+     * 绘制2d图形，要传递2d作为参数
+     * 绘制3d图形，要传递webgl作为参数
+     * */
+    var ctx = cvs.getContext('2d');
+
+    function drawCross(color) {
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 5;
+        ctx.moveTo(-1000, 0);
+        ctx.lineTo(1000, 0);
+        ctx.moveTo(0, -1000);
+        ctx.lineTo(0, 1000);
+        ctx.stroke()
+    }
+
+    ctx.save();
+    drawCross('orange');
+
+    ctx.translate(50, 50);
+    drawCross('blue');
+
+    ctx.rotate(45 / 180 * Math.PI);
+    drawCross('yellow');
+
+    ctx.translate(50, 50);
+    ctx.scale(2, 2);
+    drawCross('pink');
+    ctx.restore();
+
+    // 字体px时直接设置自身字体大小
+    ctx.textBaseline = 'top';
+    //ctx.fillRect(0, 0, 150, 150);
+    document.body.style = 'font-size:16px';
+    ctx.font = '32px 微软雅黑';
+    ctx.fillText('回滚完毕', 0, 0);
+
+    // 字体em时按照自己或者父级字体大小为参考物
+    document.body.style = 'font-size:20px';
+    ctx.font = '2em 微软雅黑';
+    ctx.fillText('回滚完毕', 0, 100);
+
+    // 字体百分比时按照父级字体大小为参考物
+    document.body.style = 'font-size:40px';
+    ctx.font = '100% 微软雅黑';
+    ctx.fillText('回滚完毕', 0, 200);
+</script>
+</body>
+</html>

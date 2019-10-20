@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        /*
+        * 函数有两种定义方式：1、声明式定义  2、表达式定义
+        * */
+
+        // 声明式
+        /*
+        * 1、结尾不用加分号
+        * 2、单独存在，与表达式无任何瓜葛
+        * 3、函数申明会被提前(在函数的所在作用域内的任何地方都可以调用)
+        * */
+        name();
+        function name() {
+            console.log('我叫什么呢？');
+        }
+
+        function add() {
+            bdd();
+            function bdd() {
+                console.log('我是bdd');
+            }
+        }
+        add();
+        //bdd();   报错
+
+        // 表达式
+        /*
+        * 1、结尾通常要加分号。
+        * 2、代码是一个语句结构，可以出现在代码的任意地方。
+        * 3、申明不会被提前。
+        * */
+
+        var fn = function () {
+            console.log('我是表达式定义的函数');
+        };
+        var fn1 = function xiaoF() {
+            console.log('我是表达式定义的函数');
+        };
+        (function () {
+            console.log('自己调用自己');
+        })();
+        fn(function () {});
+        fn();
+    </script>
+</body>
+</html>

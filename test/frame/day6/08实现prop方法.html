@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="select_sub.js"></script>
+    <script src="itcast.js"></script>
+    <script src="events.js"></script>
+</head>
+<body>
+    <p id="p1">123</p>
+    <p id="p2">456</p>
+    <script>
+        $.extend({
+            getStyle: function ( ele, name ) {
+                if ( ele.currentStyle ) {
+                    return ele.currentStyle[ name ];
+                }else {
+                    return window.getComputedStyle( ele )[ name ];
+                }
+            }
+        });
+
+        $.fn.extend({
+            attr: function ( name, value ) {
+
+                // 一个参数
+                if ( value === undefined ) {
+
+                    // 获取第一个元素的属性
+                    if ( $.isString( name ) ) {
+                        return this[0].getAttribute( name );
+                    }
+
+                    // 批量设置属性
+                    else if ( typeof name === 'object' ) {
+                        this.each( function () {
+                            var that = this;
+                            $.each( name, function ( key, val ) {
+                                that.setAttribute( key, val );
+                            });
+                        });
+                    }
+                }
+
+                // 两个参数都是字符串，给所有元素设置指定的属性
+                else if ( $.isString( name ) && $.isString( value ) ){
+                    this.each( function () {
+                        this.setAttribute( name, value );
+                    });
+                }
+
+                return  this;
+            },
+
+            prop: function ( name, value ) {
+
+                // 一个参数
+                if ( value === undefined ) {
+
+                    // 获取第一个元素的属性
+                    if ( $.isString( name ) ) {
+                        return this[0][ name ];
+                    }
+
+                    // 批量设置属性
+                    else if ( typeof name === 'object' ) {
+                        this.each( function () {
+                            var that = this;
+                            $.each( name, function ( key, val ) {
+                                that[ key ] = val;
+                            });
+                        });
+                    }
+                }
+
+                // 两个参数都是字符串，给所有元素设置指定的属性
+                else if ( $.isString( name ) && $.isString( value ) ){
+                    this.each( function () {
+                        this[ name ] = value;
+                    });
+                }
+
+                return  this;
+            }
+        });
+    </script>
+    <script>
+        console.log($('p').attr('attr', 'attr_value'));
+        console.log($('p').attr({
+            a: 1,
+            b: 2
+        }));
+        console.log($('p').attr('id'));
+
+        console.log($('p').prop('prop', 'prop_value'));
+        console.log($('p').prop({
+            aaa: 1111,
+            bbb: 2222
+        }));
+        console.log($('p').prop('id'));
+
+
+        // attr 访问 prop 添加的属性
+        console.log($('p').attr('prop'));
+        // prop 访问 attr 添加的属性
+        console.log($('p').prop('attr'));
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #cvs {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="cvs" width="500" height="500"></canvas>
+    <script>
+        var cvs = document.getElementById('cvs');
+        var ctx = cvs.getContext('2d');
+
+        ctx.strokeRect( 50, 50, 30, 30 );
+
+       /* // 默认情况下，旋转是依据坐标系的0,0选择的。
+        ctx.rotate( Math.PI / 6 );
+        ctx.strokeRect( 50, 50, 30, 30 );*/
+
+        /*------------------------------------------------*/
+
+        /*
+        * 为了完成图形的自转，
+        * 需要先把坐标系0，0点移到图形的中心点,
+        * 然后旋转坐标系，
+        * 最后绘制图形（最后绘制图形时，
+        * 该图形仍然需要与坐标系的中心点融合，所以最后图形的x和y为-宽高的一半）。
+        * */
+
+        var startAngle = Math.PI / 90, index = 1;
+        ctx.translate( 50 + 15, 50 + 15 );
+        function rotate() {
+            //ctx.clearRect(0, 0, cvs.width, cvs.height);
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(-15, -15, 30, 30);
+            ctx.save();
+            ctx.rotate( startAngle * index++ );
+            ctx.strokeRect( -15, -15, 30, 30 );
+            ctx.restore();
+            requestAnimationFrame(rotate);
+        }
+        requestAnimationFrame(rotate);
+    </script>
+</body>
+</html>

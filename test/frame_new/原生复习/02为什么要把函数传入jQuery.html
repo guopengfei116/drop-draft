@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        // 在dom元素之前，通过js是无法获取这些dom元素的
+        // 常用的解决方案是，监听load事件，
+        // 但是load通常比较慢，
+        // 后来有了DOMContentLoaded事件，大家都监听这个事件。
+        console.log(document.getElementsByTagName('span')[0]);
+
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log(document.getElementsByTagName('div')[0]);
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+    </div>
+    <div>
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>x
+    </div>
+    <div>
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+    </div>
+</body>
+</html>

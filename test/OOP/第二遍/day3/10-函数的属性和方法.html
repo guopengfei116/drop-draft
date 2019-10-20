@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        function count(a, b) {
+            console.log(count.caller);
+            console.log(a + b);
+            return a + b;
+        }
+
+        /*
+        * 函数自带一些属性，分别是
+        * arguments: null  重点，放到下次重点讲解。
+        *
+        * caller: null 谁调用的我，如果是一个函数，就返回这个函数，否则为null。
+        * 返回一个函数的引用，这个函数调用了当前函数。这个值只要被调用就会重新赋值。
+        * 用来追溯调用者，方便调试。 ES5严格模式下将其作废。
+        *
+        * length: 2 形参的个数。
+        * name: 'count'  函数的名称。
+        * */
+
+        function sumSquare(a, b) {
+            var sum = count(a, b);
+            return sum * sum;
+        }
+
+        console.log(sumSquare(1,2));
+        count(2,3);
+
+        var add = function addAdd()　{
+            add();
+            console.log(123);
+        };
+
+        console.log('add name is：' +　add.name);
+
+        // 函数与对象在原型链中的联系
+        // Function.prototype.__proto__ == Object.prototype
+    </script>
+</body>
+</html>

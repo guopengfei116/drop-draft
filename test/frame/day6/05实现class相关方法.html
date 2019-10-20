@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="select_sub.js"></script>
+    <script src="itcast.js"></script>
+    <script src="events.js"></script>
+</head>
+<body>
+    <p>123</p>
+    <p>456</p>
+    <script>
+        $.extend({
+            getStyle: function ( ele, name ) {
+                if ( ele.currentStyle ) {
+                    return ele.currentStyle[ name ];
+                }else {
+                    return window.getComputedStyle( ele )[ name ];
+                }
+            }
+        });
+
+        $.fn.extend({
+            css: function ( name, val ) {
+                var len = arguments.length;
+
+                // 一参数，获取或者批量样式设置
+                if ( len === 1 ) {
+
+                    // 获取第一个元素的样式
+                    if ( $.isString( name ) ) {
+                        return $.getStyle( this[0], name );
+                    }
+
+                    // 批量设置样式
+                    else if ( typeof name === 'object' ) {
+                        this.each( function () {
+                            for ( var key in name ) {
+                                this.style[ key ] = name[ key ];
+                            }
+                        });
+                    }
+                }
+
+                // 二参数，单一样式设置
+                else if ( len === 2 ) {
+                    this.each( function () {
+                        this.style[ name ] = val;
+                    });
+                }
+
+                return this;
+            },
+            hasClass: function ( className ) {
+                var i = 0, len = this.length;
+                for ( ; i < len; i++ ) {
+                    if ( (' ' + this[i].className + ' ')
+                                    .indexOf(' ' + className + ' ') > -1 ) {
+                        return true;
+                    }
+                }
+                return false;
+            },
+            addClass: function (dom, className) {
+                var _className = dom.className; // className = ' ' + className;
+                if (!_className) dom.className = className;
+                else {
+                    if (!itcast.hasClass(dom, className))
+                        dom.className += ' ' + className;
+                }
+            },
+            removeClass: function (dom, className) {
+                dom.className = itcast.trim((' ' + dom.className + ' ')
+                        .replace(' ' + itcast.trim(className) + ' ', ' '));
+            },
+            toggleClass: function (dom, className) {
+                if (itcast.hasClass(dom, className)) {
+                    itcast.removeClass(dom, className);
+                } else {
+                    itcast.addClass(dom, className);
+                }
+            }
+        });
+    </script>
+    <script>
+
+    </script>
+</body>
+</html>

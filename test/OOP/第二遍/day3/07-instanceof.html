@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // instanceof 用来判断一个对象是否是一个构造函数的实例(实际是判断一个对象 能否访问到 构造函数的原型)
+        console.log(Function instanceof Function);  // 可以理解为Function 是自己的实例。
+
+        console.log(Function instanceof Object); // true   Function ==> Function.protototype ==> Object.prototype
+
+        console.log(Object instanceof Function); // true     Object ==> Function.prototype
+
+        console.log(Object instanceof Object); // true  Object ==> Function.prototype ==> Object.prototype
+
+        var obj = {};
+        console.log(obj instanceof Function); // false  obj ==> Object.prototype ==> null
+        console.log(obj instanceof  Object); // true
+
+        function fn() {}
+        console.log(fn instanceof Object); // true  fn ==> Function.prototype ==> Object.prototype
+        console.log(fn instanceof Function); // true fn ==> Function.prototype
+
+        var fnObj = new fn();
+        console.log(fnObj instanceof fn, 'fnObj instanceof fn'); // true  fnObj ==> fn.prototype
+        console.log(fnObj instanceof Function);  // false  fnObj ==> fn.prototype ==> Object.prototype ==> null
+        console.log(fnObj instanceof Object); // true   fnObj ==> fn.prototype ==> Object.prototype
+
+        /*
+        * 函数一定继承 Function.prototype，
+        * 非函数对象一定不会继承Function.prototype，
+        * 但是所有对象一定继承 Object.prototype。
+        * */
+
+    </script>
+</body>
+</html>

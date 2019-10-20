@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="div1">
+    <ul>
+        <li>捡到一分钱</li>
+        <li>送给警察叔叔</li>
+        <li>点头把我夸</li>
+    </ul>
+</div>
+<div id="div2"></div>
+<script>
+    // 获取dome类
+    var getDome = {
+        id: function (id) {
+            return document.getElementById(id);
+        },
+        name: function (name) {
+            return document.getElementsByTagName(name);
+        }
+    };
+
+    // 设置属性类
+    var setProperty = {
+        setStyle: function (node, style) {
+            for (var key in style) {
+                node.style[key] = style[key];
+            }
+        },
+        setClass: function () {
+
+        }
+    };
+    // dom构造函数
+    function Dom(selector)　{
+        if (selector.charAt(0) == '#') {
+            this.dom = document.getElementById(selector.substring(1));
+        }else {
+            this.dom = document.getElementsByTagName(selector);
+        }
+    }
+
+    Dom.prototype.setStyle = function (style) {
+        if (this.dom.length) {
+            for (var i = 0; i < this.dom.length; i++) {
+                setProperty.setStyle(this.dom[i], style);
+            }
+        }else {
+            setProperty.setStyle(this.dom, style);
+        }
+    };
+
+    var nDiv1 = new Dom('#div1');
+    // 掩盖原型方法
+    nDiv1.setStyle = function () {
+        console.log('内部方法');
+    };
+
+    var nDiv2 = new Dom('#div2');
+    var nLi = new Dom('li');
+
+    //console.log(nDiv1.__proto__ == Dom.prototype);
+    //console.log(nDiv1.setStyle == nDiv2.setStyle);
+    nDiv1.setStyle({
+        "height" : '100px',
+        "width" : '300px',
+        'background' :　'yellow'
+    });
+
+    nDiv2.setStyle({
+        "height" : '120px',
+        "width" : '300px',
+        'background' :　'red'
+    });
+/*
+    nLi.setStyle({
+        paddingTop: '5px',
+        fontSize: '16px'
+    });
+
+    nLi.setStyle({
+        marginLeft: '5px'
+    });*/
+
+</script>
+</body>
+</html>

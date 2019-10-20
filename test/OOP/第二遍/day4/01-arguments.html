@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        /*
+        * 函数的属性
+        *
+        * name 函数名字，匿名函数的名字是‘’
+        * length 形参的个数
+        * caller 返回一个函数的引用，这个引用是调用当前函数的函数    // es5的严格模式下禁用
+        *
+        *
+        * arguments 在规范也被废除了，使用函数内部的一个arguments代替,他是我们函数内部自动添加的一个属性。
+        * arguments是什么？
+        * 他是函数代表实参的对象。
+        * 有什么用？
+        * 可以模拟方法重载，获取任意长度参数。
+        *
+        * arguments是一个类数组，使用方式和数组很像。
+        * */
+
+        /*var fn = function (a, b, c) {
+            console.log(fn.caller === fn2);
+        };
+
+        function fn2() {
+            //arguments
+        }
+
+        console.log('fn name:' + fn.name);
+        console.log(fn.length);*/
+
+        //$('#div1').css('width', '100px'); // 修改元素css样式
+        //$('#div1').css('width'); // 获取元素css样式
+
+        function css(attr, val) {
+            console.log('修改样式');
+        }
+
+        function css(attr) {
+            console.log(attr);
+            console.log(arguments[0]);
+            console.log(arguments[1]);
+            console.log(arguments.length);  // 获取实参的个数
+            console.log(arguments instanceof Object);
+            console.log(arguments instanceof Array);
+            console.log([] instanceof Array);
+            console.log('获取样式');
+        }
+
+        var json = {
+            '0' : 'width',
+            '1' : '50px',
+            '2' : true,
+            'length' : 3
+        };
+
+        // js中重名函数会覆盖掉前面定义的函数，无法完成方法重载。
+        css('width', '50px', 'true');
+
+
+
+    </script>
+</body>
+</html>

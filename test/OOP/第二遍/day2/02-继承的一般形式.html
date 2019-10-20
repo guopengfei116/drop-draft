@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        function Person() {
+
+        }
+           Person.prototype.say = function () {
+            console.log('我要说话了啊');
+        };
+        Person.prototype.run = function () {
+            console.log('走路了');
+        };
+
+        function Student() {
+
+        }
+
+        Student.prototype = new Person();
+        Student.prototype = {
+            constructor: Student,
+                    say : function () {
+                console.log('说话');
+            },
+            run : function () {
+                console.log('走路了');
+            },
+            xuexi : function () {
+                console.log('学习');
+            }
+        };
+
+        var student = new Student();
+ /*       student.say();
+        student.xuexi();*/
+
+        console.log(student.constructor);
+
+       /* var person = new Person();
+        person.say();
+        person.xuexi();*/
+
+        /*
+        * 继承一般实现步骤
+        * 第一步：准备要继承的对象
+        * 第二步：编写构造函数
+        * 第三步：修改构造函数的原型为要继承的对象(记得添加constructor属性喔！)
+        * */
+    </script>
+</body>
+</html>

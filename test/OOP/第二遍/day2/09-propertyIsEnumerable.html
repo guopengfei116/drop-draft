@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // propertyIsEnumerable hasOwnProperty方法的加强版，在它的基础上进一步做了限制:属性是否可枚举。
+        var obj = {a:1, b:'a', c:[1,2]};
+        Object.prototype.itcast = '传值';
+
+        // 如果在fon in 中使用propertyIsEnumerable方法，和hasOwnProperty没区别，因为可以被for in出来的属性，就是可枚举的属性。
+        // 所以propertyIsEnumerable方法无法判断未知属性是否可枚举。
+        for (var key in obj) {
+            if (obj.propertyIsEnumerable(key)) {
+                console.log(key);
+            }
+        }
+
+        // 凡是原型内置的属性和方法都是不可枚举的
+        console.log(Object.prototype.propertyIsEnumerable('hasOwnProperty')); // false
+        console.log(Object.prototype.hasOwnProperty('hasOwnProperty')); // true
+    </script>
+</body>
+</html>

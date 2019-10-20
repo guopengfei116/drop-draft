@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // new Function('a','b',函数体);
+        // 可以把字符串转换为js代码
+        // 这种方式执行的代码，不能访问局部作用域，
+        // 因为new Function返回的函数被当成是顶级函数。
+
+        var str = 'console.log(1)';
+        var str2 = 'console.log(a); var c = 1';
+        var str3 = 'var c = 1';
+        var fn = new Function(str);
+        //fn();
+
+
+        function add() {
+            var a = 1;
+            var fn = new Function(str2);
+            fn();
+        }
+
+        //add();
+
+        // new Function返回的是一个函数，需要手动调用一下，代码才会执行。
+        // 不会污染全局变量。
+
+        // eval
+        // eval(str); 立即执行传入的字符串代码。
+        // eval可以访问局部作用域的变量。
+
+       /* function fn2() {
+            var a = 1;
+            eval(str2);
+            console.log(c);
+        }
+
+        fn2();*/
+
+        /*console.log(c);
+        eval(str3);
+        console.log(c);*/
+
+        /*eval('(function () {' + str3  + '}())');
+        console.log(c);*/
+        /*
+        * new Function 和 eval区别：
+        * new Function创建的函数需要手动调用，eval则立即执行字符串代码。
+        * new Function不会污染全局变量，eval会污染全局变量。
+        * new Function不能访问局部作用域，eval可以访问局部作用域。
+        *
+        * 如果不是有局部作用域变量，那么使用new Function；
+        * 否则使用eval。
+        * */
+
+        // 解析JSON
+        // '{a:1,b:2}'
+        console.log(eval('({a:1,b:2})'));
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        function Animal() {
+
+        }
+        function Dog() {
+
+        }
+
+        var animal = new Animal();
+
+        /*  Dog.prototype = animal;  // 区分
+        var dog = new Dog();*/
+        var dog = Object.create(null);
+        dog.age = 18;
+
+        animal.run = function () {
+            console.log('跑起来');
+        };
+
+        Animal.prototype.tuiCount = 4;
+
+        Object.prototype.isObject = true;
+
+        /*console.log(dog.tuiCount);
+        console.log(dog.isObject);
+        console.log(dog.age);
+        dog.run();*/
+        console.log(dog.toString);
+
+        /*
+        * Object.create方法创建新对象并继承一个对象，但是新对象无任何自由属性，也就是说新对象是一个空对象。
+        * Object.create方法要求传入一个要继承的对象或者null,
+        * 如果传入的为null，则新创建的对象无继承对象(包括Object.prototype)。
+        * */
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="util.js"></script>
+    <script src="bird.js"></script>
+    <script src="sky.js"></script>
+</head>
+<body>
+    <div id="conta"></div>
+    <script>
+        // 初始化画布
+        var conta = document.getElementById('conta');
+        var cvs = document.createElement('canvas');
+        cvs.style.border = '1px solid red';
+
+        var ctx = cvs.getContext('2d');
+
+        // 游戏所需的图片资源地址
+        var imgPaths = {
+            bird: 'imgs/bird.png',
+            land: 'imgs/land.png',
+            pipeDown: 'imgs/pipeDown.png',
+            pipeUp: 'imgs/pipeUp.png',
+            sky: 'imgs/sky.png'
+        };
+        // 用来存储创建好的图片资源
+        var imgObjs = {};
+        var imgNum = 0;
+        // 默认情况下，所有的图片都没有下载完毕
+        var imgIsAllLoaded = false;
+        // 已经加载完毕多少张图片
+        var loadedTotal = 0;
+
+        // 有一个图片已经完毕，就调用这个函数,
+        // 这个函数有查看已经加载的图片数量是否达到满意的数量,
+        // 如果达到，就把imgIsAllLoaded改为true。
+        function imgLoad() {
+            if ( ++loadedTotal >= imgNum ) {
+                imgIsAllLoaded = true;
+            }
+        }
+
+        // 遍历所有图片的地址，创建图片对象
+        for ( var key in imgPaths ) {
+            imgNum++;
+
+            // 按照路径创建图片对象
+            var img = new Image();
+            img.src = imgPaths[key];
+
+            // 每创建一个图片对象，就按照路径的key把它存储起来
+            imgObjs[key] = img;
+
+            (function (key) {
+                img.addEventListener('load', function () {
+                    // 当背景加载完毕之后，初始化画布的宽和高，然后把画布加到div容器中
+                    if ( key === 'sky' ) {
+                        cvs.width = this.width;
+                        cvs.height = this.height;
+                        conta.appendChild(cvs);
+                    }
+                    imgLoad();
+                });
+            }(key));
+        }
+
+        /*
+        * 不停的检测，所有的图片是不是加载完毕
+        * */
+        var timer = setInterval(function () {
+
+            // 如果没有加载完毕，那么不进行操作，
+            // 否则创建各种对象，绘制游戏画面。
+            if (!imgIsAllLoaded) {
+                return;
+            }
+
+            // 只要imgIsAllLoaded为true，就可以清除定时器。
+            clearInterval(timer);
+            console.log('图片都加载完毕了！');
+
+            // 创建鸟实例
+            var bird = new Bird({
+                ctx: ctx,
+                img: imgObjs.bird,
+                widthMaxFrame: 3,
+                width: 50,
+                height: 50
+            });
+
+            // 创建天空实例
+            var sky = new Sky({
+                ctx: ctx,
+                img: imgObjs.sky,
+            });
+            var sky2 = new Sky({
+                ctx: ctx,
+                img: imgObjs.sky,
+                x: imgObjs.sky.width
+            });
+
+            // 渲染游戏画面
+            (function renderGame() {
+                ctx.clearRect( 0, 0, cvs.width, cvs.height );
+                sky.draw();
+                sky.update();
+                sky2.draw();
+                sky2.update();
+                bird.draw();
+                bird.update();
+                requestAnimationFrame(renderGame);
+            }());
+        }, 1000);
+
+        /*
+        * 上面代码的大概思路：
+        * 1、初始化canvas和context对象
+        * 2、通过图片路径加载图片资源，并把加载到的图片资源存储起来，以供将来使用
+        * 3、在加载图片的时候，需要监听他们的load事件，以此统计所有的图片是不是都加载完毕了，
+        * 如果是，就把一个变量设置为true。
+        *
+        * 下面代码的大概思路：
+        * 开一个定时器，不停的判断图片是不是都加载完毕了，
+        * 如果是，那么就可以创建各种实例，然后渲染游戏画面了。
+        * */
+    </script>
+</body>
+</html>

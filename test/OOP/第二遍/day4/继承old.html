@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // 继承:一个对象拥有了另一个对象的能力，我们就说这个对象继承了那个对象。这就是继承。
+        // 继承本质是为了代码复用。
+
+        // 想一想：我们前面学过的哪些知识，能够让一个对象拥有另一个对象的能力？
+        // 原型可以完成继承。
+
+        function Person() {
+
+        }
+
+        var lisi = new Person();
+
+        // lisi继承自它的原型对象(lisi继承自Person的原型属性)。
+
+
+        var burudongwu = {
+            run : function () {
+                console.log('跑步');
+            },
+            xue : '热的',
+            age : 0
+        };
+
+        function Dog(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Dog.prototype = burudongwu;
+
+        var wangcai = new Dog('旺财', 2);
+        wangcai.run();
+
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+            this.create = function () {
+                console.log('发明机器');
+            };
+        }
+        Person.prototype = burudongwu;
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        /*
+        * 创建一个Person构造函数，这个构造函数有一个静态属性count，
+        * 用来统计通过Person创建的总人数，也就是说每通过Person创建一个对象，
+        * count++，默认count = 0。
+        * */
+
+        /*function Person(name, age) {
+            Person.count++;
+            this.name = name;
+            this.age = age;
+        }
+
+        Person.count = 0;
+
+        var zhangsan = new Person('张三', 18);
+        var lisi = new Person('李四', 18);
+        console.log(Person.count);*/
+
+        var Person = (function () {
+             var count = 0;
+             function PersonIn(name, age) {
+                count++;
+                this.name = name;
+                this.age = age;
+             };
+             PersonIn.getCount = function () {
+                return count;
+             };
+             return PersonIn;
+        }());
+
+        var zhangsan = new Person('张三', 18);
+        var lisi = new Person('李四', 18);
+        var xiaohong = new Person('小红', 18);
+        console.log(Person.getCount());
+
+    </script>
+</body>
+</html>

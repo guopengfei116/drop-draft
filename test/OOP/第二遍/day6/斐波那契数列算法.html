@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // 1,1,2,3,5,8,13,21,34,55
+        /*
+        * fn(0) = 1
+        * fn(1) = 1
+        * fn(2) = fn(n - 1) + fn(n - 2)
+        * fn(3) = fn(n - 1) + fn(n - 2)
+        * */
+
+        /*
+        * 要解决重复计算的问题，可以把已经计算过的结果保存起来，
+        * 下次遇到相同的计算直接取值即可。
+        * 因为要保存的值很多，所以不可能定义很多变量，只能使用对象或者数组存储。
+        *
+        * 1、创建一个数组，按照斐波那契数值对应的下标来存储。
+        * 2、把计算的结果按照n做下标存储(return的值)。
+        * 3、每次获取斐波那契数值的时候，先到数组里去找，没有再计算。
+        * */
+
+        /*
+        * 把未来可能需要重复使用的数据存起来，
+        * 这种解决方案叫缓存。
+        * */
+        var count = 0;
+        var fibonacci = (function getFibonacci() {
+            var fibonacciArr = [];
+            return function fibonacci(n) {
+                count++;
+
+                if (fibonacciArr[n]) {
+                    return fibonacciArr[n];
+                }
+
+                var result;
+                if (n === 0 || n === 1) {
+                    fibonacciArr[n] = 1;
+                    return 1;
+                } else {
+                    result = fibonacci(n - 1) + fibonacci(n - 2);
+                    fibonacciArr[n] = result;
+                    return result;
+                }
+            }
+        }());
+
+        //var fibonacci = getFibonacci();
+
+        console.log(fibonacci(5));
+        console.log(count);
+
+        count = 0;
+        console.log(fibonacci(5));
+        console.log(count);
+
+        count = 0;
+        console.log(fibonacci(50));
+        console.log(count);
+
+        count = 0;
+        console.log(fibonacci(50));
+        console.log(count);
+
+    </script>
+</body>
+</html>

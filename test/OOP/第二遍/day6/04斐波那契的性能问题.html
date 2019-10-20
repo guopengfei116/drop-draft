@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        //[1, 1, 2, 3, 5, 8 , 13, 21]
+        var cache = [1, 1, 2, 3, 5, 8 , 13, 21];
+        function fibonacci(n) {
+            if (n === 0 || n === 1) {
+                return 1;
+            } else {
+                return (fibonacci(n - 1) + fibonacci(n - 2));
+            }
+        }
+
+        fibonacci(4);
+        console.log(count);
+
+    </script>
+</body>
+</html>

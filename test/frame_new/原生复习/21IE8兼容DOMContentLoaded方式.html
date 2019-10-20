@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        /*
+        * IE8不支持DOMContentLoaded事件，
+        * 但是IE8所有的页面元素都支持onreadystatechange事件。
+        * 这个事件比onload要快。
+        * */
+
+
+
+        window.attachEvent('onload', function () {
+            console.log('onload');
+        });
+        document.attachEvent('onreadystatechange', function () {
+            // 当readyState为complete的时候，再做其他事情
+            if ( document.readyState == 'complete' ) {
+                console.log('onreadystatechange');
+            }
+        });
+
+        setTimeout(function () {
+            document.attachEvent('onload', function () {
+                if ( document.readyState == 'complete' ) {
+                    console.log('setTimeout');
+                }
+            });
+        }, 1000);
+    </script>
+</body>
+</html>

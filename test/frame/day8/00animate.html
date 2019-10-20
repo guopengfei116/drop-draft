@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="select_sub.js"></script>
+    <script src="itcast.js"></script>
+    <script src="event.js"></script>
+    <script src="css&attr.js"></script>
+    <script src="animate.js"></script>
+    <style>
+        div {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            left: 0;
+            background-color: fuchsia;
+        }
+        #div2 {
+            top: 300px;
+        }
+        button {
+            position: absolute;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <div id="div2"></div>
+    <button>点击</button>
+    <script>
+        $('div').animate({
+            width: 200
+        }, function () {
+            $('div').animate({
+                left: 300,
+                opacity: 0.4
+            }, 400, function () {
+                $('div').animate({
+                    height: 200,
+                    opacity: 1
+                }, 1500, 'easeInElastic');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="div1">
+        <ul>
+            <li>捡到一分钱</li>
+            <li>送给警察叔叔</li>
+            <li>点头把我夸</li>
+        </ul>
+    </div>
+    <script>
+        // dom构造函数
+        function Dom(selector)　{
+            if (selector.charAt(0) == '#') {
+                this.dom = document.getElementById(selector.substring(1));
+            }else {
+                this.dom = document.getElementsByTagName(selector);
+            }
+
+            this.setStyle = function (style) {
+                if (this.dom.length) {
+                    for (var i = 0; i < this.dom.length; i++) {
+                        for (var key in style) {
+                            this.dom[i].style[key] = style[key];
+                        }
+                    }
+                }else {
+                    for (var key in style) {
+                        this.dom.style[key] = style[key];
+                    }
+                }
+            };
+        }
+
+        var nDiv1 = new Dom('#div1');
+        var nLi = new Dom('li');
+
+        nDiv1.setStyle({
+            "height" : '100px',
+            "width" : '300px',
+            'background' :　'yellow'
+        });
+
+        nLi.setStyle({
+            paddingTop: '5px',
+            fontSize: '16px'
+        });
+    </script>
+</body>
+</html>

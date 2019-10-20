@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="../lessons/库/jquery-1.11.1.js"></script>
+<style>
+    ul > li {
+        margin: 10px;
+        height: 20px;
+    }
+</style>
+<ul>
+    <li class="li">1</li>
+    <li class="li">2</li>
+    <li class="li">3</li>
+</ul>
+<body>
+    <script>
+
+        var myLi = {
+            0: document.querySelector('li'),
+            click: function (fn) {
+                this[0].onclick = function () {
+                    fn.call(this);
+                };
+            }
+        };
+
+        myLi.click(function () {
+            console.log(this);
+        });
+</script>
+</body>
+</html>

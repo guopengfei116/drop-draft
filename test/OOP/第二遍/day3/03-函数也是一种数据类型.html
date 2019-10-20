@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // 赋值给变量、传递
+
+        function fn() {
+            console.log('调用成功');
+        }
+        var fn2 = fn;
+        //fn2();
+
+        function fnDiaoyong(fn) {
+            fn();
+        }
+        fnDiaoyong(fn);
+        fnDiaoyong(fn());
+
+        /*
+        * 在函数传参的过程中，如果要传递一个函数，谨记不要加(),否则就变成了传递函数的执行结果。
+        * */
+
+    </script>
+</body>
+</html>

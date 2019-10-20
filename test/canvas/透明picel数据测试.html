@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="cvs" width="500" height="500" style="border: 1px solid red"></canvas>
+<script>
+    var cvs = document.getElementById('cvs');
+    var ctx = cvs.getContext('2d');
+
+    //ctx.globalAlpha = 1;
+    //ctx.fillStyle = 'rgba(255,0,255,0.1)';
+    ctx.fillRect(0, 0, cvs.width, cvs.height);
+
+    var data = ctx.getImageData(0, 0, cvs.width, cvs.height).data;
+    for (var i = 0; i < 20; i+=4) {
+        console.log(data[i], data[i + 1], data[i + 2], data[i + 3]);
+    }
+</script>
+</body>
+</html>
