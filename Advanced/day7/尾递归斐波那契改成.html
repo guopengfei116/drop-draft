@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        /*
+        * 尾递归：
+        * 就是在递归函数的最后部分进行递归调用，并且没有额外的附加操作。
+        * 尾递归在有些编程语言中，会进行一些优化。
+        * 1、1、2、3、5、8、13
+        * */
+
+        function fibonacci(n) {
+            if (n <= 1) {
+                return 1;
+            }else {
+                return fibonacci(n - 1) + fibonacci(n - 2);
+            }
+        }
+        console.log(fibonacci_fail(6));
+
+        // 尾递归
+        var count = 0;
+        function fibonacci_fail(n, a, b) {
+            count++;
+            a = a || 1;
+            b = b || 1;
+            if (n <= 1) {
+                return b;
+            }else {
+                // 这里的n-1相当于用来控制计算的次数
+                return fibonacci_fail(n - 1, b, a + b);
+            }
+        }
+
+        // 尾递归的速度也很快
+        console.log(fibonacci_fail(1000), count);
+    </script>
+</body>
+</html>

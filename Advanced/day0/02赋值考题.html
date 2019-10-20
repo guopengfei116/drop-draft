@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+    	// 全局变量 ==> 在函数外声明的变量就是全局变量
+    	// 局部变量 ==> 在函数内声明的变量或者形参就是局部变量
+    	
+    	// 这道题与引用数据类型赋值有关，与局部变量和全局变量也有关
+        var obj = {};
+        function foo(obj) {
+            obj.name = '宅男';
+            obj = {};  // 把局部变量obj的引用换掉了，引用了一个新对象
+            obj.name = '腐女';
+        }
+        // 调用foo，把obj的地址传递进入，
+        // 这时候foo内部就有了一个局部变量，引用与全局下的obj一致。
+        foo(obj);  
+        console.log(obj.name); // 宅男，因为全局下的obj引用了还是旧对象
+        
+        /*------------------------------------------------------------------------*/
+       
+       // 这道题与引用数据类型赋值有关，与局部变量和全局变量也有关
+       // 区别在于这道题中的foo函数去掉了形参
+        var obj = {a:1};
+        function foo() {
+            obj.name = '宅男';
+            obj = {};  // 把全局obj的引用地址修改为新对象
+            obj.name = '腐女'; 
+        }
+        foo(obj);  
+        console.log(obj.name); // 腐女
+    </script>
+</body>
+</html>

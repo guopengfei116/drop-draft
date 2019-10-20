@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>instanceof考题</title>
+</head>
+<body>
+    <script>
+    	
+        // 考题1
+        function Person() {}
+        Person.prototype.eat = '吃';
+        var p1 = new Person();
+        console.log(p1 instanceof Person);  //
+        console.log(p1 instanceof Function); //
+        console.log(p1 instanceof Object); //
+
+        // 考题2
+        function Person() {}
+        var p1 = new Person();
+        Person.prototype = {
+            run: '跑'
+        };
+        var p2 = new Person();
+        console.log(p1 instanceof Person);  //
+        console.log(p2 instanceof Person); //
+
+        // copy函数
+        function extend(obj1, obj2) {
+            for(var key in obj2) {
+                obj1[key] = obj2[key];
+            }
+        }
+        
+        // 考题3
+        function Person() {}
+        Person.prototype = {
+            run: '跑'
+        };
+        var p1 = new Person();
+        function Student() {}
+        var p2 = new Student();
+        extend(Student.prototype, Person.prototype);
+        var p3 = new Student();
+
+        console.log(p1 instanceof Student); //
+        console.log(p1 instanceof Person); //
+        console.log(p2 instanceof Student); //
+        console.log(p2 instanceof Person); //
+        console.log(p3 instanceof Student);  //
+        console.log(p3 instanceof Person);  //
+
+        // 考题4
+        function Student() {}
+        var p1 = Object.create(Student.prototype);
+
+        console.log(p1 instanceof Student); //
+        console.log(p1 instanceof Function); //
+        console.log(p1 instanceof Object); //
+        
+        // 考题5
+        function Person() {}
+        function Student() {}
+        extend(Student.prototype, Person.prototype);
+        var p1 = Object.create(Student.prototype);
+
+        console.log(p1 instanceof Student); //
+        console.log(p1 instanceof Person); //
+
+        // 考题6
+        function Person() {}
+        function Student() {}
+        var p1 = new Student();
+        Student.prototype = new Person();
+        var p2 = new Student();
+
+        console.log(p1 instanceof Student);  //
+        console.log(p1 instanceof Person); //
+        console.log(p2 instanceof Student); //
+        console.log(p2 instanceof Person); //
+
+        // 考题7
+        
+        // Number ==>
+        console.log(Number instanceof Function); //
+        console.log(Number instanceof Object);  //
+
+        // Function ==>
+        console.log(Function instanceof Function); //
+        console.log(Function instanceof Object); //
+
+        // Object ==>
+        console.log(Object instanceof Function);  //
+        console.log(Object instanceof Object); //
+
+        // new Date ==>
+        console.log(new Date instanceof Function);  //
+        console.log(new Date instanceof Object); //
+
+        // new Function ==>
+        console.log(new Function instanceof Function); //
+        console.log(new Function instanceof Object); //
+
+        // new Object ==>
+        console.log(new Object instanceof Function); //
+        console.log(new Object instanceof Object); //
+    </script>
+</body>
+</html>

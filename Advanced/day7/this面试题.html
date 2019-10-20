@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        // 考题1
+        function Fn() {
+            console.log(this);
+        }
+        Fn();
+        new Fn();
+        Fn.apply(Fn);
+
+        /*---------------------------------------------------------*/
+
+        // 考题2
+        var o = {
+            fn : function () {
+                console.log(this);
+            }
+        };
+        o.fn();  // 
+        new o.fn(); // 
+        o.fn.apply(o.fn); // 
+
+        /*---------------------------------------------------------*/
+       
+       // 考题3
+        var arr = [
+        	function() {
+        		console.log(this);
+        	}
+        ];
+
+        arr[0]();  // 
+        new arr[0](); // 
+        arr[0].call(Date); // 
+       
+       /*---------------------------------------------------------*/
+
+		// 考题4
+        var name ='out';
+        var obj ={
+            name:'in',
+            prop:{
+                name:'inside',
+                getName:function(){
+                    return this.name;
+                }
+            }
+        };
+        console.log(obj.prop.getName());
+        var test = obj.prop.getName;
+        console.log(test());
+
+        /*-------------------------------------------------------*/
+       
+       // 考题5
+        var name ='out';
+        var obj ={
+            name:'in',
+            prop:{
+                name:'inside',
+                getName:function(){
+                    return this.name;
+                }
+            }
+        };
+        console.log(obj.prop.getName.apply(this));
+        
+        /*-------------------------------------------------------*/
+
+        // 考题6
+        var length = 10;
+        function fn() {
+            console.log(this.length);
+        }
+        var obj = {
+            length: 5,
+            method: function (f) {
+                f();
+                arguments[0]();
+            }
+        };
+        obj.method(fn);
+
+        /*---------------------------------------------------------*/
+       
+       // 考题7
+        var length = 10;
+        function fn() {
+            console.log(this.length);
+        }
+        var obj = {
+            length: 5,
+            method: function (f) {
+                arguments[0].call(this);
+            }
+        };
+        obj.method(fn);
+        
+        /*---------------------------------------------------------*/
+
+        // 考题8
+        var scope = 'global';
+        function log() {
+            console.log(this.scope + ':' + arguments[0]);
+        }
+        var dog = {
+            scope : 'dog',
+            yelp : function () {
+                var scope = 'dog.yelp';
+                log('wow');
+                log.call(this, 'wow');
+            }
+        };
+        dog.yelp();
+        dog.yelp.apply(dog);
+        log.call(dog, 'created');
+
+    </script>
+</body>
+</html>

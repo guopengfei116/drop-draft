@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<article>
+			<section>
+				<a>article1_section_a1</a>
+				<a>article1_section_a2</a>
+			</section>
+		</article>
+		<article>
+			<section>
+				<a>article2_section_a1</a>
+				<a>article2_section_a2</a>
+			</section>
+		</article>
+		<script>
+			/**
+			 * 需求：以递归的形式获取页面所有元素
+			 * */
+			
+//			var nodes = [ document.documentElement ];
+//			for(var i = 0, len = nodes.length; i < len; i++) {
+//				var chil = nodes[i].children;
+//				if(!chil.length) {
+//					break;
+//				}else {
+//					// 因为chil是伪数组对象，所以要利用apply的特性依次push给数组
+//					nodes.push.apply(nodes, chil);
+//				}
+//			}
+//			console.log(nodes);
+
+			function getNodes0() {
+				return [ document.documentElement ];
+			}
+			var nodes0 = getNodes0()
+			console.log(getNodes0());
+			
+			function getNodes1(nodes) {
+				// 遍历nodes，依次获取每一个元素的子元素添加的nodes里面
+				for(var i = 0, len = nodes.length; i < len; i++) {
+					nodes.push.apply(nodes, nodes[i].children);
+				}
+				return nodes;
+			}
+			var nodes1 = getNodes1(nodes0);
+			console.log(nodes1);
+			
+			function getNodes2(nodes) {
+				// 遍历nodes，依次获取每一个元素的子元素添加的nodes里面
+				for(var i = 1, len = nodes.length; i < len; i++) {
+					nodes.push.apply(nodes, nodes[i].children);
+				}
+				return nodes;
+			}
+			var nodes2 = getNodes2(nodes1);
+			console.log(nodes2);
+			
+			function getNodes3(nodes) {
+				// 遍历nodes，依次获取每一个元素的子元素添加的nodes里面
+				for(var i = 3, len = nodes.length; i < len; i++) {
+					nodes.push.apply(nodes, nodes[i].children);
+				}
+				return nodes;
+			}
+			var nodes3 = getNodes3(nodes2);
+			console.log(nodes3);
+			
+			function getNodes4(nodes) {
+				// 遍历nodes，依次获取每一个元素的子元素添加的nodes里面
+				for(var i = 8, len = nodes.length; i < len; i++) {
+					nodes.push.apply(nodes, nodes[i].children);
+				}
+				return nodes;
+			}
+			var nodes4 = getNodes4(nodes3);
+			console.log(nodes4);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        function Foo() {
+            getName = function(){ alert(1); }; // 把全局下的getName进行了修改
+            return this;
+        }
+        // 这是静态成员，只有Foo自己才能调用
+        Foo.getName = function() { alert(2); };
+        
+        // 这是实例成员，只有Foo的实例才能调用
+        Foo.prototype.getName = function(){ alert(3); };
+
+        // 当前全局下留下的getName，alert(4)
+        function getName(){ alert(5); };
+        getName = function() { alert(4); };
+
+        /*
+        * 这里面有三个getName，
+        * 静态方法，
+        * 实例方法，
+        * 全局方法。
+        * */
+        Foo.getName();  // 静态方法，2
+        getName();      // 全局方法，4
+
+        /*
+        * Foo是函数调用模式，所以里面返回的this指向window，
+        * 同时Foo在执行时把全局方法进行了修改，alert(1)。
+        * */
+        Foo().getName(); // 全局方法，1
+
+        getName();  // 全局方法，1
+
+        new Foo.getName(); // 静态方法，2
+
+        /*
+        * 构造器模式调用Foo，所以得到Foo的实例，
+        * 然后通过实例调用getName，调用的就是Foo原型上的getName。
+        * */
+        new Foo().getName(); // 实例方法，3
+
+        /*
+        * 第二个new，new出一个Foo的实例，
+        * 然后第一个new，new Foo实例的getName方法，
+        * 相当于第一个new，new Foo.prototype.getName。
+        * */
+        new new Foo().getName(); // 实例方法，3
+        //
+        //
+        //    console.log(new Object);
+        //    //    / 运算符优先级问题：new 、.
+        //    // 因为此时 点运算符的优先级要比 new（不带参数列表）要高
+        //    // 所以，此时new 调用的是： Foo.getName
+        //    new Foo.getName();         // ? 2
+        //
+        //    // 先创建 Foo的实例对象，再调用 getName
+        //    // var f = new Foo();
+        //    // f.getName();
+        //    new Foo().getName();       // ? 3
+        //
+        //    // new 运算符的后面必须要跟一个函数调用
+        //    // var f = new Foo();
+        //    // new f.getName();
+        //    new new Foo().getName();   // ? 3
+    </script>
+</body>
+</html>

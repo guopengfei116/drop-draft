@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        /*-----------------------普通递归推导----------------------*/
+        function fib(n) {
+            if(n <= 1) {
+                return 1;
+            }
+            return fib(n - 1) + fib(n - 2);
+        }
+
+        console.log(fib(8));
+
+        /*------------------------尾递归推导--------------------*/
+        /*
+        *  尾递归中的n相当于次数控制，类似与for循环。
+        *
+        * */
+        var count = 0;
+        function fib_tail(n, a, b) {
+            count++;
+            a = a || 1;
+            b = b || 1;
+            if (n <= 1) {
+                return b;
+            }else {
+                return fib_tail(n - 1, b, a + b);
+            }
+        }
+
+        console.log(fib_tail(1000), count);
+
+        /*------------------------尾递归推导2--------------------*/
+        function fib_tail2(n, a, b) {
+            a = a || 1;
+            b = b || 1;
+            if (n == 2) {
+                return a + b;
+            }else {
+                return fib_tail2(n - 1, b, a + b);
+            }
+        }
+
+        console.log(fib_tail2(8));
+
+    </script>
+</body>
+</html>

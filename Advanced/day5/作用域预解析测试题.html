@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>考题</title>
+</head>
+<body>
+    <script>
+         // 考题一
+         console.log(a);
+         if (false) {
+            var a = 10;
+         }
+         console.log(a);
+
+        // 考题二
+//      console.log(a);
+//      if ('a' in window) {
+//          var a = 10;
+//      }
+//      console.log(a);
+
+
+        // 考题三
+//      if ('a' in window) {
+//          (function(){
+//              var a = 10;
+//          }());
+//      }
+//      console.log(a);
+
+
+         // 考题四
+//       var val = 321;
+//       function test() {
+//          if(true) {
+//              var val = 123;
+//          }
+//       }
+//       test();
+//       console.log(val);
+
+
+        // 考题五
+//      (function fn() {
+//          function fn1 () {
+//              var a = 1;
+//          }
+//          (function fn2 () {
+//              fn1()
+//              console.log(a);
+//          })();
+//      })();
+
+        // 考题六
+//      var val = 1;
+//      function add1() {
+//          console.log(val + 1);
+//      }
+//      (function () {
+//          var val = 10;
+//          add1();
+//      }());
+
+        // 考题七
+//      var a = 20;
+//      (function fn() {
+//          if (false) { var a = 10 }
+//          (function fn2 () {
+//              console.log(a);
+//          })();
+//      })();
+
+        // 考题八
+//      function fn(a) {
+//          console.log(a);
+//          var a = 2;
+//          console.log(a);
+//      }
+//      fn();
+//      fn(200);
+
+
+        // 考题九
+//      var a = 100;
+//      function fn() {
+//          console.log(a);
+//      }
+//      function fn2() {
+//          var a = 1;
+//          fn();
+//          function fn3 () {
+//              var type = 'fn';
+//              console.log(a);
+//          }
+//          fn3();
+//      }
+//      fn2();
+
+         // 考题十
+//       console.log(a);
+//       var a = 1;
+//       console.log(a);
+//       function a() { console.log('fn1') }
+//       console.log(a);
+//       var a = 3;
+//       console.log(a);
+//       function a() { console.log('fn2') }
+//       console.log(a);
+//       var a = function () { console.log('fn3') };
+//       console.log(a);
+
+        // 考题十一
+//      var a = 1;
+//      function fn(a) {
+//          console.log(a);
+//          a = 2;
+//          console.log(a);
+//      }
+//      fn();
+//      console.log(a);
+
+         // 考题十二
+//       var a = 1;
+//       function fn() {
+//           console.log(a);
+//           a = 2;
+//           console.log(a);
+//       }
+//       fn();
+//       console.log(a);
+
+         // 考题十三
+//       var a = 1;
+//       function fn(a) {
+//           console.log(a);
+//           var a = 2;
+//           function a() {}
+//           console.log(a);
+//       }
+//       fn(a);
+    </script>
+</body>
+</html>
