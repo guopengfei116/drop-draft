@@ -1,0 +1,24 @@
+ {
+
+ 	// 编译配置
+ 	"compilerOptions": {
+ 		"module": "commonjs",
+ 		"noImplicitAny": true,
+ 		"removeComments": true,
+ 		"preserveConstEnums": true,
+		"outDir": "./dist",
+ 		"sourceMap": true,
+ 		"target": "es5"
+ 	},
+
+ 	// 设置要编译的目录或文件
+ 	"include": [
+ 		"src/**/*"
+ 	],
+
+ 	// 设置排除编译的目录或文件
+ 	"exclude": [
+ 		"node_modules",
+ 		"**/*.spec.ts"
+ 	]
+ }

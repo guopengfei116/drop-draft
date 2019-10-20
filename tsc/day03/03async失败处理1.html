@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	  <script>
+	  function timeout(time) {
+      return new Promise(function(yes, no) {
+        setTimeout(function() {
+          no();
+        }, time);
+      });
+    }
+
+	  // 方式1
+//  async function test(time) {
+//      await timeout(time).catch(() => console.log('失败'));
+//      console.log('成功');
+//  }
+//  test(2000);
+
+    // 方式2
+//  async function test(time) {
+//      try {
+//          await timeout(time);
+//          console.log('成功');
+//      }catch(e) {
+//          console.log('失败');
+//      }
+//  }
+//  test(2000);
+
+    // 方式3
+    async function test(time) {
+        await timeout(time);
+        console.log('成功');
+    }
+    // async函数调用后会返回一个promise,可以调用then或catch添加成功失败回调
+    test(3000).catch(() => console.log('失败'));
+	  </script>
+	</body>
+</html>
