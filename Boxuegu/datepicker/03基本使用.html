@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="./bootstrap/css/bootstrap.css"/>
+		<link rel="stylesheet" href="./datepicker/css/bootstrap-datepicker3.css"/>
+		<script src="./jquery/jquery.js"></script>
+		<script src="./bootstrap/js/bootstrap.js"></script>
+		<script src="./datepicker/js/bootstrap-datepicker.js"></script>
+	</head>
+	<body>
+		<div class="input-group input-daterange">
+		    <input type="text" class="form-control" value="2012-04-05">
+		    <div class="input-group-addon">to</div>
+		    <input type="text" class="form-control" value="2012-04-19">
+		</div>
+		<script>
+			//$('.input-group').datepicker();
+			
+			$('.input-daterange input').each(function() {
+			    $(this).datepicker('clearDates');
+			});
+		</script>
+	</body>
+</html>

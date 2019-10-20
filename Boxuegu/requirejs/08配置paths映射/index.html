@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        /*
+        * 配置了paths需要注意，如果模块有名字，
+        * paths里必须使用模块名进行配置，否则无法正确得到模块的返回值。
+        *
+        * 例如：jQuery库的模块名叫jquery，配置时就必须使用jquery。
+        * */
+    </script>
+    <script type="text/template" id="tpl">
+        <% for(var i = 0, len = list.length; i < len; i++) { %>
+            <li><%= list[i] %></li>
+        <% } %>
+    </script>
+    <script src="../require-2.3.3.js" data-main="./js/main"></script>
+</body>
+</html>

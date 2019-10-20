@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			function requirejs(jsSrcs, fn) {
+				var i = 0, len = jsSrcs.length;
+				var tempScript = null;
+				var scrTotal = 0,
+					loadedTotal = 0;
+				for(; i < len; i++) {
+					scrTotal++;
+					tempScript = document.createElement('script');
+					tempScript.onload = function() {
+						if(++loadedTotal >= scrTotal) {
+							fn && fn();
+						}
+					};
+					tempScript.src = jsSrcs[i] + '.js';
+					document.head.appendChild(tempScript);
+				}
+			}
+
+			var scriptSrcs = ['js/a', 'js/b', 'js/c'];
+			requirejs(scriptSrcs, function() {
+				console.log('都执行完毕了');
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="./bootstrap/css/bootstrap.css"/>
+		<link rel="stylesheet" href="./datepicker/css/bootstrap-datepicker3.css"/>
+		<script src="./jquery/jquery.js"></script>
+<!--		<script src="./bootstrap/js/bootstrap.js"></script>-->
+		<script src="./datepicker/js/bootstrap-datepicker.js"></script>
+		<script src="./datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+	</head>
+	<body>
+		<input type="text" class="form-control" value="2017-03-01"/>
+		<input type="text" class="form-control" value="2012-04-19">
+		<button data-provide="datepicker">选项</button>
+		<script>
+			/*$('.form-control').datepicker({
+				format: 'yyyy-mm-dd',
+				language: 'zh-CN',
+				startDate: '2017-02-01',
+				endDate: '2017-05-01',
+			}).on('changeDate', function(ev) {
+				console.log(ev.date.getTime());
+			});
+			*/
+			
+			var arr = [];
+			$('input').each(function() {
+			    arr.push($(this).datepicker({
+					format: 'yyyy-mm-dd',
+					language: 'zh-CN',
+					startDate: '2017-02-01',
+					endDate: '2017-05-01',
+				}).on('changeDate', function(ev) {
+					console.log(ev.date.getTime());
+				}));
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			/*
+			 * 把所有cookie转换为一个对象，方便获取：
+			 * 1、预定义一个对象
+			 * 2、使用split方法把所有cookie字符串切成数组
+			 * 3、遍历这个数组，得到所有单个cookie字符串
+			 * 4、继续使用split方法把单个cookie劈成key与val
+			 * 5、按照key与val存储到预定义的对象中。
+			 * */
+			var cookieObj = {},
+				  cookies = document.cookie && document.cookie.split('; '), 
+				  tempArr;
+			
+			var i = 0, len = cookies.length;
+			for(; i< len; i++) {
+				tempArr = cookies[i].split('=');
+				cookieObj[tempArr[0]] = tempArr[1];
+			}
+			
+			console.log(cookieObj);
+		</script>
+	</body>
+</html>

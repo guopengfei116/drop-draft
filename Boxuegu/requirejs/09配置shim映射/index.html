@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        /*
+        * 也有一些第三方库不支持模块，
+        * 如果这个第三方库不存在依赖关系，则按需配置一下path即可使用，
+        * 如果存在依赖，可以通过配置shim来让requirejs保证该模块执行之前加载所有的依赖。
+        *
+        * 必须我们要使用的bootstrap，它就不支持模块，但是它依赖与jquery，
+        * 我们必须保证bootstrap执行时，页面已存在jquery，这就需要配置shim了。
+        * */
+    </script>
+    <script type="text/template" id="tpl">
+        <% for(var i = 0, len = list.length; i < len; i++) { %>
+            <li><%= list[i] %></li>
+        <% } %>
+    </script>
+    <script src="../require-2.3.3.js" data-main="./js/main"></script>
+</body>
+</html>

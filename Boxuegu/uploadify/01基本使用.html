@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="./uploadify/uploadify.css" />
+		<script src="./jquery/jquery.js"></script>
+		<script src="./uploadify/jquery.uploadify.js"></script>
+	</head>
+	<body>
+		<h1>上传文件</h1>
+		<input  id="uploadify" type="file" />
+		<script>
+			$('#uploadify').uploadify({
+				swf: './uploadify/uploadify.swf',
+				uploader: './uploadify/uploadify.php'
+			});
+		</script>
+	</body>
+</html>

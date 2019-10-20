@@ -1,0 +1,45 @@
+var data = {
+	"p": {
+		"110": "北京市",
+		"120": "天津市",
+		"130": "河北省"
+	},
+	"c": {
+		"110": {
+			// 
+		},
+		"120": {
+			// 
+		},
+		"130": {
+			"130634": "保定市",
+			"130627": "石家庄",
+			"130639": "邯郸市"
+		}
+	},
+	"d": {
+		"130634123": "曲阳县"
+	}
+}
+
+<select>
+	<option value="110">北京市</option>
+	<option value="120">天津市</option>
+	<option value="130">河北省</option>
+</select>
+
+<select>
+	<option value="130634">保定市</option>
+	<option value="130627">石家庄</option>
+	<option value="130639">邯郸市</option>
+</select>
+
+<select>
+	<option value="130634123">曲阳县</option>
+</select>
+
+data["c"]["120"]
+
+data["d"]["130634"]
+
+// 做多级联动需要数据满足特定格式

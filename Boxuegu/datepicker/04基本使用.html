@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="./bootstrap/css/bootstrap.css"/>
+		<link rel="stylesheet" href="./datepicker/css/bootstrap-datepicker3.css"/>
+		<script src="./jquery/jquery.js"></script>
+		<script src="./bootstrap/js/bootstrap.js"></script>
+		<script src="./datepicker/js/bootstrap-datepicker.js"></script>
+	</head>
+	<body>
+		<div id="datepicker" data-date="12/03/2012">日期</div>
+		<input type="hidden" id="my_hidden_input"/>
+		<script>
+			var $datepicker = $('#datepicker').datepicker();
+			$datepicker.on('changeDate', function() {
+			    $('#my_hidden_input').val(
+			        $('#datepicker').datepicker('getFormattedDate')
+			    );
+			});
+			
+			console.log($datepicker);
+		</script>
+	</body>
+</html>

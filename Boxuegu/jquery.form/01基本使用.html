@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script src="jquery/jquery.js"></script>
+		<script src="jquery-form/jquery.form.js"></script>
+		<script type="text/javascript">
+			$('#login').on('submit', function() {
+				$(this).ajaxSubmit({
+					url: '/xx.com'
+				});
+				return false;
+			});
+			
+			$('#login').ajaxForm({
+				url: '/xx.com',
+				type: 'get',
+				data: {
+					new: 123
+				},
+				//delegation: true
+			});
+			
+		</script>
+		<form id="login" action="/login" method="post">
+			<input type="text" name="tc_name" id="tc_name" value="" />
+			<input type="text" name="tc_pass" id="tc_pass" value="" />
+			<button type="submit">提交</button>
+		</form>
+	</body>
+</html>

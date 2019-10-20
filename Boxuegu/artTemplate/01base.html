@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="./jquery/jquery.js"></script>
+		<script src="./artTemplate/template.js"></script>
+	</head>
+	<body>
+		<script id="if-tpl" type="text/tpl">
+			{{ if name }}
+				<h1>啦啦啦</h1>
+			{{ /if }}
+			{{ each list }}
+				{{ if  $value.val > 50 }}
+				<li>$value.val</li>
+				{{ /if }}
+			{{ /each }}
+		</script>
+		<script>
+			var myData = {
+				list: [
+					{ val: 10 },
+					{ val: 50 },
+					{ val: 100 },
+				],
+				name: '规范',
+				age: 19
+			};
+			$('body').append(template('if-tpl', myData));
+		</script>
+	</body>
+</html>

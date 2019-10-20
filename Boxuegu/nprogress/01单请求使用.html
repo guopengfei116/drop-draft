@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Nprogress</title>
+	<link rel="stylesheet" href="./nprogress/nprogress.css">
+</head>
+<body>
+	
+	<script src="./jquery/jquery.js"></script>
+	<script src="./nprogress/nprogress.js"></script>
+	<script>
+		// 全局设置
+		$.ajaxSetup({
+			url: 'example.php',
+			type: 'post',
+			beforeSend: function () {
+				NProgress.start();
+			},
+			complete: function () {
+				NProgress.done();
+			}
+		});
+
+		// 单独设置后会覆盖全局设置
+		$.ajax({
+			// url: './example.php',
+			beforeSend: function () {
+
+			},
+			success: function () {
+
+			},
+			complete: function () {}
+		});
+
+		$.ajax({
+			// url: './demo.php',
+			type: 'get'
+		});
+
+	</script>
+</body>
+</html>
