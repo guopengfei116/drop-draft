@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    #div {
+        width: 100px;
+        height: 100px;
+        font-size: 2em;
+        background-color: orangered;
+        filter:alpha(opacity=50);
+        opacity: 0.5;
+    }
+    #div:before {
+        content: 'before,hellow';
+    }
+    #div:after {
+        display: block;
+        content: 'after,hellow';
+    }
+</style>
+<body>
+    <div id="div"></div>
+    <script src="animate.js"></script>
+    <script>
+        var nDiv = document.getElementById('div');
+        animate(nDiv, {width:500, height:200}, function () {
+            console.log('3参数回调');
+            animate(nDiv, {width:200, height:200}, 2000, function () {
+                console.log('4参数，时间加回调');
+                animate(nDiv, {marginTop:100, marginLeft:100}, 'Linear', function () {
+                    console.log('4参数，方法加回调');
+                    animate(nDiv, {opacity:0.3}, 1000, 'Linear', function () {
+                        console.log('5参数');
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

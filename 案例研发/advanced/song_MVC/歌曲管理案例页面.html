@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/song.css" />
+</head>
+<body>
+
+<div class="container">
+    <div class="songslist-op">
+        <label for="txtAddSName">歌曲名:</label><input type="text" id="txtAddSName" />
+        <label for="txtAddSinger">歌手:</label><input type="text" id="txtAddSinger" />
+        <button id="btnAdd">添加</button>
+        <button id="btnRemove">删除</button>
+        <button id="btnFind">搜索</button>
+        <button id="btnSave">保存</button>
+    </div>
+
+    <div class="songslist-header">
+        <div class="songslist-name">歌曲名称</div>
+        <div class="songslist-singer">歌手</div>
+        <div class="songslist-option">操作</div>
+    </div>
+    <div class="songslist-main" id="c"></div>
+</div>
+<script src="js/song_model.js"></script>
+<script src="js/song_view.js"></script>
+<script>
+    var modelManager = new SongModelManager([
+        {songName:'那一夜', singer:'你哭了'},
+        {songName:'你快回来', singer:'我错了'},
+        {songName:'再见', singer:'希望永不见'},
+        {songName:'我真的受伤了', singer:'活该'}
+    ]);
+
+    var viewManager = new SongViewManager({
+        modelManager: modelManager,
+        addBtn: '#btnAdd',
+        delBtn: '#btnRemove',
+        saveBtn: '#btnSave',
+        nameInput: '#txtAddSName',
+        singerInput: '#txtAddSinger',
+        nameTitle: '.songslist-name',
+        singerTitle: '.songslist-singer',
+        songContainer: '.songslist-main'
+    });
+
+    // 一上来，先根据最新的数据渲染一遍页面
+    viewManager.updateSongList(modelManager.songList);
+</script>
+</body>
+</html>

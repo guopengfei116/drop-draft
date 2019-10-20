@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			/**
+			 * 斐波那契数列:
+			 * 1 1 2 3 5 8 13 21 34 55 89 144
+			 * 
+			 * f0 = 1
+			 * f1 = 1
+			 * f2 = 1 + 1 = f1 + f0 = 2
+			 * f3 = 1 + 2 = f2 + f1 = 3
+			 * f4 = 2 + 3 = f3 + f2 = 5
+			 * f5 = 3 + 5 = f4 + f3 = 8
+			 * fn = f(n-1) + f(n-2)
+			 * */
+			
+			var count = 0;
+			function fib(n) {
+				count++;
+				if(n === 0 || n === 1) {
+					return 1;
+				}else {
+					return fib(n - 1) + fib(n - 2);
+				}
+			}
+			
+			fib(4);
+			console.log(fib(42), count);
+		</script>
+	</body>
+</html>

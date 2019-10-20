@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    #div {
+        width: 100px;
+        height: 100px;
+        font-size: 2em;
+        background-color: orangered;
+        filter:alpha(opacity=50);
+        opacity: 0.5;
+    }
+    #div:before {
+        content: 'before,hellow';
+    }
+    #div:after {
+        display: block;
+        content: 'after,hellow';
+    }
+</style>
+<body>
+    <div id="div"></div>
+    <script src="slowMotion.js"></script>
+    <script>
+        var nDiv = document.getElementById('div');
+        slowMotion(nDiv, {width:500, height:200}, function () {
+            slowMotion(nDiv, {width:200, height:200}, function () {
+                slowMotion(nDiv, {marginTop:100, marginLeft:100}, function () {
+                    slowMotion(nDiv, {opacity:0.3});
+                });
+            });
+        });
+    </script>
+</body>
+</html>

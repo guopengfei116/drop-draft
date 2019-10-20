@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/song.css" />
+</head>
+<body>
+	<div class="container">
+		
+	    <div class="songslist-op">
+	        <label for="txtAddSName">歌曲名:</label><input type="text" id="txtAddSName" />
+	        <label for="txtAddSinger">歌手:</label><input type="text" id="txtAddSinger" />
+	        <button id="btnAdd">添加</button>
+	        <button id="btnRemove">删除</button>
+	        <button id="btnFind">搜索</button>
+	    </div>
+
+	    <div class="songslist-header">
+	        <div class="songslist-name">歌曲名称</div>
+	        <div class="songslist-singer">歌手</div>
+	        <div class="songslist-option">操作</div>
+	    </div>
+	    <div class="songslist-main" id="c">
+	    	<div class="songslist-single">
+				<div class="songslist-name">桃花</div>
+				<div class="songslist-singer">哈哈</div>
+			</div>
+			<div class="songslist-single">
+				<div class="songslist-name">桃花</div>
+				<div class="songslist-singer">哈哈</div>
+			</div><div class="songslist-single">
+				<div class="songslist-name">桃花</div>
+				<div class="songslist-singer">哈哈</div>
+			</div>
+			<div class="songslist-single">
+				<div class="songslist-name">桃花</div>
+				<div class="songslist-singer">哈哈</div>
+			</div>
+	   </div>
+	</div>
+	
+	<script src="js/songDataManage.js"></script>
+	<script src="js/songViewManage.js"></script>
+	<script>
+		var viewManage = new SongViewManage({
+			nameInputS: '#txtAddSName',
+			singerInputS: '#txtAddSinger',
+			addBtnS: '#btnAdd',
+			delBtnS: '#btnRemove',
+			searchBtnS: '#btnFind',
+			songListMainS: '#c',
+		});
+		
+		viewManage.add();
+		viewManage.del();
+		viewManage.search();
+	</script>
+</body>
+</html>

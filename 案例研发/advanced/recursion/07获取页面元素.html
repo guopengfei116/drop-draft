@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<article>
+			<section>
+				<a>article1_section1_a1</a>
+				<a>article1_section1_a2</a>
+			</section>
+		</article>
+		<article>
+			<section>
+				<a>article2_section1_a1</a>
+				<a>article2_section1_a2</a>
+			</section>
+		</article>
+		<script>
+			function getNodes0()  {
+				return {
+					nodes: [ document.documentElement ],
+					oldLen: 0
+				}
+			}
+			console.log(getNodes0());
+			
+			function getNodes1() {
+				var nodes = getNodes0().nodes;
+				var oldLen = nodes.length;
+				var i = getNodes0().oldLen;
+				for(; i < oldLen; i++) {
+					nodes.push.apply(nodes, nodes[i].children);
+				}
+				return {
+					nodes: nodes,
+					oldLen: oldLen
+				};
+			}
+			console.log(getNodes1());
+			
+			function getNodes2() {
+				var nodes = getNodes1().nodes;
+				var oldLen = nodes.length;
+				var i = getNodes1().oldLen || 0;
+				for(; i < oldLen; i++) {
+					nodes.push.apply(nodes, nodes[i].children);
+				}
+				return {
+					nodes: nodes,
+					oldLen: oldLen
+				};
+			}
+			console.log(getNodes2());
+			
+			function getNodes3() {
+				var nodes = getNodes2().nodes;
+				var oldLen = nodes.length;
+				var i = getNodes2().oldLen || 0;
+				for(; i < oldLen; i++) {
+					nodes.push.apply(nodes, nodes[i].children);
+				}
+				return {
+					nodes: nodes,
+					oldLen: oldLen
+				};
+			}
+			console.log(getNodes3());
+			
+			// 合并上面代码
+			function getNodes(nodes, oldLen) {
+				
+				// 初始根
+				if(!nodes && !oldLen) {
+					nodes = [ document.documentElement ];
+					oldLen = 0;
+				}
+				
+				// 遍历获取子节点
+				for(var i = oldLen, len = nodes.length; i < len; i++) {
+					nodes.push.apply(nodes, nodes[i].children);
+				}
+				
+				// 如果没有新增子节点，那么返回当前结果，
+				// 如果有则继续递归获取子节点的子节点
+				if(oldLen === len) {
+					return nodes;
+				}else {
+					return getNodes(nodes, len);
+				}
+			}
+			
+			console.log(getNodes());
+		</script>
+	</body>
+</html>

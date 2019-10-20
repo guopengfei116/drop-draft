@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title></title>
+        <link rel="stylesheet" type="text/css" href="css/tab.css">
+    </head>
+    <body>
+        <div class="wrapper" id="wrapper">
+            <ul class="tab" id="tab-menu">
+                <li class="tab-item active">国际大牌<span>◆</span></li>
+                <li class="tab-item">国妆名牌<span>◆</span></li>
+                <li class="tab-item">清洁用品<span>◆</span></li>
+                <li class="tab-item">男士精品</li>
+            </ul>
+            <div class="products" id="tab-main">
+                <div class="main selected">
+                    <a href="###"><img src="imgs/guojidapai.jpg" alt=""/></a>
+                </div>
+                <div class="main">
+                    <a href="###"><img src="imgs/guozhuangmingpin.jpg" alt=""/></a>
+                </div>
+                <div class="main">
+                    <a href="###"><img src="imgs/qingjieyongpin.jpg" alt=""/></a>
+                </div>
+                <div class="main">
+                    <a href="###"><img src="imgs/nanshijingpin.jpg" alt=""/></a>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="./js/jquery-1.12.0.js"></script>
+    <script>
+    	/**
+		 * 实现步骤：
+		 * 
+		 * 一、获取元素
+		 * 1、获取所有的标签
+		 * 2、获取所有的内容
+		 * 
+		 * 二、绑定事件
+		 * 1、先遍历所有的tab，
+		 * 2、分别添加一个index自定义属性，为了将来找到对应的内容，
+		 * 3、再分别绑定点击事件。
+		 * 
+		 * 三、事件处理
+		 * 1、遍历所有tab，清除他们的active类属性，然后给自己添加。
+		 * 2、遍历所有content，清除他们的selected类属性，然后给对应的添加。
+		 * */
+    	
+		var nTabs = document.querySelectorAll('.tab-item');
+		var nContents = document.querySelectorAll('.main');
+		
+		// 遍历每一个tab，给自己添加一个下标属性，然后分别绑定click事件
+		for(var i = 0, len = nTabs.length; i < len; i++) {
+			
+			nTabs[i].index = i;
+			nTabs[i].addEventListener('click', function() {
+				
+				// 点击tab后清除其他tab的active属性类，然后给自己添加active属性类。
+				for(var i = 0, len = nTabs.length; i < len; i++) {
+					nTabs[i].className = 'tab-item';
+				}
+				this.className ='tab-item active';
+				
+				// 先隐藏其他的tab内容，再显示对应的tab内容
+				for(var i = 0, len = nContents.length; i < len; i++) {
+					nContents[i].style.display = 'none';
+				}
+				nContents[this.index].style.display = 'block';
+			});
+		}
+    </script>
+</html>

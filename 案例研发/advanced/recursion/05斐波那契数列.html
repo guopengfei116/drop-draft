@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			/**
+			 * 斐波那契数列:
+			 * 1 1 2 3 5 8 13 21 34 55 89 144
+			 * */
+			
+			function fib0() {
+				return 1;
+			}
+			function fib1() {
+				return 1;
+			}
+			function fib2() {
+				return fib1() + fib0();
+			}
+			function fib3() {
+				return fib2() + fib1();
+			}
+			
+			// 合并上面代码
+			function fib(n) {
+				if(n === 0 || n === 1) {
+					return 1;
+				}else if(n === 2) {
+					return fib(1) + fib(0);
+				}else if(n === 3) {
+					return fib(2) + fib(1);
+				}
+			}
+			
+			// 把上面代码写活
+			function fib(n) {
+				if(n === 0 || n === 1) {
+					return 1;
+				}else {
+					return fib(n - 1) + fib(n - 2);
+				}
+			}
+			
+			console.log(fib(11));
+		</script>
+	</body>
+</html>

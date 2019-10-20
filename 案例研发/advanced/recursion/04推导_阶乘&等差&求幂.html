@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			/**
+			 * 阶乘：
+			 * 1! = 1
+			 * 2! = (1 * 2) = (1! * 2) = 2
+			 * 3! = (1 * 2 * 3) = (2! * 3) = 6
+			 * 4! = (1 * 2 * 3 * 4) = (3! * 4) = 24
+			 * 5! = (1 * 2 * 3 * 4 * 5) = (4! * 5) = 120
+			 * n! = (1 * 2 * 3 * n) = ((n - 1)! * n) = 结果
+			 * */
+			
+			function factorial(n) {
+				// n为1是，值是固定的，在递归中固定的时一般是临界条件，
+				// 从这里开始往外递出。
+				if(n === 1) {
+					return 1;
+				}
+				// 这里是递进复用代码的公式
+				else {
+					return factorial(n - 1) * n;
+				}
+			}
+			
+			/**
+			 * 等差为5的表示：
+			 * 5_0 = 1
+			 * 5_1 = (1 +５) =  (5_0 + 5) = 6
+			 * 5_2 = (1 + 5 + 5) = (5_1 + 5) = 11
+			 * 5_3 = (1+ 5 + 5 + 5) = (5_2 + 5) = 16
+			 * 5_n = (1 + 5 + 5 + 5 + 第n次5) = ((5_(n - 1)) + 5) = 结果
+			 * */
+			
+			function diference(m, n) {
+				if(n === 0) {
+					return 1;
+				}else {
+					return diference(m, n - 1) + m;
+				}	
+			}
+			
+			/**
+			 * 求m的n次幂：
+			* m^0 = 1
+			* m^1 = m = m^0 * m
+			* m^2 = m * m = m^1 * m 
+			* m^3 = m * m * m = m^2 * m 
+			* m^4 = m * m * m * m = m^3 * m 
+			* m^n = m * m * m * 第n个m = m^(n-1) * m
+			 * */
+			
+			function power(m, n) {
+				if(n === 0) {
+					return 1;
+				}else {
+					return power(m, n - 1) * m;
+				}
+			}
+			
+			console.log(power(5, 5));
+		</script>
+	</body>
+</html>

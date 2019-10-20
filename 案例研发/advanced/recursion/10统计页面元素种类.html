@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<article>
+			<section>
+				<a>article1_section1_a1</a>
+				<a>article1_section1_a2</a>
+			</section>
+		</article>
+		<article>
+			<section>
+				<a>article2_section1_a1</a>
+				<a>article2_section1_a2</a>
+			</section>
+		</article>
+		<script>
+			/**
+			 * html
+			 * head body
+			 * meta title article article script
+			 * section section
+			 * a a a a
+			 * */
+			
+			// 合并上面代码
+			function getNodes(nodes, startI) {
+				
+				// 初始根
+				if(!nodes) {
+					nodes = [ document.documentElement ];
+					startI = 0;
+				}
+				
+				// 遍历获取子节点
+				for(var i = startI, len = nodes.length; i < len; i++) {
+					nodes.push.apply(nodes, nodes[i].children);
+				}
+				
+				// 如果数组之前的length与添加后的lenght相同，证明没有新增子节点，
+				// 那么递归结束返回结果，如果不同则继续递归获取子节点的子节点
+				if(startI === len) {
+					return nodes;
+				}else {
+					return getNodes(nodes, len);
+				}
+			}
+			
+			var nodes = getNodes();
+			var nodeName = { length: 0 };
+			for(var i = 0, len = nodes.length; i < len; i++) {
+				if(!nodeName[nodes[i].nodeName]) {
+					nodeName[nodes[i].nodeName] = true;
+					nodeName.length++;
+				}
+			}
+			console.log(nodeName);
+		</script>
+	</body>
+</html>

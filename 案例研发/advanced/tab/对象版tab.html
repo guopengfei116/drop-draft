@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title></title>
+        <link rel="stylesheet" type="text/css" href="css/tab.css">
+    </head>
+    <body>
+        <div class="wrapper" id="wrapper">
+            <ul class="tab" id="tab-menu">
+                <li class="tab-item active">国际大牌<span>◆</span></li>
+                <li class="tab-item">国妆名牌<span>◆</span></li>
+                <li class="tab-item">清洁用品<span>◆</span></li>
+                <li class="tab-item">男士精品</li>
+            </ul>
+            <div class="products" id="tab-main">
+                <div class="main selected">
+                    <a href="###"><img src="imgs/guojidapai.jpg" alt=""/></a>
+                </div>
+                <div class="main">
+                    <a href="###"><img src="imgs/guozhuangmingpin.jpg" alt=""/></a>
+                </div>
+                <div class="main">
+                    <a href="###"><img src="imgs/qingjieyongpin.jpg" alt=""/></a>
+                </div>
+                <div class="main">
+                    <a href="###"><img src="imgs/nanshijingpin.jpg" alt=""/></a>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="./js/jquery-1.12.0.js"></script>
+    <script>
+    	
+    	// tab类
+    	function Tab(tabSelector, contentSelector) {
+    		this.nTabs = document.querySelectorAll(tabSelector);
+    		this.nContents = document.querySelectorAll(contentSelector);
+    		
+    		// 因为on方法只需调用一次，
+    		// 为了提高用户体验可以放置到构造函数中自动调用。
+			this.on();
+    	}
+    	
+    	Tab.prototype = {
+    		
+    		// 绑定事件
+    		on: function() {
+    			var self = this;
+    			for(var i = 0, len = this.nTabs.length; i < len; i++) {
+    				this.nTabs[i].index = i;
+    				this.nTabs[i].onclick = function() {
+    					
+    					// 可以打印一下这里的this，为对应的dom元素
+    					console.log(this);
+    					
+    					// 在事件回调中，this指向对应的元素，并不是tab实例，
+    					// 所以在外面把tab实例使用self变量缓存一下，这里使用
+    					self.tabChange(this.index);
+    					self.contentChange2(this.index);
+    				};
+    			}
+    		},
+    		
+    		// 标签修改
+    		tabChange: function(index) {
+    			for(var i = 0, len = this.nTabs.length; i < len; i++) {
+    				this.nTabs[i].className = 'tab-item';
+    			}
+    			this.nTabs[index].className = 'tab-item active';
+    		},
+    		
+    		// 内容修改
+    		contentChange: function(index) {
+    			for(var i = 0, len = this.nContents.length; i < len; i++) {
+    				this.nContents[i].className = 'main';
+    			}
+    			this.nContents[index].className = 'main selected';
+    		},
+    		
+    		// 内容修改2
+    		contentChange2: function(index) {
+    			for(var i = 0, len = this.nContents.length; i < len; i++) {
+    				if(i === index) {
+    					this.nContents[index].className = 'main selected';
+    				}else {
+    					this.nContents[i].className = 'main';
+    				}
+    			}
+    		}
+    	};
+    	
+    	var tab = new Tab('.tab-item', '.main');
+    </script>
+</html>

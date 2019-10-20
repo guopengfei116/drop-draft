@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        function indexOf(x, y) {
+            var obj = {};
+
+            // 遍历x数组，找出存在的字符，并存储到obj中。
+            x.forEach(function (val) {
+                obj[val] = 1;
+            });
+
+            // 遍历y数组，依次看看对应的值有没有存储在obj里，
+            // 如果发现有一个值不在，那么就证明y数组不是x数组的子集，
+            // 返回-1
+            for (var i = 0; i < y.length; i++) {
+                if (!obj[y[i]]) {
+                    return -1;
+                }
+            }
+
+            // 如果都在，那么x是y的子集，
+            // 则返回y数组中的第一个值
+            return y[0];
+        }
+
+        var x = ['a','b','c','d','e'];
+        var y = ['c','d','a'];
+
+        console.log(indexOf(x, y));
+    </script>
+</body>
+</html>

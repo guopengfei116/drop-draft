@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="song_model.js"></script>
+</head>
+<body>
+    <script>
+        var songManager = new SongManager();
+        songManager.add({
+            songName: '那一夜',
+            singer: '你伤害了我'
+        });
+        console.log(songManager.find('那一夜'));
+    </script>
+</body>
+</html>
