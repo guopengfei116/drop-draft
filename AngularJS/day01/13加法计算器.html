@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+  </head>
+
+
+  <body ng-app="app" ng-controller="appCtrl">
+    <input type="number" ng-model="val1" />
+    <span>+</span>
+    <input type="number" ng-model="val2" />
+    <button ng-click="add()">=</button>
+    <input type="number" ng-model="sum" />
+  </body>
+
+
+  <script src="angular.js"></script>
+  <script>
+    var App = angular.module('app', []);
+    App.controller('appCtrl', ['$scope', function($scope) {
+      $scope.val1 = 0;
+      $scope.val2 = 0;
+      $scope.sum = 0;
+      $scope.add = function() {
+        this.sum = this.val1 + this.val2;
+      };
+    }]);
+  </script>
+</html>

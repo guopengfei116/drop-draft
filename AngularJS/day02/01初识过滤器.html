@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+
+
+  <body ng-app="app">
+    <!-- 2、关联那个控制器就可以使用那个控制器的$scope数据 -->
+    <div ng-controller="appCtrl">{{ data | formDate }}</div>
+  </body>
+
+
+  <script>
+    var app = angular.module('app', []);
+
+    app.controller('appCtrl', ['$scope', function($scope) {
+      $scope.data = Date.now();
+    }]);
+
+    app.filter('formDate', [function() {
+      return function(data) {
+        var date = new Date(data);
+        return date.getFullYear() + '_' + (date.getMonth()+1) + '_' + date.getDate();
+      };
+    }]);
+
+  </script>
+</html>

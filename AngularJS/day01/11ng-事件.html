@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+  </head>
+
+
+  <body ng-cloak ng-app="app" ng-controller="appCtrl">
+    <p>{{ number }}</p>
+    <input type="text" ng-keypress="add($event)"/>
+    <input type="text" ng-keydown="add($event)"/>
+    <button ng-click="add($event)">点击add</button>
+    <button ng-dblclick="add()">双击add</button>
+    <button ng-mousedown="add()">按下add</button>
+    <button ng-mouseup="add()">离开add</button>
+    <button ng-mousemove="add()">移动add</button>
+    <button ng-focus="add($event)">焦点add</button>
+  </body>
+
+
+  <script src="angular.js"></script>
+  <script>
+    var App = angular.module('app', []);
+    App.controller('appCtrl', ['$scope', function($scope) {
+      $scope.number = 10;
+      $scope.add = function() {
+        console.log(arguments);
+        this.number++;
+      };
+    }]);
+  </script>
+</html>

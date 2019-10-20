@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+
+
+  <body ng-app="app">
+    <div ng-controller="appCtrl">{{ val | date:'yyyy-MM-dd hh:mm:ss:sss' }}</div>
+  </body>
+
+
+  <script>
+    var app = angular.module('app', []);
+
+    app.controller('appCtrl', ['$scope', function($scope) {
+      $scope.val = Date.now()
+    }]);
+
+  </script>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+
+
+  <body ng-app="app">
+    <div ng-controller="appCtrl">{{ val | currency:'￥':'2' }}</div>
+  </body>
+
+
+  <script>
+    var app = angular.module('app', []);
+
+    app.controller('appCtrl', ['$scope', function($scope) {
+      $scope.val = 88662211.7777;
+    }]);
+
+  </script>
+</html>

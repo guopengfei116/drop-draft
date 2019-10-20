@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+  <body ng-app="app" ng-controller="registerCtrl">
+    <button ng-click="changeUrl()">改变path</button>
+  </body>
+
+  <script type="text/javascript">
+    var app = angular.module('app', []);
+    app.controller('registerCtrl', ['$scope', '$location', function($scope, $location) {
+
+      console.log($location);
+
+      $location.url('?a=1&b=2#123');
+
+      $location.path('/abc');
+
+      $location.search('a=1&b=2');
+      $location.search({a:1, b:2});
+      $location.search('a=1');
+
+      $location.hash('1223');
+
+      // url改变前触发
+      $scope.$on('$locationChangeStart', function(e, newUrl, oldUrl) {
+        e.preventDefault();
+      });
+      // url改变后触发
+      $scope.$on('$locationChangeSuccess', function(e, newUrl, oldUrl) {
+        console.log(arguments);
+      });
+
+      $scope.changeUrl = function() {
+        $location.path($location.$$path + 'x');
+      };
+    }]);
+  </script>
+</html>

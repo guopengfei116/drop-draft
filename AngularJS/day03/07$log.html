@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+  <body ng-app="app" ng-controller="registerCtrl">
+  </body>
+
+  <script type="text/javascript">
+    var app = angular.module('app', []);
+    app.controller('registerCtrl', ['$scope', '$log', function($scope, $log) {
+      var obj = {a: 1, b:2};
+      $log.log(obj);
+      $log.info(obj);
+      $log.warn(obj);
+      $log.error(obj);
+      $log.debug(obj);
+    }]);
+  </script>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="bootstrap.css" />
+	</head>
+	<body ng-app="app" ng-controller="registerCtrl">
+    <div style="width: 60%; margin:20px auto;" class="register">
+      <table class="table table-striped">
+        <tr>
+          <td>用户名: </td>
+          <td><input type="text" class="form-control" ng-model="user.name"></td>
+        </tr>
+        <tr>
+          <td>密码: </td>
+          <td><input type="text" class="form-control" ng-model="user.pwd"></td>
+        </tr>
+        <tr>
+          <td>重复密码: </td>
+          <td><input type="text" class="form-control" ng-model="user.repeat_pwd"></td>
+        </tr>
+        <tr>
+          <td>是否同意协议: </td>
+          <td><input type="checkbox" ng-model="user.isAgree"></td>
+        </tr>
+        <tr>
+          <!-- 展示错误信息 -->
+          <td colspan="2">{{ user.msg }}</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <button class="btn btn-success" ng-click="register()">注册</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+	</body>
+
+  <script src="angular.js"></script>
+	<script type="text/javascript">
+		var app = angular.module('app', []);
+		app.controller('registerCtrl', ['$scope', function($scope) {
+
+		  $scope.user = {
+		    name: '',
+		    pwd: '',
+		    repeat_pwd: '',
+		    isAgree: false,
+		    msg: ''
+		  };
+
+      $scope.register = function() {
+
+        if(this.user.name.trim() == '') {
+          this.user.msg = '请输入用户名！';
+          return;
+        }
+
+        if(this.user.pwd.trim() == '') {
+          this.user.msg = '请输入密码！';
+          return;
+        }
+
+        if(this.user.pwd.trim() !== this.user.repeat_pwd.trim()) {
+          this.user.msg = '两次密码输入不一致！';
+          return;
+        }
+
+        if(!this.user.isAgree) {
+          this.user.msg = '您未同意注册协议！';
+          return;
+        }
+
+        // 通过验证取消提示
+        this.user.msg = '';
+
+        // 获取本地数据
+        var userList = JSON.parse(localStorage.getItem('userList')) || [];
+
+        // 效验
+        for(var i = 0, len = userList.length; i < len; i++) {
+          if(userList[i].name == this.user.name) {
+            this.user.msg = '用户名已存在';
+            return;
+          }
+        }
+
+        // 通过效验则存储
+        userList.push({name: this.user.name, pwd: this.user.pwd});
+        localStorage.setItem('userList', JSON.stringify(userList));
+        this.user.msg = '注册成功！';
+      };
+		}]);
+	</script>
+</html>

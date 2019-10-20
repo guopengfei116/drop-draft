@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="angular.js"></script>
+    <script src="angular-route.js"></script>
+	</head>
+	<body ng-app="app" ng-controller="appCtrl">
+
+	  <header>公共头部</header>
+    <div ng-view></div>
+    <footer>公共底部</footer>
+
+	  <script type="text/javascript">
+	  	var app = angular.module('app', ['ngRoute']);
+      app.config(['$routeProvider', function($routeProvider) {
+        $routeProvider
+          .when('/', {
+            redirectTo: '/index'
+          })
+          .when('/index', {
+            templateUrl: './tpl/index.html'
+          });
+      }]);
+      app.controller('appCtrl', ['$scope', function($scope) {
+        $scope.$on('$routeChangeStart', function() {
+          console.log(123456);
+        });
+        $scope.$on('$routeChangeSuccess', function() {
+          console.log(654321);
+        });
+        $scope.$on('$viewContentLoaded', function() {
+          console.log('视图加载完毕');
+        });
+        $scope.$on('$routeChangeError', function() {
+          console.log('跳转失败');
+        });
+      }]);
+	  </script>
+	</body>
+</html>

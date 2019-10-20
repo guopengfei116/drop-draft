@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+
+  <body ng-app="app" ng-controller="appCtrl">
+    <ngl-tpl></ngl-tpl>
+    <ngl-tpl2 val="val" obj="obj"></ngl-tpl2>
+  </body>
+
+  <script>
+    var app = angular.module('app', []);
+
+    app.directive('nglTpl', [function() {
+      return {
+        // 指令类型A:属性，E:标签，C:类名，M:注释
+        restrict: 'E',
+        // 设置元素的innerHTML
+        template: '<p>我是指令模版</p>',
+        link: function() {
+          console.log(arguments);
+        }
+      };
+    }]);
+    app.directive('nglTpl2', [function() {
+      return {
+        restrict: 'E',
+        template: '<section><p>我是指令模版2</p><p>我是指令模版2</p><section/>',
+        // 如果想把原来的元素覆盖掉，可以配置为true，
+        // 设为true之后模版必须使用一个根元素包裹起来，
+        // 建议设为true，防止自定义标签出现在DOM中
+        replace: true,
+        link: function() {
+          console.log(arguments);
+        }
+      };
+    }]);
+
+    app.controller('appCtrl', ['$scope', function($scope) {
+      $scope.val = 10;
+      $scope.obj = { a: 1 };
+    }]);
+  </script>
+</html>

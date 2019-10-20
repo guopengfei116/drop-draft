@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+
+
+  <body ng-app="app" ng-controller="appCtrl">
+    <div>{{ number | number:2  }}</div>
+    <div>{{ obj | json  }}</div>
+    <div>{{ limitNumber | limitTo:4  }}</div>
+    <div>{{ limitArr | limitTo:-4  }}</div>
+    <div>{{ str | lowercase  }}</div>
+    <div>{{ str | uppercase  }}</div>
+  </body>
+
+
+  <script>
+    var app = angular.module('app', []);
+
+    app.controller('appCtrl', ['$scope', function($scope) {
+      $scope.number = 12362.4354;
+      $scope.obj = {a: 1, b: 2, c: 3};
+      $scope.limitNumber = 1234567
+      $scope.limitArr = [1,2,3,4,5,6,7];
+      $scope.str = 'aBcD';
+    }]);
+
+  </script>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+
+
+  <body ng-app="app" ng-controller="appCtrl">
+    <ul>
+      <!-- 搜索age为16的数据 -->
+      <li ng-repeat="v in list | filter:{age: 16} ">{{ v }}</li>
+    </ul>
+  </body>
+
+
+  <script>
+    var app = angular.module('app', []);
+
+    app.controller('appCtrl', ['$scope', function($scope) {
+      $scope.list = [
+        { name: '小明', age: 16, height: 175 },
+        { name: '小红', age: 15, height: 160 },
+        { name: '小芳', age: 16, height: 165 }
+      ];
+    }]);
+
+  </script>
+</html>

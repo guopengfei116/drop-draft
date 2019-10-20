@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery-1.12.0.js" type="text/javascript"></script>
+    <script src="angular.js"></script>
+  </head>
+
+  <body ng-app="app" ng-controller="appCtrl">
+    <ngl-clock></ngl-clock>
+    <ngl-clock style="color: red"></ngl-clock>
+  </body>
+
+  <script>
+    var app = angular.module('app', []);
+
+    app.directive('nglClock', ['$interval', function($interval) {
+      return {
+        restrict: 'E',
+        template: '<section class="clock">{{ time | date:"当天时间:hh:mm:ss"  }}</section>',
+        replace: true,
+        link: function($scope, $ele, attrs) {
+          $ele.css({
+            display: 'inline-block',
+            backgroundColor: 'skyblue'
+          });
+        },
+        controller: ['$scope', function($scope) {
+
+          // 修改数据自动刷新视频
+          $scope.time = new Date();
+          var timerId = $interval(function() {
+            $scope.time = new Date();
+            console.log(1)
+          }, 1000);
+
+          // 元素的销毁取消定时器，否则会造成资源浪费。
+          $('.clock').on('$destroy', function() {
+            $interval.cancel(timerId);
+          });
+        }]
+      };
+    }]);
+
+    app.controller('appCtrl', ['$scope', function($scope) {
+
+    }]);
+  </script>
+</html>

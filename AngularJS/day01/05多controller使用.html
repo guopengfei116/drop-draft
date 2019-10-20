@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="angular.js"></script>
+	</head>
+	<body ng-app="app">
+	  <div ng-controller="appHeaderCtrl">{{ val }}</div>
+	  <div ng-controller="appMainCtrl">{{ val }}</div>
+	  <div ng-controller="appFooterCtrl">{{ val }}</div>
+	</body>
+	<script>
+	  var App = angular.module('app', []);
+   App.controller('appHeaderCtrl', ['$scope', function($scope) {
+    $scope.val = '头';
+   }]);
+   App.controller('appMainCtrl', ['$scope', function($scope) {
+    $scope.val = '身体';
+   }]);
+   App.controller('appFooterCtrl', ['$scope', function($scope) {
+    $scope.val = '脚';
+   }]);
+	</script>
+</html>

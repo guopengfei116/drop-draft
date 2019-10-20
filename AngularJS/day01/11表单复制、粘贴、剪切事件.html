@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+  <body ng-app="app" ng-controller="appCtrl">
+    <div>
+      <input type="text" value="ok" />
+      <input type="text" ng-paste="paste()" value="paste"/>
+      <input type="text" ng-copy="copy()" value="copy"/>
+      <input type="text" ng-cut="cut()" value="cut"/>
+  </body>
+  <script>
+    var App = angular.module('app', []);
+   App.controller('appCtrl', ['$scope', function($scope) {
+    $scope.paste = function() {
+      console.log('peste');
+    };
+    $scope.copy = function() {
+      console.log('copy');
+    };
+    $scope.cut = function() {
+      console.log('cut');
+    };
+   }]);
+  </script>
+</html>

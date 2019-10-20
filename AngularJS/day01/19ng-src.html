@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+  <body ng-app="app" ng-controller="appCtrl">
+    <div>
+      <!-- 一、如果不使用ng指令，那么浏览器会额外发起多余的{{ imgUrl }}请求 -->
+      <img src="{{ imgUrl }}" />
+      <img ng-src="{{ imgUrl }}" />
+  </body>
+  <script>
+    var App = angular.module('app', []);
+   App.controller('appCtrl', ['$scope', function($scope) {
+    $scope.imgUrl = '//www.baidu.com/img/bd_logo1.png';
+   }]);
+  </script>
+</html>

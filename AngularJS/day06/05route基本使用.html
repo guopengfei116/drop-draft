@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="angular.js"></script>
+    <script src="angular-route.js"></script>
+	</head>
+	<body ng-app="app">
+
+	  <header>公共头部</header>
+    <div ng-view></div>
+    <footer>公共底部</footer>
+
+	  <script type="text/javascript">
+	    // 创建主模块，并添加ngRoute依赖
+	  	var app = angular.module('app', ['ngRoute']);
+
+	  	// 使用路由需要我们进行规则配置，这个配置需要使用模块的config方法
+	  	// 把配置路由所需的依赖引入进来，调用依赖提供的方法进行配置
+      app.config(['$routeProvider', function($routeProvider) {
+        $routeProvider
+        .when('/', {
+          redirectTo: '/index'
+        })
+        .when('/index', {
+          templateUrl: './tpl/index.html'
+        })
+        .when('/login', {
+          templateUrl: './tpl/login.html'
+        })
+        .when('/register', {
+          templateUrl: './tpl/register.html'
+        })
+      }]);
+	  </script>
+	</body>
+</html>

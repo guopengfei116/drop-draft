@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+
+
+  <body ng-app="app" ng-controller="appCtrl">
+    <ul>
+      <!-- 搜索含有字符a的数据 -->
+      <li ng-repeat="v in list | filter:'a' ">{{ v }}</li>
+    </ul>
+  </body>
+
+
+  <script>
+    var app = angular.module('app', []);
+
+    app.controller('appCtrl', ['$scope', function($scope) {
+      $scope.list = ['aa', 'bb', 'cc', 'abc', 'cba' ];
+    }]);
+
+  </script>
+</html>

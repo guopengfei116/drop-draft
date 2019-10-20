@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="angular.js"></script>
+	</head>
+	<body ng-app="app">
+    <!-- 2、关联控制器，使用val变量 -->
+	  <div ng-controller="appCtrl">{{ val * val }}</div>
+	</body>
+	<script>
+	  var App = angular.module('app', []);
+	  // 1、App模块添加一个控制器，里面创建一个val变量
+   App.controller('appCtrl', function fn() {
+    var val = 10;
+   });
+	</script>
+</html>

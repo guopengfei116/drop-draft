@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+
+
+  <body ng-app="app" ng-controller="appCtrl">
+    <ul>
+      <!-- 从小到大 -->
+      <li ng-repeat="v in list | orderBy ">{{ v }}</li>
+    </ul>
+    <ul>
+      <!-- 从大到小 -->
+      <li ng-repeat="v in list | orderBy:null:true ">{{ v }}</li>
+    </ul>
+  </body>
+
+
+  <script>
+    var app = angular.module('app', []);
+
+    app.controller('appCtrl', ['$scope', function($scope) {
+      $scope.list = [11, 22, 33];
+    }]);
+
+  </script>
+</html>

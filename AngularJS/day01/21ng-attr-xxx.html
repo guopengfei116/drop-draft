@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+  <body ng-app="app" ng-controller="appCtrl">
+    <div>
+      <!-- 一、如果不使用ng指令，那么浏览器会额外发起{{}}表达式多余请求 -->
+      <a href="{{ skipUrl }}">跳转</a>
+      <a ng-attr-href="skipUrl">跳转</a>
+  </body>
+  <script>
+    var App = angular.module('app', []);
+   App.controller('appCtrl', ['$scope', function($scope) {
+    $scope.skipUrl = '//www.baidu.com/img/bd_logo1.png';
+   }]);
+  </script>
+</html>

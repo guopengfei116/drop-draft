@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+
+  <body ng-app="app" ng-controller="appCtrl">
+    <button ngl-drag>移动</button>
+  </body>
+
+  <script>
+    var app = angular.module('app', []);
+
+    app.directive('nglDrag', [function() {
+      return {
+        restrict: 'A',
+        link: function($scope, $ele, attrs) {
+          var $document = angular.element(document);
+          var initLeft = 0, initTop = 0, startX, startY;
+
+          $ele.on('mousedown', function(event) {
+            event.preventDefault();
+
+            // 移动样式
+            $ele.css('position', 'relative');
+
+            // 获取元素当前的left与top值
+            initLeft = parseInt($ele.css('left')) || 0;
+            initTop = parseInt($ele.css('top')) || 0;
+
+            // 记录鼠标按下的坐标
+            startX = event.pageX;
+            startY = event.pageY;
+
+            // 监听鼠标移动及放开事件
+            $document.on('mousemove', move);
+            $document.on('mouseup', up);
+          });
+
+          // 元素最终值 = 移动前的值 + 移动的距离
+          function move(event) {
+            $ele.css({
+              left:  initLeft + event.pageX  - startX + 'px',
+              top: initTop + event.pageY - startY + 'px'
+            });
+          }
+
+          function up() {
+            $document.off('mousemove', move);
+            $document.off('mouseup', up);
+          }
+        }
+      };
+    }]);
+
+    app.controller('appCtrl', ['$scope', function($scope) {
+
+    }]);
+  </script>
+</html>

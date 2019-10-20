@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="angular.js"></script>
+    <script src="angular-route.js"></script>
+	</head>
+	<body ng-app="app">
+
+	  <main ng-controller="mainCtrl">
+	    <div ng-controller="divCtrl">
+	      <button ng-click="find()">找爸爸</button>
+	    </div>
+	    <div ng-controller="divCtrl2">兄弟</div>
+	  </main>
+
+	  <script type="text/javascript">
+	  	var app = angular.module('app', ['ngRoute']);
+      app.controller('mainCtrl', ['$scope', function($scope) {
+        $scope.$on('divEvent', function(e, msg) {
+          console.log(msg);
+        });
+      }]);
+      app.controller('divCtrl', ['$scope', function($scope) {
+        // 触发自身和所有父的事件
+        $scope.find = function() {
+          $scope.$emit('divEvent', '爸爸你在哪');
+        };
+      }]);
+      app.controller('divCtrl2', ['$scope', function($scope) {
+        $scope.$on('divEvent', function(e, msg) {
+          console.log('兄弟_' + msg);
+        });
+      }]);
+	  </script>
+	</body>
+</html>

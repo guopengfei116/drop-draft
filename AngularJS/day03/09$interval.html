@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+  <body ng-app="app" ng-controller="registerCtrl">
+    {{ val }}
+  </body>
+
+  <script type="text/javascript">
+    var app = angular.module('app', []);
+    app.controller('registerCtrl', ['$scope', '$interval', function($scope, $interval) {
+       $scope.val = 123;
+       $interval(function() {
+          $scope.val++;
+       }, 500);
+    }]);
+  </script>
+</html>

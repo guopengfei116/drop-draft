@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+  <body ng-app="app" ng-controller="appCtrl">
+      <!-- 遍历数组 -->
+      <ul>
+      	<li ng-repeat="val in list track by $index">{{ val }}</li>
+      	<li ng-repeat="(i, val) in list track by $index">{{ i }}:{{ val }}</li>
+      </ul>
+      <!-- 遍历对象 -->
+      <ul>
+        <li ng-repeat="val in obj track by $index">{{ val }}</li>
+        <li ng-repeat="(k, val) in obj">{{ k }}:{{ val }}</li>
+      </ul>
+  </body>
+  <script>
+    var App = angular.module('app', []);
+   App.controller('appCtrl', ['$scope', function($scope) {
+    $scope.val = '内容';
+    $scope.list = [11, 22, 33, 22];
+    $scope.obj = { a: 'aa', b: 'bb', c: 'cc' };
+   }]);
+  </script>
+</html>

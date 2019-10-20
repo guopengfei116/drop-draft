@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="bootstrap.css" />
+	</head>
+	<body ng-app="app" ng-controller="registerCtrl">
+    <div style="width: 60%; margin:20px auto;" class="register">
+      <table class="table table-striped">
+        <tr>
+          <td>用户名: </td>
+          <td><input type="text" class="form-control" ng-model="user.name"></td>
+        </tr>
+        <tr>
+          <td>密码: </td>
+          <td><input type="text" class="form-control" ng-model="user.pwd"></td>
+        </tr>
+        <tr>
+          <td>重复密码: </td>
+          <td><input type="text" class="form-control" ng-model="user.repeat_pwd"></td>
+        </tr>
+        <tr>
+          <td>是否同意协议: </td>
+          <td><input type="checkbox" ng-model="user.isAgree"></td>
+        </tr>
+        <tr>
+          <!-- 展示错误信息 -->
+          <td colspan="2">{{ user.msg }}</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <button class="btn btn-success" ng-click="register()">注册</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+	</body>
+
+  <script src="angular.js"></script>
+	<script type="text/javascript">
+		var app = angular.module('app', []);
+
+    // 封装localStorage功能
+		app.factory('storageSvic', [function() {
+      return {
+        set: function(key, data) {
+          try {
+            data = JSON.stringify(data);
+          }finally {
+            localStorage.setItem(key, data);
+          }
+        },
+        get: function(key) {
+          var data = localStorage.getItem(key);
+          try {
+            data = JSON.parse(data);
+          }finally {
+            return data;
+          }
+        }
+      };
+		}]);
+
+		// 封装user功能
+		app.service('userSvic', ['storageSvic', function(storageSvic) {
+		  return {
+
+		    // 获取用户初始值
+		    getUser: function() {
+		      return {
+		        name: '',
+            pwd: '',
+            repeat_pwd: '',
+            isAgree: false,
+            msg: ''
+		      };
+		    },
+
+		    // 判断用户是否注册过
+		    isRegistered: function(name) {
+          // 获取本地数据,效验
+          var userList = storageSvic.get('userList') || [];
+          for(var i = 0, len = userList.length; i < len; i++) {
+            if(userList[i].name == name) {
+              return true;
+            }
+          }
+        },
+
+        add
+
+		  };
+		}]);
+
+		app.controller('registerCtrl', ['$scope', 'userSvic', function($scope, userSvic) {
+
+		  $scope.user = userSvic.getUser();
+
+      $scope.register = function() {
+
+        if(this.user.name.trim() == '') {
+          this.user.msg = '请输入用户名！';
+          return;
+        }
+
+        if(this.user.pwd.trim() == '') {
+          this.user.msg = '请输入密码！';
+          return;
+        }
+
+        if(this.user.pwd.trim() !== this.user.repeat_pwd.trim()) {
+          this.user.msg = '两次密码输入不一致！';
+          return;
+        }
+
+        if(!this.user.isAgree) {
+          this.user.msg = '您未同意注册协议！';
+          return;
+        }
+
+        // 通过验证尝试持久化存储数据
+        if(userSvic.isRegistered()) {
+          this.user.msg = '用户名已存在';
+        }else {
+          userSvic.add({name: this.user.name, pwd: this.user.pwd});
+          this.user.msg = '注册成功！';
+        }
+      };
+		}]);
+	</script>
+</html>

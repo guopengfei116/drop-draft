@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="angular.js"></script>
+    <script src="angular-route.js"></script>
+	</head>
+	<body ng-app="app">
+
+	  <main ng-controller="mainCtrl">
+	    <button ng-click="find()">找孙女</button>
+	    <div ng-controller="divCtrl"></div>
+      <ngl-tpl></ngl-tpl>
+	  </main>
+
+	  <script type="text/javascript">
+	  	var app = angular.module('app', ['ngRoute']);
+      app.controller('mainCtrl', ['$scope', function($scope) {
+        // 触发自身和所有父的事件
+        $scope.find = function() {
+          $scope.$broadcast('mainEvent', '孙女你在哪');
+        };
+      }]);
+      app.controller('divCtrl', ['$scope', function($scope) {
+        $scope.$on('mainEvent', function(e, msg) {
+          console.log($scope);
+          console.log(msg);
+        });
+      }]);
+
+      app.directive('nglTpl', [function() {
+        return {
+          scope: true,
+          restrict: 'E',
+          template: '<p>我是指令模版</p>',
+          controller: ['$scope', function($scope) {
+            $scope.$on('mainEvent', function(e, msg) {
+              console.log($scope);
+              console.log('指令_' + msg);
+            });
+          }]
+        };
+      }]);
+	  </script>
+	</body>
+</html>

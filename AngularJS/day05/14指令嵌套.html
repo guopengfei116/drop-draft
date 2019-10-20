@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+
+  <body ng-app="app" ng-controller="appCtrl">
+    <!-- 预期显示的10，结果被自定义指令给改写了 -->
+    <p>{{ val }}</p>
+    <ngl-counter></ngl-counter>
+  </body>
+
+  <script>
+    var app = angular.module('app', []);
+    app.controller('appCtrl', ['$scope', function($scope) {
+       $scope.val = 10;
+    }]);
+    app.directive('nglCounter', [function() {
+      return {
+        scope: true,
+        restrict: 'E',
+        template: '<p ng-click="add()">{{ val }}<ngl-directive></ngl-directive></p>',
+        replace: true,
+        controller: ['$scope', function($scope) {
+          $scope.add = function() {
+            $scope.val++;
+          };
+        }]
+      };
+    }]);
+    app.directive('nglDirective', [function() {
+      return {
+        // true则继承父级指令作用域，{}则不继承父，默认使用父级作用域
+        scope: true,
+        restrict: 'E',
+        template: '<a>子模版</a>',
+        replace: true,
+        controller: ['$scope', function($scope) {
+          console.log($scope);
+        }]
+      };
+    }]);
+  </script>
+</html>

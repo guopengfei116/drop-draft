@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="jquery-1.12.0.js"></script>
+		<script src="angular.js"></script>
+    <script src="angular-route.js"></script>
+	</head>
+	<body ng-app="app" ng-controller="appCtrl">
+
+	  <header>公共头部</header>
+	  <div ng-include="pageUrl"></div>
+	  <footer>公共底部</footer>
+
+	  <script type="text/javascript">
+	  	var app = angular.module('app', ['ngRoute']);
+      app.controller('appCtrl', ['$scope', '$location', function($scope, $location) {
+        // hash变化时根据hash中的path动态切换页面
+        $scope.$on('$locationChangeStart', function() {
+          switch ($location.$$path) {
+            case '/index':
+              $scope.pageUrl = 'tpl/index.html';
+              break;
+            case '/login':
+              $scope.pageUrl = 'tpl/login.html';
+              break;
+            case '/register':
+              $scope.pageUrl = 'tpl/register.html';
+              break;
+          }
+        });
+      }]);
+	  </script>
+	</body>
+</html>

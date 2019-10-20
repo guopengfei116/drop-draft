@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+  <body ng-app="app" ng-controller="registerCtrl">
+  </body>
+
+  <script type="text/javascript">
+    var app = angular.module('app', []);
+
+    app.factory('toFormData', [function() {
+      return function(data) {
+        var result = '';
+        for(var key in data) {
+          result += key + '=' + data[key] + '&';
+        }
+        return result.slice(0, -1);
+      };
+    }]);
+
+    app.controller('registerCtrl', ['$scope', '$http', 'toFormData', function($scope, $http, toFormData) {
+      $http({
+        url: '/xx.xxx',
+        method: 'post',
+        data: toFormData({ name: '小名', age: 15 }),
+        params: { pageindex: 1 },
+        headers: {
+          'Content-Type':  'application/x-www-form-urlencoded'
+        }
+      }).then(
+        function() {
+          console.log('成功');
+        },
+        function(){
+          console.log('失败')
+        }
+      );
+    }]);
+  </script>
+</html>

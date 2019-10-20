@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<!-- 向其他js框架一样先通过标签引入 -->
+		<script src="angular.js"></script>
+	</head>
+	<!-- 2、使用ng-app指令实现模块与视图的关联 -->
+	<body ng-app="app">
+	   <div>{{ 10*10 }}</div>
+	</body>
+	<script>
+	  // 1、创造一个主模块
+	  var App = angular.module('app', []);
+	</script>
+</html>

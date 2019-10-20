@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+  <body ng-app="app" ng-controller="appCtrl">
+    <header ng-include="headerUrl"></header>
+    <header ng-include="headerUrl"></header>
+    <footer ng-include="footerUrl"></footer>
+  </body>
+  <script>
+    var App = angular.module('app', []);
+   App.controller('appCtrl', ['$scope', function($scope) {
+    $scope.header = '模版header';
+    $scope.footer = '模版footer';
+    $scope.headerUrl = './tpl/header.html';
+    $scope.footerUrl = './tpl/footer.html';
+   }]);
+  </script>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+  <body ng-app="app">
+    <div ng-controller="appCtrl">
+      <p ng-show="isShow1">{{ val }}</p>
+      <p ng-show="isShow2">{{ val }}</p>
+    </div>
+  </body>
+  <script>
+    var App = angular.module('app', []);
+   App.controller('appCtrl', ['$scope', function($scope) {
+    $scope.val = '内容';
+    $scope.isShow1 = true;
+    $scope.isShow2 = false;
+   }]);
+  </script>
+</html>

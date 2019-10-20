@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+  <body ng-app="app" ng-controller="appCtrl">
+    <div>
+      <p ng-class="classes"></p>
+      <p ng-class="[ a, b ]"></p>
+      <p ng-class="{ [classes]: hasClass }"></p>
+      <p ng-class="{ 'a b c d': hasClass }"></p>
+  </body>
+  <script>
+    var App = angular.module('app', []);
+   App.controller('appCtrl', ['$scope', function($scope) {
+    $scope.classes = 'a b c';
+    $scope.a = 'aaa';
+    $scope.b = 'bbb';
+    $scope.hasClass = true;
+   }]);
+  </script>
+</html>

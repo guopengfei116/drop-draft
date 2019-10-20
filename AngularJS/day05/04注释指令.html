@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+
+  <body ng-app="app" ng-controller="appCtrl">
+    <!-- directive:ngl-tpl -->
+    <!-- directive:nglTpl -->
+  </body>
+
+  <script>
+    var app = angular.module('app', []);
+
+    app.directive('nglTpl', [function() {
+      return {
+        // 指令类型A:属性，E:标签，C:类名，M:注释
+        restrict: 'M',
+        template: '<p>我是指令模版</p>',
+        replace: true,
+        link: function() {
+          console.log(arguments);
+        }
+      };
+    }]);
+
+    app.controller('appCtrl', ['$scope', function($scope) {
+
+    }]);
+  </script>
+</html>

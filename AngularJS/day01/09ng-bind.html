@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+  </head>
+  <body ng-app="app" ng-controller="appCtrl">
+    <!-- 两者等价，只是在网络比较慢的时候上面会出现显示源码的情况 -->
+    <p>{{ val }}</p>
+    <p ng-bind="val"></p>
+  </body>
+  <script src="angular.js"></script>
+  <script>
+    var App = angular.module('app', []);
+   App.controller('appCtrl', ['$scope', function($scope) {
+    $scope.val = '内容';
+   }]);
+  </script>
+</html>

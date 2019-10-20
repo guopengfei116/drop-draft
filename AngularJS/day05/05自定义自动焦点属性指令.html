@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+
+  <body ng-app="app" ng-controller="appCtrl">
+    <input type="text" ngl-focus="ab" value="a"/>
+    <input type="text" ngl-focus="ab" value="b"/>
+  </body>
+
+  <script>
+    var app = angular.module('app', []);
+
+    app.directive('nglFocus', [function() {
+      return {
+        // 指令类型
+        restrict: 'A',
+        // 第一个参数为元素可使用的$scope对象
+        // 第二个参数为JQLite包装过的dom对象
+        // 第三个参数为元素身上的属性集合
+        link: function($scope, $ele, attrs) {
+          console.log(arguments);
+          $ele[0].focus();
+        },
+        // link前执行
+        controller: [function() {
+          console.log('控制器');
+        }]
+      };
+    }]);
+
+    app.controller('appCtrl', ['$scope', function($scope) {
+
+    }]);
+  </script>
+</html>

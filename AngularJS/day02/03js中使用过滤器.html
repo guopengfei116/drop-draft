@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+
+
+  <body ng-app="app">
+    <div ng-controller="appCtrl">{{ data | formatDate:'MM_DD_YYYY' }}</div>
+  </body>
+
+
+  <script>
+    var app = angular.module('app', []);
+
+    app.controller('appCtrl', ['$scope', '$filter',  function($scope, $filter) {
+      $scope.data = Date.now();
+      console.log($filter('formatDate')($scope.data, 'DD-MM-YYYY'));
+    }]);
+
+    app.filter('formatDate', [function() {
+
+      // 第一个值固定为模版中的数据，后面为用户指定的参数
+      return function(tplTime, format) {
+
+        // 分别得到模版日期对应的年月日
+          let date = new Date(tplTime);
+          let y = date.getFullYear();
+          let m = date.getMonth() + 1;
+          let d = date.getDate();
+
+          // 创建匹配年月日的三个不同正则
+          let yReg = /YYYY/i;
+          let mReg = /MM/i;
+          let dReg = /DD/i;
+
+          // 最后进行数据替换
+          return format.replace(yReg, y).replace(mReg, m).replace(dReg, d);
+      };
+    }]);
+
+  </script>
+</html>

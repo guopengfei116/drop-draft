@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="angular.js"></script>
+    <script src="angular-route.js"></script>
+	</head>
+	<body ng-app="app">
+
+	  <header>公共头部</header>
+    <div ng-view></div>
+    <footer>公共底部</footer>
+
+	  <script type="text/javascript">
+	  	var app = angular.module('app', ['ngRoute']);
+      app.config(['$routeProvider', function($routeProvider) {
+        $routeProvider
+          .when('/', {
+            redirectTo: '/index'
+          })
+          .when('/index', {
+            templateUrl: './tpl/index.html'
+          })
+          .when('/user/list/:id', {
+            templateUrl: './tpl/user_list.html',
+            controller: ['$scope', '$routeParams', function($scope, $routeParams) {
+              $scope.content = $routeParams.id;
+            }]
+          });
+      }]);
+	  </script>
+	</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+
+  <body ng-app="app" ng-controller="appCtrl">
+    <!-- 预期显示的10，结果被自定义指令给改写了 -->
+    <p>{{ val }}</p>
+    <ngl-counter></ngl-counter>
+  </body>
+
+  <script>
+    var app = angular.module('app', []);
+    app.controller('appCtrl', ['$scope', function($scope) {
+       $scope.val = 10;
+    }]);
+    app.directive('nglCounter', [function() {
+      return {
+        scope: true,
+        restrict: 'E',
+        template: '<p ng-click="add()">{{ val }}</p>',
+        replace: true,
+        controller: ['$scope', function($scope) {
+          $scope.add = function() {
+            $scope.val++;
+          };
+        }]
+      };
+    }]);
+  </script>
+</html>

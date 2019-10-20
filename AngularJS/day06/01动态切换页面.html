@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="angular.js"></script>
+    <script src="angular-route.js"></script>
+	</head>
+	<body ng-app="app" ng-controller="appCtrl">
+
+	  <header>公共头部</header>
+	  <div ng-include="pageUrl"></div>
+	  <footer>公共底部</footer>
+    <button ng-click="changeUrl('tpl/index.html')">首页</button>
+    <button ng-click="changeUrl('tpl/login.html')">登陆页</button>
+    <button ng-click="changeUrl('tpl/register.html')">注册页</button>
+
+	  <script type="text/javascript">
+	  	var app = angular.module('app', ['ngRoute']);
+      app.controller('appCtrl', ['$scope', function($scope) {
+        $scope.pageUrl = 'tpl/index.html';
+        $scope.changeUrl = function(url) {
+          $scope.pageUrl = url;
+        };
+      }]);
+	  </script>
+	</body>
+</html>

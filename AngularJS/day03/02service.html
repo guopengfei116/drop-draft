@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+  </head>
+  <body ng-app="app">
+    <div  ng-controller="registerCtrl"></div>
+    <div  ng-controller="registerCtrl2"></div>
+  </body>
+
+  <script type="text/javascript">
+    var app = angular.module('app', []);
+
+    // 封装功能localStorage功能
+    app.service('user', [function() {
+      this.name = '';
+      this.pwd = '';
+    }]);
+
+    app.controller('registerCtrl', ['$scope', 'user', function($scope, user) {
+      user.name = 10;
+      console.log(user);
+    }]);
+
+    app.controller('registerCtrl2', ['$scope', 'user', function($scope, user) {
+      console.log(user);
+    }]);
+  </script>
+</html>
