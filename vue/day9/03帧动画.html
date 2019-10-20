@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+      .v-leave-active {
+          animation: fade-out 2s;
+      }
+      @keyframes fade-out {
+        0% {
+          opacity: 1;
+          color: red;
+        }
+        50% {
+          opacity: .3;
+          color: yellow;
+        }
+        100% {
+          opacity: 0;
+          color: blue;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <transition>
+        <p v-if="isShow">小东东</p>
+      </transition>
+      <button @click="changeSpan">显示隐藏</button>
+    </div>
+
+     <script src="vue.js"></script>
+     <script>
+       var vm = new Vue({
+         el: '#app',
+         data: {
+           isShow: true
+         },
+         methods: {
+           changeSpan() {
+             this.isShow = !this.isShow;
+           }
+         }
+      });
+     </script>
+  </body>
+</html>

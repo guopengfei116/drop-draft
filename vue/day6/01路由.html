@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 1/这是MVVM中的v  -->
+    <div id="app">
+        <router-view></router-view>
+    </div>
+    <script src="vue/vue.js"></script>
+    <script src="vue/vue-router.js"></script>
+    <script>
+        let loginCom = Vue.extend({
+            template: '<p>登陆</p>'
+        });
+        let registerCom = Vue.extend({
+            template: '<p>注册</p>'
+        });
+
+        // 路由配置
+        var router = new VueRouter({
+            // 配置路由的每一条线路
+            routes: [
+                { path:'/login', component: {
+            template: '<p>登陆</p>'
+        } },
+                { path: '/register', component: {
+            template: '<p>注册</p>'
+        } }
+            ]
+        });
+
+        // 2/这是MVVM中vm
+        var vm = new Vue({
+            el: '#app',
+            // 3/这是MVVM中的m
+            data: {
+                valP: '嘿嘿',
+                valDiv: '咯咯'
+            },
+            router: router
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="animate.css" />
+  </head>
+  <style>
+    .red {
+      color: red;
+    }
+  </style>
+  <body>
+
+  <div id="app">
+      <transition v-on:before-enter="bEnter" v-on:enter="enter" v-on:after-enter="aEnter">
+          <p class="abc" v-if="isShow">来回穿梭</p>
+      </transition>
+      <button @click="changeSpan">显示隐藏</button>
+  </div>
+
+     <script src="vue.js"></script>
+     <script>
+       var vm = new Vue({
+         el: '#app',
+         data: {
+           isShow: true,
+           left: 0
+         },
+         methods: {
+           changeSpan() {
+             this.isShow = !this.isShow;
+           },
+
+           bEnter(el) {
+            el.className += ' red';
+           },
+
+           enter(el, done) {
+            var timer = setInterval(()=> {
+              if((this.left += 10) > 100) {
+                clearInterval(timer);
+                done();
+              }else {
+                el.style.marginLeft = this.left + 'px';
+                console.log(this);
+                console.log(this.left);
+              }
+            }, 200);
+           },
+
+           aEnter(el) {
+              console.log('结束');
+           }
+         }
+      });
+     </script>
+  </body>
+</html>

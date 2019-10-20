@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+
+		</div>
+		<script src="vue/vue234.js"></script>
+		<script src="vue/vue-router260.js"></script>
+		<script type="text/javascript">
+		
+			var comNav = Vue.component('v-nav', {
+				template: '<nav>'
+					+ '<router-link to="account">'+ '跳到账号' +'</router-link>'
+					+ '<br/>'
+					+ '<router-link to="account/login">'+ '跳到登陆' +'</router-link>'
+					+ '<br/>'
+					+ '<router-link to="account/register">'+ '跳到注册' +'</router-link>'
+					+ '<br/>'
+					+ '<router-link to="news/1">'+ '跳到某新闻详情' +'</router-link>'
+				+'</nav>'
+			});
+			
+			// 首页组件，显示在页面主体内
+			var comHome = Vue.extend({
+				// 可以替代template
+				render: function(createElement) {
+					return createElement(comNav);
+//					return createElement({
+//						template: '<nav>'
+//											+ '<router-link to="account">'+ '跳到账号' +'</router-link>'
+//											+ '<br/>'
+//											+ '<router-link to="account/login">'+ '跳到登陆' +'</router-link>'
+//											+ '<br/>'
+//											+ '<router-link to="account/register">'+ '跳到注册' +'</router-link>'
+//											+ '<br/>'
+//											+ '<router-link to="news/1">'+ '跳到某新闻详情' +'</router-link>'
+//										+'</nav>'
+//					});
+				}
+			});
+			
+			var vm = new Vue({
+				el: '#app'
+			});
+		</script>
+	</body>
+</html>

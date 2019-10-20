@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function globalFn() {
+				console.log('globalFn');
+			}
+			
+			var es5Obj = {
+				fn: function fn() {
+					console.log('es5 fn');
+				},
+				globalFn: globalFn
+			};
+			
+			var es6Obj = {
+				fn() {
+					console.log('es6 fn');
+				},
+				globalFn
+			};
+			
+			es5Obj.fn();
+			es6Obj.fn();
+			
+			es5Obj.globalFn();
+			es6Obj.globalFn();
+		</script>
+	</body>
+</html>

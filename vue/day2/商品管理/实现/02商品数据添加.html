@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.wrapper {
+			width: 800px;
+			margin: 20px auto;
+		}
+		.operation {
+			margin-bottom: 10px;
+			text-align: center;
+			line-height: 20px;
+			font-size: 18px;
+		}
+		.operation input {
+			padding: 5px;
+			border: 1px solid deepskyblue;
+		}
+		.operation button {
+			border-radius: 3px;
+			background-color: deepskyblue;
+		}
+		.search {
+			text-align: left;
+			line-height: 20px;
+			font-size: 18px;
+		}
+		.search input {
+			padding: 5px;
+			border: 1px solid deeppink;
+		}
+		#tb{
+			width: 800px;
+			border-collapse: collapse;
+			margin: 20px auto;
+		}
+		#tb th{
+			background-color: #0094ff;
+			color:white;
+			font-size: 16px;
+			padding: 5px;
+			text-align: center;
+			border: 1px solid black;
+		}
+		#tb td{
+			padding: 5px;
+			text-align: center;
+			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<div id="app" class="wrapper">
+		<div class="operation">
+			<input type="text" placeholder="请输入编号" v-model="id">
+			<input type="text" placeholder="请输入名称" v-model="name">
+			<button type="button" @click="addProduct">添加数据</button>
+		</div>
+		<!--<div class="search">
+			<input type="text" placeHolder="请输入筛选内容">
+		</div>-->
+		<table id="tb">
+			<tr>
+				<th>编号</th>
+				<th>名称</th>
+				<th>创建时间</th>
+				<th>操作</th>
+			</tr>
+			<tr v-show="!list.length">
+				<td colspan="4">列表无数据</td>
+			</tr>
+			<tr v-for="obj in list">
+				<td>{{ obj.id }}</td>
+				<td>{{ obj.name }}</td>
+				<td>{{ obj.ctime }}</td>
+				<td>无</td>
+			</tr>
+		</table>
+	</div>
+	<script src="vue234.js"></script>
+	<script src="vue-resource134.js"></script>
+	<script>
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				list: [
+					{ id: 1, name: '宝马', ctime: new Date() },
+					{ id: 2, name: '奔驰', ctime: new Date() },
+					{ id: 3, name: '保时捷', ctime: new Date() }
+				],
+				id: '',
+				name: ''
+			},
+			methods: {
+				getList: function() {
+					this.$http.get('http://139.199.192.48:8888/api/getprodlist').then(function(rep) {
+						if(rep.body.status === 0) {
+							this.list = rep.body.message;
+						}else {
+							alert(rep.body.message)
+						}
+					});
+				},
+				addProduct: function() {
+					this.$http.post('http://139.199.192.48:8888/api/addproduct', {name: this.name}, {emulateJSON: true}).then(function(rep) {
+						if(rep.body.status === 0) {
+							this.getList();
+						}else {
+							alert(rep.body.message)
+						}
+					});
+				}
+			},
+			created: function() {
+				this.getList();
+			}
+		});
+	</script>
+</body>
+</html>

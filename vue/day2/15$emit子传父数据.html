@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 这里面可以通过属性的方式，把父数据添加给子 -->
+			<v-nav @son-click="parentEnter"></v-nav>
+		</div>
+		
+		<template id="tpl">
+			<ul>
+				<li v-for="val in list" @click="click">{{ val }}</li>
+			</ul>
+		</template>
+		
+		<script src="vue/vue234.js"></script>
+		<script>
+			Vue.component('v-nav', {
+				template: '#tpl',
+				data: function() {
+					return {
+						list: ['首页', '女人看了哭泣', '男人看了沉默', '人妖看了愤怒', '关于']
+					}
+				},
+				methods: {
+					click: function() {
+						alert('子组件的li被欺负');
+						this.$emit('son-click', '请求父支援');
+					}
+				}
+			});
+			
+			var vm = new Vue({
+				el: '#app',
+				data: {},
+				methods: {
+					parentEnter: function(data) {
+						alert('父收到子的数据消息：' + data);
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

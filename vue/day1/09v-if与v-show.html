@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			[v-cloak] {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<!-- if删除元素，show显示隐藏元素 -->
+			<section v-if="isShow">000001</section>
+			<section v-show="isShow">000002</section>
+			<button v-on:click="showOrHide">显示隐藏</button>
+		</div>
+		<script src="vue/vue234.js"></script>
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					isShow: true
+				},
+				methods: {
+					showOrHide: function() {
+						this.isShow = !this.isShow;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

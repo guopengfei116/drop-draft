@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue/vue234.js"></script>
+		<script src="../vue/axios.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{ result }}</div>
+			<button @click="getData">提交数据</button>
+		</div>
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					result: ''
+				},
+				methods: {
+					getData: function() {
+					  axios.get('http://139.199.192.48:8888/api/getprodlist').then(rep => {
+					    rep.result = rep.data;
+					  })
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			
+			/* 这些样式属性只在过渡动画的生命周期中才有效 */
+			div {
+			  transition: all .5s
+			}
+			
+			/* 这里通常设置过渡条件与无动画的样式改变 */
+			/* 这里的font-size变化比较生硬 */
+			/*.fade-enter-active, .fade-leave-active {
+			   transition: opacity .5s;
+			   font-size: 30px;
+			}*/
+			
+			/* 元素隐藏时，样式过滤的起点值 */
+			/* 元素隐藏时，样式过渡的终点值 */
+			.fade-leave {
+				opacity: 1;
+				color: green;
+			}
+			
+			.fade-leave-to {
+			    opacity: 0;
+			    color: red;
+			}
+			
+			/* 元素显示时，样式过滤的起点值 */
+			/* 元素显示时，样式过渡的终点值 */
+			.fade-enter {
+				opacity: 0;
+				color: red;
+			}
+			.fade-enter-to {
+				opacity: 1;
+				color: green;
+			}
+			
+			.my-en {
+				opacity:1;
+				color: red;
+			}
+			.my-le {
+				opacity: 0;
+				color: green;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			
+			<transition name="fade">
+				<div v-if="isShow">指定类名前缀为fade</div>
+			</transition>
+			
+			<!-- 可以设置两个自定义动画class，用户css3的动画 -->
+			<transition enter-active-class="my-en" leave-active-class="my-le">
+				<div v-if="isShow">不设置name属性，使用默认类名前缀v</div>
+			</transition>
+			
+			<button @click="toggle">显示隐藏</button>
+		</div>
+		<script src="vue/vue234.js"></script>
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					isShow: true
+				},
+				methods: {
+					// 元素显示隐藏
+					toggle: function() {
+						this.isShow = !this.isShow;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

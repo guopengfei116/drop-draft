@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			[v-cloak] {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<input type="text" v-model.number="bd">
+			<input type="text" v-model.trim="bd">
+			<p :text-content="bd"></p>
+			<p :text-content.prop="bd"></p>
+		</div>
+		<script src="vue/vue234.js"></script>
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					bd: 'http://www.baidu.com'
+				}
+			});
+		</script>
+	</body>
+</html>

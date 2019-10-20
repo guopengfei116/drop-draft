@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<h2>app1</h2>
+			<!-- 单标签可能会有一些问题 -->
+			<v-nav />
+			<v-nav />
+		</div>
+		<div id="app2">
+			<h2>app2</h2>
+      <v-nav></v-nav>
+      <v-nav></v-nav>
+		</div>
+
+		<template id="tpl">
+			<ul>
+				<li v-for="val in list">{{ val }}</li>
+			</ul>
+		</template>
+
+		<script src="vue/vue234.js"></script>
+		<script>
+			// 注册一个全局组件
+			Vue.component('v-nav', {
+				template: '#tpl',
+				data: function() {
+					return {
+						list: ['首页', '震惊', '毁三观', '难以置信', '关于']
+					}
+				}
+			});
+
+			var vm = new Vue({
+				el: '#app'
+			});
+			var vm2 = new Vue({
+				el: '#app2'
+			});
+		</script>
+	</body>
+</html>

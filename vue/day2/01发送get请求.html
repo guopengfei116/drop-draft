@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="vue/vue234.js"></script>
+		<script src="vue/vue-resource134.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{ result }}</div>
+			<button @click="getData">提交数据</button>
+		</div>
+		<script>
+		  Vue.http.interceptors.push(function(request, next) {
+        next(function(response) {
+          console.log(JSON.stringify(response.body));
+          response.ok = false;
+        });
+      });
+
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					result: ''
+				},
+				methods: {
+					getData: function() {
+						this.$http.get('http://139.199.192.48:8888/api/getprodlist').then(function(rep) {
+							this.result = rep.body;
+						});
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

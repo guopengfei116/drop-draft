@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<v-title ref="title"></v-title>
+			<p ref="p">{{ content }}</p>
+			<button ref="btn" @click="click">点击</button>
+		</div>
+		
+		<template id="tpl">
+			<h1>{{ title }}</h1>
+		</template>
+		
+		<script src="vue/vue234.js"></script>
+		<script>
+			Vue.component('v-title', {
+				template: '#tpl',
+				data: function() {
+					return {
+						title: '震惊，不可思议'
+					}
+				}
+			});
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					content: '斯蒂芬斯蒂芬第三方受委屈'
+				},
+				methods: {
+					click: function() {
+						console.log(this.$refs.p);
+						console.log(this.$refs.title);
+						console.log(this.$refs.btn);
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

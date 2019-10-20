@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<v-header></v-header>
+			<router-view></router-view>
+			<v-footer></v-footer>
+		</div>
+		<script src="vue/vue234.js"></script>
+		<script src="vue/vue-router260.js"></script>
+		<script type="text/javascript">
+			
+			// 页面头部组件
+			var comHeader = Vue.extend({
+				template: '<h1>页面头部</h1>'
+			});
+			
+			// 页面底部组件
+			var comFooter = Vue.extend({
+				template: '<h1>页面底部</h1>'
+			});
+
+			// 登陆组件，显示在页面主体内
+			var comLogin = Vue.extend({
+				template: '<h2>登陆页面</h2>'
+			});
+			
+			// 注册组件，显示在页面主体内
+			var comRegister = Vue.extend({
+				template: '<h2>注册页面</h2>'
+			});
+			
+			// 账号组件，包含登陆与注册，显示在页面主体内
+			var comAccount = Vue.extend({
+				template: '<div><h1>账号页面</h1><router-view></router-view></div>'
+			});
+			
+			// 新闻详情组件，显示在页面主体内
+			var comNew = Vue.extend({
+				template: '<h2>新闻列表，新闻id：{{ id }}</h2>',
+				data: function() {
+					return {
+						id: ''
+					};
+				},
+				created: function() {
+					this.id = this.$route.params.newId;
+					// 里面有params可以获取参数，有query可以获取查询字符串
+					console.log(this.$route);
+				}
+			});
+			
+			// 首页组件，显示在页面主体内
+			var comHome = Vue.extend({
+				
+				// 可以替代template
+				render: function(createElement) {
+					return createElement('nav', [
+						createElement('a', { attrs: { href: "#/account" }, props: [] }, '跳到账号'),
+						createElement('br'),
+						createElement('a', { attrs: { href: "#/account/login" } }, '跳到登陆'),
+						createElement('br'),
+						createElement('a', { attrs: { href: "#/account/register" } }, '跳到注册'),
+						createElement('br'),
+						createElement('a', { attrs: { href: "#/news/1" } }, '跳到某新闻详情'),
+					]);
+				},
+				
+				// 可以替代template
+				render: function(createElement) {
+					
+					// 创建子节点的数据模型
+					var childrenModel = [
+						['a', { attrs: { href: "#/account" }, props: [] }, '跳到账号2'],
+						['a', { attrs: { href: "#/account/login" } }, '跳到登陆2'],
+						['a', { attrs: { href: "#/account/register" } }, '跳到注册2'],
+						['a', { attrs: { href: "#/news/1" } }, '跳到某新闻详情2'],
+					];
+					
+					// 创建子节点
+					var children = [];
+					childrenModel.forEach(function(data, i) {
+						children.push(createElement.apply(null, childrenModel[i]));
+						children.push(createElement('br'));
+					});
+					
+					// 创建根节点并返回
+					return createElement('nav', children);
+				},
+				
+//				// 有了render函数，就不会再使用template模版
+//				template: '<nav>'
+//									+ '<router-link to="account">'+ '跳到账号' +'</router-link>'
+//									+ '<br/>'
+//									+ '<router-link to="account/login">'+ '跳到登陆' +'</router-link>'
+//									+ '<br/>'
+//									+ '<router-link to="account/register">'+ '跳到注册' +'</router-link>'
+//									+ '<br/>'
+//									+ '<router-link to="news/1">'+ '跳到某新闻详情' +'</router-link>'
+//								+'</nav>'
+			});
+			
+			var vm = new Vue({
+				el: '#app',
+				data: {},
+				components: {
+					'v-header': comHeader,
+					'v-footer': comFooter
+				},
+				router: new VueRouter({
+					routes: [
+						{ path: '/', component: comHome },
+						{ path: '/account', component: comAccount, children: [
+							{ path: 'login', component: comLogin },
+							{ path: 'register', component: comRegister }
+						]},
+						{ path: '/news/:newId', component: comNew }
+					]
+				})
+			});
+		</script>
+	</body>
+</html>

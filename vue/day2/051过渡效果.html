@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			
+			/* 这些样式属性只在过渡动画的生命周期中才有效 */
+			div {
+			  transition: all .5s
+			}
+			
+			/* 这里通常设置过渡条件与无动画的样式改变 */
+			/* 这里的font-size变化比较生硬 */
+			/*.fade-enter-active, .fade-leave-active {
+			   transition: opacity .5s;
+			   font-size: 30px;
+			}*/
+			
+			/* 元素隐藏时，样式过滤的起点值 */
+			/* 元素隐藏时，样式过渡的终点值 */
+			.fade-leave {
+				opacity: 1;
+				color: green;
+			}
+			
+			.fade-leave-to {
+			    opacity: 0;
+			    color: red;
+			}
+			
+			/* 元素显示时，样式过滤的起点值 */
+			/* 元素显示时，样式过渡的终点值 */
+			.fade-enter {
+				opacity: 0;
+				color: red;
+			}
+			.fade-enter-to {
+				opacity: 1;
+				color: green;
+			}
+			
+			.v-enter {
+				opacity: 0;
+				color: red;
+			}
+			.v-enter-to {
+				opacity: 1;
+				color: green;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 把需要过渡效果的元素使用一个transition标签包裹起来 -->
+			<!-- 这样vue在渲染视图的时候，就会额外关照里面的元素 -->
+			<!-- 如果发现里面的元素设置了transition样式 -->
+			<!-- 那么该元素在显示隐藏的生命周期中就有6个对应的class属性被添加-->
+			<!-- 为了防止多个transition间的class重名，需要一个name属性定义class的前缀 -->
+			<!-- 显示隐藏这个过程结束时这6个class将全部移除 -->
+			<transition name="fade">
+				<div v-if="isShow">指定类名前缀为fade</div>
+			</transition>
+			<transition >
+				<div v-if="isShow">不设置name属性，使用默认类名前缀v</div>
+			</transition>
+			<transition >
+				<div>
+					<div v-if="isShow">元素嵌套，子元素不会生效</div>
+				</div>
+			</transition>
+			<button @click="toggle">显示隐藏</button>
+		</div>
+		<script src="vue/vue234.js"></script>
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					isShow: true
+				},
+				methods: {
+					// 元素显示隐藏
+					toggle: function() {
+						this.isShow = !this.isShow;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

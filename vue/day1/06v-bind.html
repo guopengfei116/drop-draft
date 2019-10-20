@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			[v-cloak] {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 属性绑定数据必须使用v-bind指令,否则不生效 -->
+			<a href="{{ bd}}">baidu</a>
+			
+			<a v-bind:href="bd">baidu</a>
+			<a :href="bd">baidu</a>
+			
+			<!-- 如果想同时绑定多个属性，可以使用这种写法 -->
+			<a v-bind="{ href: bd, rr: bd }">baidu</a>
+		</div>
+		<script src="vue/vue234.js"></script>
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					bd: 'http://www.baidu.com'
+				}
+			});
+		</script>
+	</body>
+</html>

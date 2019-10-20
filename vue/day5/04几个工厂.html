@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<div>
+				<span>最大总数：{{ maxTotal }}</span>
+				<span>当前总数：{{ total }}</span>
+			</div>
+			<v-numbox></v-numbox>
+			<v-numbox></v-numbox>
+		</div>
+		
+		<script src="vue/vue234.js"></script>
+		<script src="vue/vuex230.js"></script>
+		<script>
+			
+			// 数字框组件
+			Vue.component('v-numbox', {
+				template: 
+					`<div>
+						<button @click="sub">-</button>
+						<input v-model="num"/>
+						<button @click="add">+</button>
+					</div>`,
+				data() {
+					return {
+						num: 0
+					};
+				},
+				methods: {
+					add() {
+						var state = this.$store.state;
+						if(state.total < state.maxTotal) {
+							this.num++;
+							this.$store.commit('addTotal');
+						}
+					},
+					sub() {
+						if(this.num > 0) {
+							this.num--;
+							this.$store.dispatch('subTotal');
+						}
+					}
+				}
+			});
+			
+			// vuex
+			var store = new Vuex.Store({
+				
+				// 数据定义
+				state: {
+					maxTotal: 0,
+					total: 0
+				},
+				
+				// 修改数据的方法
+				mutations: {
+					init(state, val) {
+						state.maxTotal = val;
+					},
+					addTotal(state) {
+						setTimeout(function(){
+							state.total++;
+						}, 500);
+					},
+					subTotal(state) {
+						state.total--;
+					}
+				},
+				
+				// 异步修改total的值必须调用这里的方法vue调试工具才会正确显示total变化后的值
+				actions: {
+					subTotal(store) {
+						setTimeout(function() {
+							store.commit('subTotal');
+//							store.state.total--;   直接修改这个值vue调试工具监控不到状态的变化
+						}, 500);
+					},
+				}
+				
+			});
+			
+			var state = Vuex.mapState(['maxTotal', 'total']);
+			var mutations = Vuex.mapMutations(['init', 'addTotal', 'subTotal']);
+			console.log(state);
+			console.log(mutations);
+
+			
+			var vm = new Vue({
+				el: '#app',
+				store,
+				computed: {
+					
+					maxTotal: state.maxTotal,
+//					maxTotal() {
+//						return this.$store.state.maxTotal;
+//					},
+					total: state.total,
+//					total() {
+//						return this.$store.state.total;
+//					}
+				},
+				created() {
+					this.$store.commit('init', 10);
+				}
+			});
+		</script>
+	</body>
+</html>

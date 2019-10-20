@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<!-- 1、导入vuejs -->
+		<script src="vue/vue234.js"></script>
+	</head>
+	<body>
+		<!-- 3、在vue管理的区域中可以使用vue提供的指令呈现数据 -->
+		<div id="app">
+			<!-- 这是插值表达式 -->
+			<span>{{ name }}</span>
+		</div>
+	</body>
+	<script>
+		/*
+		 * 2、创建vue实例
+		 * vue实例就是MVVM中的 View Model
+		 * */
+		var vm = new Vue({
+			
+			// 代表实例管理的view
+			el: '#app', 
+			
+			// 代表实例使用的model
+			data: {
+				name: '黑马程序猿'
+			}
+		});
+	</script>
+</html>

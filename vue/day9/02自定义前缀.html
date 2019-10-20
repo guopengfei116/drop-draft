@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+      // 透明过渡
+      .fade-leave {
+          opacity: 1;
+      }
+      .fade-leave-active {
+          transition: all 1s;
+      }
+      .fade-leave-to {
+          opacity: 0;
+      }
+
+      // 滑动过渡
+      .slide-leave {
+        margin-left: 0;
+      }
+      .slide-leave-active {
+          transition: all 1s;
+      }
+      .slide-leave-to {
+          margin-left: -500px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <transition name="fade">
+        <p v-if="isShow">小东东</p>
+      </transition>
+      <transition name="slide">
+        <p v-if="isShow">悄悄的我走了</p>
+      </transition>
+      <button @click="changeSpan">显示隐藏</button>
+    </div>
+
+     <script src="vue.js"></script>
+     <script>
+       var vm = new Vue({
+         el: '#app',
+         data: {
+           isShow: true
+         },
+         methods: {
+           changeSpan() {
+             this.isShow = !this.isShow;
+           }
+         }
+      });
+     </script>
+  </body>
+</html>

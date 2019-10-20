@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue/vue234.js"></script>
+    <script src="../vue/axios.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{ result }}</div>
+			<button @click="getData">获取数据</button>
+			<button @click="postData">提交数据</button>
+		</div>
+		<script>
+		  let config = {
+        transformRequest:[function(data){
+          return 'name=奔驰';
+        }],
+    };
+    axios.defaults = Object.assign(axios.defaults, config);
+
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					result: ''
+				},
+				methods: {
+					getData: function() {
+						axios.get('http://vue.studyit.io/api/getprodlist').then(rep => {
+              rep.result = rep.data;
+            })
+					},
+					postData: function() {
+//					  let data = 'name=法拉利';
+					let data = {name: '法拉利'};
+					  axios.post('http://vue.studyit.io/api/addproduct', data).then(rep => {
+              alert(rep.data.message);
+					  });
+				  }
+				}
+			});
+		</script>
+	</body>
+</html>

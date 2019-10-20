@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	    <div id="app">
+	        <router-view></router-view>
+	    </div>
+	    <script src="vue/vue.js"></script>
+	    <script src="vue/vue-router.js"></script>
+	    <script>
+	    	let loginComt = Vue.extend({
+	            template: '<p>登陆</p>'
+	        });
+	        let registerComt = Vue.extend({
+	            template: '<p>注册</p>'
+	        });
+
+	        let bodyComt = Vue.extend({
+	            template: `
+	            	<div>
+	            		<p>页面主体</p>
+	            		<router-view></router-view>
+            		</div>
+        		`
+	        });
+
+	        let router = new VueRouter({
+		        routes: [
+		            { path: '/page', component: bodyComt,
+		              children: [
+		            	{ path: 'login', component: loginComt },
+		            	{ path: 'register', component: registerComt }
+		              ]
+	                }
+		        ]
+		    });
+
+	    	// 实例
+			var vm = new Vue({
+			    el: '#app',
+			    router: router
+			});
+	    </script>
+	</body>
+</html>

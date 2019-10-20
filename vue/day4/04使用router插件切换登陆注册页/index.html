@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<v-header></v-header>
+			<router-view></router-view>
+			<v-footer></v-footer>
+		</div>
+		<script src="vue/vue234.js"></script>
+		<script src="vue/vue-router260.js"></script>
+		<script type="text/javascript">
+			
+			// 页面头部组件
+			var comHeader = Vue.extend({
+				template: '<h1>页面头部</h1>'
+			});
+			
+			// 页面底部组件
+			var comFooter = Vue.extend({
+				template: '<h1>页面底部</h1>'
+			});
+			
+			// 登陆组件，显示在页面主体内
+			var comLogin = Vue.extend({
+				template: '<h2>登陆页面</h2>'
+			});
+			
+			// 注册组件，显示在页面主体内
+			var comRegister = Vue.extend({
+				template: '<h2>注册页面</h2>'
+			});
+			
+			var vm = new Vue({
+				el: '#app',
+				data: {},
+				components: {
+					'v-header': comHeader,
+					'v-footer': comFooter
+				},
+				router: new VueRouter({
+					routes: [
+						{ path: '/login', component: comLogin },
+						{ path: '/register', component: comRegister }
+					]
+				})
+			});
+		</script>
+	</body>
+</html>

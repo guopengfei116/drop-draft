@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="vue/vue234.js"></script>
+		<script src="vue/vue-resource134.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div>{{ result }}</div>
+			<button @click="getData">jsonp获取数据</button>
+		</div>
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					result: ''
+				},
+				methods: {
+					getData: function() {
+						this.$http.jsonp('http://139.199.192.48:8888/api/jsonp').then(function(rep) {
+							this.result = rep.body;
+							console.log(rep.body);
+						});
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

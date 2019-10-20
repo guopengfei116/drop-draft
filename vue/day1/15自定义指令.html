@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<div v-skyblue>啦啦啦</div>
+			<div v-bgcolor="color">啦啦啦</div>
+			<div v-font2="60">啦啦啦</div>
+			<!--<my-font>嘿嘿嘿 </my-font>-->
+		</div>
+		<script src="vue/vue234.js"></script>
+		<script>
+			
+			// 全局自定义指令
+			Vue.directive('font', {
+				bind: function(el, binding) {
+					el.style.fontSize = binding.value + 'px';
+				}
+			});
+			
+			Vue.directive('font2',function(el, binding) {
+				console.log(binding);
+				el.style.fontSize = binding.value + 'px';
+			});
+			
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					user: {
+						username: 'root',
+						password: '123'
+					},
+					color: 'red'
+				},
+				directives: {
+					skyblue: function(el, binding) {
+						el.style.backgroundColor = 'skyblue';
+					},
+					bgcolor: function(el, binding) {
+						el.style.backgroundColor = binding.value;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			[v-cloak] {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 当vue加载完毕后会自动删除标签的v-cloak属性 -->
+			<span v-cloak>123{{ name }}</span>
+		</div>
+		<script src="vue/vue234.js"></script>
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					name: '工程狮'
+				}
+			});
+		</script>
+	</body>
+</html>

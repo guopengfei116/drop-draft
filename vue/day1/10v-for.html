@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			[v-cloak] {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<ul>
+				<li v-for="val in filter(list, searchVal)">{{ val }}</li>
+			</ul>
+			<ul>
+				<li v-for="(val, idx) in list">{{ val }} : {{ idx }}</li>
+			</ul>
+			<ul>
+				<li v-for="val in user">{{ val }}</li>
+			</ul>
+			<ul>
+				<li v-for="(val, key) in user">{{ val }} : {{ key }}</li>
+			</ul>
+			<ul>
+				<li v-for="(val, key, idx) in user">{{ val }} : {{ key }} : {{ idx }}</li>
+			</ul>
+			<ul>
+				<li v-bind:data-index="i" v-for="(n, i) in 5" >{{ n }} : {{ i }}</li>
+			</ul>
+		</div>
+		<script src="vue/vue234.js"></script>
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					list: ['西施', '貂蝉', '昭君', ' 杨贵妃'],
+					user: { username: 'root', password: '123' },
+					searchVal: '贵'
+				},
+				methods: {
+					filter: function(list, searchVal) {
+						var reg = new RegExp(searchVal);
+						return list.filter(function(val, i) {
+							return reg.test(val);
+						});
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

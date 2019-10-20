@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="app">
+      <app-header></app-header>
+    </div>
+
+     <script src="vue.js"></script>
+     <script>
+       Vue.component('app-header', {
+         template: '<header ref="hd" @click="changeTitle">{{ title }}</header>',
+         data: function() {
+           return { title: '首页' };
+         },
+         methods: {
+           changeTitle() {
+             this.title = '登陆';
+           }
+         },
+         created() {
+           console.log('created');
+         },
+         beforeMount() {
+           console.log('beforeMount');
+         },
+         mounted() {
+           console.log('mounted');
+         },
+         beforeUpdate(a, b) {
+           console.log('beforeUpdate');
+         },
+         updated(a, b) {
+           console.log('updated');
+           console.log(this);
+           console.log(this.title);
+           console.log(this.$refs.hd.innerHTML);
+         }
+       });
+
+      var vm = new Vue({
+         el: '#app',
+         data: {}
+      });
+     </script>
+  </body>
+</html>

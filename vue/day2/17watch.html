@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<input type="text" v-model="username"/>
+			<input type="text" v-model="password"/>
+			<span>{{ up }}</span>
+		</div>
+		<script src="vue/vue234.js"></script>
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					username: '',
+					password: '',
+					up: ''
+				},
+				watch: {
+					username: function(newV, oldV) {
+						this.up = this.username + this.password;
+					},
+					password: function(newV, oldV) {
+						this.up = this.username + this.password;
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

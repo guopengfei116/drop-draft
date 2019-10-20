@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 这里面可以通过属性的方式，把父数据添加给子 -->
+			<v-nav :a="parentVal" :b="parentVal2"></v-nav>
+		</div>
+		
+		<template id="tpl">
+			<ul>
+				<li v-for="val in list"><input v-model="a" type="text" /></li>
+			</ul>
+			
+		</template>
+		
+		<script src="vue/vue234.js"></script>
+		<script>
+			Vue.component('v-nav', {
+				template: '#tpl',
+				data: function() {
+					return {
+						list: ['首页', '女人看了哭泣', '男人看了沉默', '人妖看了愤怒', '关于']
+					}
+				},
+				props: ['a','b'],
+				created: function() {
+					console.log(this.a, this.b);
+				}
+			});
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					parentVal: '父一',
+					parentVal2: {
+						name: '父二',
+						age: 50
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

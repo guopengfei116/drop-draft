@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	  <div id="app">
+
+	    <ul>
+	    	<li v-for="(item, i) in list" v-bind:abc="item.age">
+	    	  <span>{{ item.name }}</span>
+	    	  <span>{{ item.age }}</span>
+	    	</li>
+	    </ul>
+	  </div>
+
+	   <script src="vue.js"></script>
+	   <script>
+	     var vm = new Vue({
+	       el: '#app',
+	       data: {
+	        list: [
+	          { name: '张三', age: 16 },
+	          { name: '李四', age: 15 },
+	          { name: '王五', age: 14 }
+	        ]
+	       }
+	    });
+	   </script>
+	</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<v-nav></v-nav>
+			<v-nav></v-nav>
+		</div>
+
+		<template id="tpl">
+			<ul>
+				<li v-for="val in list">{{ val }}</li>
+			</ul>
+		</template>
+
+		<script src="vue/vue234.js"></script>
+		<script>
+			/**
+			 * 组件使用场景：
+			 * 1、如果一个app比较庞大，可以抽取app中不同的模块，写成组件实现代码逻辑的分割
+			 * 2、如果页面中，有些功能模块被重复使用，可以写成组件实现复用
+			 * 注意事项：
+			 * 1、tempate配置的模版必须使用一个父标签包裹起来
+			 * 2、data配置的数据必须是一个函数返回一个对象的形式
+			 * */
+//			Vue.component('v-nav', {
+//				template: '#tpl',
+//				data: function() {
+//					return {
+//						list: ['首页', '震惊', '毁三观', '难以置信', '关于']
+//					}
+//				}
+//			});
+
+			Vue.extend({
+				template: '#tpl',
+				data: function() {
+					return {
+						list: ['首页', '震惊', '毁三观', '难以置信', '关于']
+					}
+				}
+			});
+
+			var vm = new Vue({
+				el: '#app'
+			});
+		</script>
+	</body>
+</html>

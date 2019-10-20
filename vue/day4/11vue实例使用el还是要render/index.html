@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script src="vue/vue234.js"></script>
+		<script src="vue/vue-router260.js"></script>
+		<script type="text/javascript">
+			
+			// 页面头部组件
+			var comHeader = Vue.extend({
+				template: '<h1>页面头部</h1>'
+			});
+			
+			// 页面底部组件
+			var comFooter = Vue.extend({
+				template: '<h1>页面底部</h1>'
+			});
+			
+			// 页面内容组件
+			var comContent = Vue.extend({
+				template: '<div><v-header></v-header><router-view></router-view><v-footer></v-footer></div>',
+			});
+
+			var vm = new Vue({
+				el: '#app',
+				// template只是模版，无法应用其他组件
+//				template: '<div><v-header></v-header><router-view></router-view><v-footer></v-footer></div>',
+				render: function(c) {
+					return c(comContent);
+				},
+				data: {}
+			});
+		</script>
+	</body>
+</html>

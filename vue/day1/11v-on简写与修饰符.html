@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			[v-cloak] {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			
+			<!-- v-on:事件名的简写方式： @事件名 -->
+			<section v-if="isShow">000001</section>
+			<section v-show="isShow">000002</section>
+			<button @click="showOrHide(true, 'false')">显示隐藏</button>
+			<button @click.prevent.stop.once="showOrHide">显示隐藏</button>
+			
+			<!-- prevent阻止默认事件 -->
+			<form action="http://hao123.com" @submit.prevent="submit">
+				<button type="submit">提交</button>
+			</form>
+			
+			<!-- stop阻止冒泡 -->
+			<div @click="dialog('父div被点击')">
+				<span @click.stop="dialog('子span被点击')">父与子</span>
+			</div>
+			
+			<!-- 按键修饰 -->
+			<input type="text" @keydown.enter="dialog('回车键')">
+			<input type="text" @keydown.40="dialog('下键')">
+		</div>
+		<script src="vue/vue234.js"></script>
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					list: ['西施', '貂蝉', '昭君', ' 杨贵妃'],
+					user: { username: 'root', password: '123' },
+					isShow: true
+				},
+				methods: {
+					showOrHide: function() {
+						this.isShow = !this.isShow;
+						console.log(arguments);
+					},
+					submit: function() {
+						console.log(arguments);
+						alert('表单提交');
+					},
+					dialog: function(msg) {
+						alert(msg);
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			[v-cloak] {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<section>
+				<span v-for="val in user">{{ val }}</span>
+			</section>
+			<section>
+				<span v-for="val in user">{{ val | upcase }}</span>
+			</section>
+		</div>
+		<div id="app2">
+			<section>
+				<span v-for="val in user">{{ val | upcase('param1', 'param2', 'param3') }}</span>
+			</section>
+		</div>
+		<script src="vue/vue234.js"></script>
+		<script>
+			/**
+			 * 过滤器只能在插值表达式中使用，
+			 * 过滤器传参可以通过类似与方法调用的形式传参
+			 * */
+			
+			// 全局过滤器
+			Vue.filter('upcase', function(str) {
+				console.log.apply(null, arguments);
+				return (str + '').toUpperCase();
+			});
+			
+			// 实例1
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					user: { username: 'root', password: '123' }
+				},
+				filters: {
+					upcase: function(str) {
+						return (str + '').toUpperCase();
+					}
+				}
+			});
+			
+			// 实例2
+			var vm2 = new Vue({
+				el: '#app2',
+				data: {
+					user: { username: 'root', password: '123' }
+				}
+			});
+		</script>
+	</body>
+</html>

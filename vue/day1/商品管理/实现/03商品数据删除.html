@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.wrapper {
+			width: 800px;
+			margin: 20px auto;
+		}
+		.operation {
+			margin-bottom: 10px;
+			text-align: center;
+			line-height: 20px;
+			font-size: 18px;
+		}
+		.operation input {
+			padding: 5px;
+			border: 1px solid deepskyblue;
+		}
+		.operation button {
+			border-radius: 3px;
+			background-color: deepskyblue;
+		}
+		.search {
+			text-align: left;
+			line-height: 20px;
+			font-size: 18px;
+		}
+		.search input {
+			padding: 5px;
+			border: 1px solid deeppink;
+		}
+		#tb{
+			width: 800px;
+			border-collapse: collapse;
+			margin: 20px auto;
+		}
+		#tb th{
+			background-color: #0094ff;
+			color:white;
+			font-size: 16px;
+			padding: 5px;
+			text-align: center;
+			border: 1px solid black;
+		}
+		#tb td{
+			padding: 5px;
+			text-align: center;
+			border: 1px solid black;
+		}
+		[v-cloak] {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div id='app' class="wrapper" v-cloak>
+		<div class="operation">
+			<input type="text" placeholder="请输入编号" v-model="vehicle.id">
+			<input type="text" placeholder="请输入名称" v-model="vehicle.name">
+			<button type="button" @click="add" >添加数据</button>
+		</div>
+		<table id="tb">
+			<tr>
+				<th>编号</th>
+				<th>名称</th>
+				<th>创建时间</th>
+				<th>操作</th>
+			</tr>
+			<tr v-show="!list.length">
+				<td colspan="4">列表无数据</td>
+			</tr>
+			<tr v-for="vehicle in list">
+				<td>{{ vehicle.id }}</td>
+				<td>{{ vehicle.name }}</td>
+				<td>{{ vehicle.ctime }}</td>
+				<td>
+					<a href="#" @click="del(vehicle.id)">删除</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<script src="vue234.js"></script>
+	<script>
+		var vm = new Vue({
+			el: '#app',
+			
+			data: {
+				list: [
+					{ id: 1, name: '宝马', ctime: new Date() },
+					{ id: 2, name: '奔驰', ctime: new Date() },
+					{ id: 3, name: '保时捷', ctime: new Date() }
+				],
+				vehicle: {id: '', name: ''}
+			},
+			
+			methods: {
+				
+				add: function() {
+					
+					// 1、把用户输入的数据组成与list中对象相同的格式
+					var newVehicle = {
+						id: this.vehicle.id,
+						name: this.vehicle.name,
+						ctime: new Date()
+					};
+					
+					// 2、把新对象添加到list中
+					this.list.push(newVehicle);
+					
+					// 3、渲染页面(自动)
+					
+					// 4、清空用户输入的内容
+					this.vehicle = {id: '', name: ''};
+				},
+				
+				del: function(id) {
+					
+					// 遍历list，找到符合要求的vehicle
+					for(var i = 0, l = this.list.length; i < l; i++) {
+						if(this.list[i].id === id) {
+							
+							// 找到后调用的list.splice(删除的索引，删除的元素个数)
+							this.list.splice(i, 1);
+							return;
+						}
+					}
+				}
+			}
+		});
+	</script>
+</body>
+</html>

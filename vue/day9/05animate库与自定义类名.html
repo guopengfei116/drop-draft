@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="animate.css" />
+  </head>
+  <body>
+
+  <div id="app">
+     <!-- 在元素显示隐藏时使用animate动画库提供的类实现动画 -->
+      <transition enter-active-class="animated bounce" leave-active-class="animated jello">
+          <p v-if="isShow">来回穿梭</p>
+      </transition>
+      <button @click="changeSpan">显示隐藏</button>
+  </div>
+
+     <script src="vue.js"></script>
+     <script>
+       var vm = new Vue({
+         el: '#app',
+         data: {
+           isShow: true
+         },
+         methods: {
+           changeSpan() {
+             this.isShow = !this.isShow;
+           }
+         }
+      });
+     </script>
+  </body>
+</html>

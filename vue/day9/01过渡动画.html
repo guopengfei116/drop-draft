@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+		  .v-enter {
+		    opacity: 0;
+		  }
+		  .v-enter-active {
+		    transition: all 1s;
+		  }
+		  .v-enter-to {
+        opacity: 1;
+      }
+      .v-leave {
+        font-size: 30px;
+      }
+      .v-leave-active {
+        transition: all 1s;
+      }
+      .v-leave-to {
+        font-size: 10px;
+      }
+		</style>
+	</head>
+	<body>
+	  <div id="app">
+	    <transition>
+	      <span class="show" v-if="isShow">小东东</span>
+	    </transition>
+      <button @click="changeSpan">显示隐藏</button>
+	  </div>
+
+	   <script src="vue.js"></script>
+	   <script>
+	     var vm = new Vue({
+	       el: '#app',
+	       data: {
+	         isShow: true
+	       },
+	       methods: {
+	         changeSpan() {
+	           this.isShow = !this.isShow;
+	         }
+	       }
+	    });
+	   </script>
+	</body>
+</html>

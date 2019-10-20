@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	    <div id="app">
+	        <router-view></router-view>
+	    </div>
+	    <script src="vue/vue.js"></script>
+	    <script src="vue/vue-router.js"></script>
+	    <script>
+	    	let loginCom = Vue.extend({
+	            template: '<p>登陆</p>'
+	        });
+	        let registerCom = Vue.extend({
+	            template: '<p>注册</p>'
+	        });
+	        let router = new VueRouter({
+		        routes: [
+		        	{ path: '/', redirect: '/login' },
+//			        	{ path: '/', redirect: '/login' },
+		            { path: '/login', component: loginCom },
+		            { path: '/details/:id', component: registerCom, name: 'details',  },
+		        ]
+		    });
+
+	    	// 实例
+			var vm = new Vue({
+			    el: '#app',
+			    methods: {
+			        to: function(path) {
+			            this.$router.push(path);
+			        }
+			    },
+			    router: router
+			});
+			vm.$router.push('/login');
+			vm.$router.push({path:'/login', query:{aa:11}});
+//			vm.$router.push({name:'details', params:{id:1}, query:{aa:11}});
+	    </script>
+	</body>
+</html>

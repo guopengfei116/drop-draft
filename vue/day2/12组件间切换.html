@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<h2>app1</h2>
+			<component :is="cpName"></component>
+			<input type="text" v-model="cpName"/>
+		</div>
+		
+		<template id="tpl">
+			<ul>
+				<li v-for="val in list">{{ val }}</li>
+			</ul>
+		</template>
+		
+		<script src="vue/vue234.js"></script>
+		<script>
+			Vue.component('v-nav', {
+				template: '#tpl',
+				data: function() {
+					return {
+						list: ['首页', '震惊', '毁三观', '难以置信', '关于']
+					}
+				}
+			});
+			Vue.component('v-nav2', {
+				template: '#tpl',
+				data: function() {
+					return {
+						list: ['首页', '女人看了哭泣', '男人看了沉默', '人妖看了愤怒', '关于']
+					}
+				}
+			});
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					cpName: ''
+				}
+			});
+		</script>
+	</body>
+</html>

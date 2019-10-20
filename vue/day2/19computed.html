@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			{{ test }}
+			<v-test></v-test>
+		</div>
+		
+		<script src="vue/vue234.js"></script>
+		<script>
+			Vue.component('v-test', {
+				template: '<h1>1</h1>',
+				data: function() {
+					return {
+						test: '测试'
+					};
+				},
+				created: function() {
+					console.log(this);
+					this.$el = document.querySelector('#app');
+				}
+			});
+			
+			var vm = new Vue({
+				
+			});
+		</script>
+	</body>
+</html>

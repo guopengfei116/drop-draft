@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<div>
+				<span>最大总数：{{ maxTotal }}</span>
+				<span>当前总数：{{ total }}</span>
+			</div>
+			<v-numbox></v-numbox>
+			<v-numbox></v-numbox>
+		</div>
+		
+		<script src="vue/vue234.js"></script>
+		<script src="vue/vuex230.js"></script>
+		<script>
+			
+			// 数字框组件
+			Vue.component('v-numbox', {
+				template: 
+					`<div>
+						<button @click="sub">-</button>
+						<input v-model="num"/>
+						<button @click="add">+</button>
+					</div>`,
+				data() {
+					return {
+						num: 0
+					};
+				},
+				methods: {
+					add() {
+						this.num++;
+					},
+					sub() {
+						this.num > 0 && this.num--;
+					}
+				}
+			});
+			
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					maxTotal: 10,
+					total: 0
+				}
+			});
+		</script>
+	</body>
+</html>
