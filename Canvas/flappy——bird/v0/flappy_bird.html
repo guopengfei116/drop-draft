@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas width="800" height="600" id="cvs" style="border:1px solid red;"></canvas>
+<script src="js/util.js"></script>
+<script src="js/getImgObj.js"></script>
+<script src="js/bird.js"></script>
+<script src="js/sky.js"></script>
+<script src="js/land.js"></script>
+<script src="js/pipe.js"></script>
+<script src="js/text.js"></script>
+<script src="js/textDate.js"></script>
+<script>
+
+    // 游戏主模块
+    (function () {
+
+        var cvs = document.getElementById('cvs');
+        var ctx = cvs.getContext('2d');
+
+        // 获取游戏所需要的图像对象
+        getImgObj(function (imgObj) {
+
+            // 必须先初始化Bird类(把绘图环境和bird图像资源传进入，供对方使用)
+            Bird.init(ctx, imgObj.bird);
+            var bird = new Bird(10, 10, 52, 45);
+
+            cvs.addEventListener('click', function () {
+                // 改变小鸟下落为飞翔
+                bird.speed = -2;
+            });
+
+            Sky.init(ctx, imgObj.sky);
+            var sky = new Sky();
+            var sky2 = new Sky(800);
+
+            // 初始化大地
+            Land.init(ctx, imgObj['land']);
+            // 创建4个大地对象
+            var lands = [];
+            for (var i = 0; i < 4; i++) {
+                lands.push(new Land(imgObj['land'].width * i, cvs.height - imgObj['land'].height));
+            }
+
+            // 初始化
+            Pipe.init(ctx, imgObj['pipeDown'], imgObj['pipeUp']);
+            // 为了防止游戏还没开始就结束了，所以第一个管道需要有一个比较大的间隔
+            // 左右管道之间的距离是2个管道宽
+            var pipes = [];
+            for (var i = 0; i < 6; i++) {
+                pipes.push(new Pipe(200 + imgObj['pipeDown'].width * 3 * i));
+            }
+
+            // 日期
+            TextDate.init(ctx, cvs);
+            var textDate = new TextDate(Date.now(), 800, 0,
+                    '400 20px Arial,微软雅黑', 'red',
+                    'right', 'top');
+
+            cvs.addEventListener('click', function (e) {
+                var x = e.pageX - cvs.offsetTop;
+                var y = e.pageY - cvs.offsetTop;
+                //alert(ctx.isPointInPath(x, y));
+            });
+
+            var timer = requestAnimationFrame(function game() {
+
+                var birdCoreX = bird.x + bird.w / 2;
+                var birdCoreY = bird.y + bird.h / 2;
+
+                // 检测小鸟有没有飞出画布，以及中心点在不在管道路径中（碰撞检测）
+                if (birdCoreY < 0 || birdCoreY > cvs.height - imgObj.land.height || ctx.isPointInPath(birdCoreX, birdCoreY)) {
+                    //clearInterval(timer);
+                }else {
+                    requestAnimationFrame(function () {
+                        game();
+                    });
+                }
+
+                // 清除画布
+                ctx.clearRect(0, 0, cvs.width, cvs.height);
+
+                sky.draw();
+                sky.update();
+
+                sky2.draw();
+                sky2.update();
+
+                ctx.beginPath();
+                // 管道相关
+                pipes.forEach(function (val) {
+                    val.draw();
+                    val.update();
+                });
+
+                // 大地相关
+                lands.forEach(function (val) {
+                    val.draw();
+                    val.update();
+                });
+
+                bird.draw();
+                bird.update();
+
+                textDate.draw();
+                textDate.update();
+            });
+        });
+    }());
+</script>
+</body>
+</html>

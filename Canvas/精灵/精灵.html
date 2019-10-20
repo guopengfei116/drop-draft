@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas</title>
+</head>
+<body>
+<img id="img" src="../../day3/img/sprite.png" style="display: none" />
+<canvas id="cvs" width="500" height="500" style="border: 1px solid red;"></canvas>
+<script>
+    // 获取canvasDOM对象
+    var nCvs = document.getElementById('cvs');
+    // 获取2d绘图环境
+    var ctx = nCvs.getContext('2d');
+
+    // 把角度转换为弧度
+    function angleToRad(angle) {
+        return Math.PI / 180 * angle;
+    }
+
+    var spriteImg = document.getElementById('img');
+    spriteImg.addEventListener('load', function () {
+
+        // 精灵类
+        function Sprite(x, y, width, height, direction) {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+            this.direction = direction || 0;
+            this.index = 0;
+            this.speed = -1;
+        }
+
+        // 渲染精灵
+        Sprite.prototype.draw = function () {
+
+            // 裁剪的x轴坐标代表一个方向的第几帧,
+            // 裁剪的y轴坐标代表一个方向
+            ctx.drawImage(spriteImg,
+                    256 * this.index, 256 * this.direction, 256, 256,
+                    this.x, this.y, this.width, this.height);
+        };
+
+        // 刷新数据
+        Sprite.prototype.update = function () {
+            this.index = ++this.index % 8;
+            switch (this.direction) {
+                case 0:
+                    this.x += this.speed; // 向左走，x轴加负数
+                    if (this.x < -this.width) {
+                        this.x = 500;
+                    }
+                    break;
+                case 2:
+                    this.y += this.speed; // 向下走，y轴加负数
+                    if (this.y < -this.height) {
+                        this.y = 500;
+                    }
+                    break;
+                case 4:
+                    this.x += -this.speed; // 向右走，x轴加负数
+                    if (this.x > 500) {
+                        this.x = -this.width;
+                    }
+                    break;
+                case 6:
+                    this.y += -this.speed;  // 向下走，y轴加正数
+                    if (this.y > 500) {
+                        this.y = -this.height;
+                    }
+                    break;
+            }
+
+        };
+
+        // 根据keyCode重置方向
+        Sprite.prototype.changeDirection = function (keyCode) {
+            switch (keyCode) {
+                case 37:
+                    this.direction = 0;
+                    break;
+                case 38:
+                    this.direction = 2;
+                    break;
+                case 39:
+                    this.direction = 4;
+                    break;
+                case 40:
+                    this.direction = 6;
+                    break;
+            }
+        };
+
+        // 批量生成精灵
+        var sprites = [], temWH;
+        for (var i = 0; i < 100; i++) {
+            // 随机生成精灵的宽高（为了保证渲染精灵时不走形，宽高要一致）
+            temWH = Math.random() * 256 + 30;
+            sprites.push(new Sprite(Math.random() * 400 + 10,
+                    Math.random() * 400 + 10,
+                    temWH, temWH,
+                    Math.floor(Math.random() * 4) * 2));
+        }
+
+        // 精灵方向控制
+        document.addEventListener('keydown', function (e) {
+            if (e.keyCode == 16) {
+                sprites.forEach(function (val, idx) {
+                    val.direction = Math.floor(Math.random() * 4) * 2;
+                });
+                return;
+            }
+
+            sprites.forEach(function (val, idx) {
+                val.changeDirection(e.keyCode);
+            });
+        });
+
+        // 画布不断渲染
+        setInterval(function () {
+            ctx.clearRect(0, 0, cvs.width, cvs.height);
+
+            sprites.forEach(function (val, idx) {
+                val.draw();
+                val.update();
+            });
+        }, 1000 / 60);
+    });
+
+</script>
+</body>
+</html>

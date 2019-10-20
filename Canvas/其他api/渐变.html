@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>渐变</title>
+</head>
+<body>
+<canvas id="cvs" width="1000" height="500" style="border: 1px solid black;"></canvas>
+<script>
+    var cvs = document.getElementById('cvs');
+    var ctx = cvs.getContext('2d');
+
+    var linearGradient = ctx.createLinearGradient(0, 0, 100, 0);
+    linearGradient.addColorStop(0, 'red');
+    linearGradient.addColorStop(1, 'blue');
+
+    ctx.fillStyle = linearGradient;
+    ctx.fillRect(0, 0, 200, 200);
+    ctx.fillRect(300, 0, 100, 100);
+    ctx.fillRect(500, 0, 50, 50);
+
+    ctx.beginPath();
+    radialGradient = ctx.createRadialGradient(400, 300, 80, 500, 300, 80);
+    radialGradient.addColorStop(0, 'green');
+    radialGradient.addColorStop(1, 'yellow');
+    ctx.fillStyle = radialGradient;
+    ctx.arc(400, 300, 60, 0, Math.PI*2);
+    ctx.fill();
+</script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="cvs" width="800" height="600" style="border:1px solid red;"></canvas>
+<script src="js/util.js"></script>
+<script src="js/getImage.js"></script>
+<script src="js/sky.js"></script>
+<script src="js/land.js"></script>
+<script src="js/bird.js"></script>
+<script src="js/pipe.js"></script>
+<script src="js/text.js"></script>
+<script src="js/dateText.js"></script>
+<script>
+    (function () {
+        var cvs = document.getElementById('cvs');
+        var ctx = cvs.getContext('2d');
+
+        // 游戏所需的图片资源地址
+        var imgPaths = {
+            sky : './imgs/sky.png',
+            land : './imgs/land.png',
+            pipeDown : './imgs/pipeDown.png',
+            pipeUp : './imgs/pipeUp.png',
+            birds : './imgs/birds.png'
+        };
+
+        // 游戏主函数
+        function main(imgs) {
+
+            // 创建所需的大地实例
+            var bird = new Bird(ctx, imgs.birds, 20, 20);
+
+            // 创建所需的天空实例
+            var sky = new Sky(ctx, imgs.sky);
+            var sky2 = new Sky(ctx, imgs.sky, imgs.sky.width);
+
+            // 创建所需的大地实例
+            var lands = [];
+            for (var i = 0; i < 4; i++) {
+                lands.push(new Land(ctx, imgs.land,
+                        imgs.land.width * i, cvs.height - imgs.land.height));
+            }
+
+            // 创建所需的管道实例
+            var pipes = [];
+            for (var i = 0; i < 6; i++) {
+                pipes.push(new Pipe(ctx, imgs.pipeDown, imgs.pipeUp, 300 + imgs.pipeDown.width * 3 * i));
+            }
+
+            // 记录游戏开始时的毫秒时间
+            var gameStartTime = Date.now();
+
+            // 创建文本实例
+            var text = new DateText(ctx, gameStartTime, cvs.width, 0, 'orangeRed', 'right', 'top');
+
+            var timer = setInterval(function () {
+
+                // 计算小鸟的中心坐标
+                var birdCoreX = bird.x + bird.width / 2;
+                var birdCoreY = bird.y + bird.height / 2;
+
+                // 如果小鸟飞出画布或者撞向大地或者撞向管道，则游戏结束，停止定时器
+                if (birdCoreY < 0 || birdCoreY > cvs.height - imgs.land.height
+                        || ctx.isPointInPath(birdCoreX, birdCoreY)) {
+                    clearInterval(timer);
+                }
+
+                // 先清除画布
+                ctx.clearRect(0, 0, cvs.width, cvs.height);
+
+                // 绘制天空，刷新下一帧数据
+                sky.draw();
+                sky.update();
+                sky2.draw();
+                sky2.update();
+
+                // 绘制管道
+                ctx.beginPath();
+                pipes.forEach(function (pipe) {
+                    pipe.draw();
+                    pipe.update();
+                });
+
+                // 绘制大地，刷新下一帧数据
+                lands.forEach(function (land) {
+                    land.draw();
+                    land.update();
+                });
+
+                // 绘制小鸟
+                bird.draw();
+                bird.update();
+
+                // 绘制文本
+                text.draw();
+                text.update();
+
+            }, 1000 / 60);
+        }
+
+        getImage(imgPaths, main);
+    }());
+</script>
+</body>
+</html>

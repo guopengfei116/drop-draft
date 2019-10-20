@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>flappyBird</title>
+    <script src="./js/common/util.js"></script>
+    <script src="./js/common/observer.js"></script>
+    <script src="./js/common/text.js"></script>
+    <script src="./js/common/button.js"></script>
+    <script src="./js/roles/bird.js"></script>
+    <script src="./js/roles/sky.js"></script>
+    <script src="./js/roles/land.js"></script>
+    <script src="./js/roles/pipe.js"></script>
+    <script src="./js/roles/timer.js"></script>
+    <script src="./js/scene/bgBase64_2.js"></script>
+    <script src="./js/scene/loadingScene.js"></script>
+    <script src="./js/scene/gameScene.js"></script>
+    <script src="./js/scene/overScene.js"></script>
+    <script src="./js/flappyBird.js"></script>
+</head>
+<body>
+    <div id="game"></div>
+    <script>
+        var game = getFlappyBird( '#game' );
+        game.start();
+    </script>
+</body>
+</html>

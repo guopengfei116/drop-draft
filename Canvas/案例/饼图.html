@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <canvas style="border: 1px solid red" width="500" height="400"></canvas>
+    <script>
+        var cvs = document.querySelector('canvas');
+        var ctx = cvs.getContext('2d');
+
+        /*
+        * @饼图构造函数
+        * @param { options: Object } 参数配置
+        * @param { options.ctx: Context } 绘图上下文
+        * @param { options.data: Array } 数据
+        * @param { options.circle: Array } 圆心x、y坐标和半径
+        * @param { options.textSpace: number } 文字到饼图的距离
+        * */
+        function PipeChart(options) {
+            this.ctx = options.ctx;
+            this.data = options.data;
+            this.circle = options.circle || [200, 200, 100];
+            this.textSpace = options.textSpace || 20;
+            this.colors = ("mediumseagreen,mediumslateblue,mediumspringgreen,mediumturquoise,mediumvioletred,midnightblue," +
+            "mintcream,mistyrose,moccasin,navajowhite,navy,oldlace,olive,olivedrab,orange,orangered,orchid," +
+            "palegoldenrod,palegreen,paleturquoise,palevioletred").split(',');
+
+            // 计算扇自身大小，起始位置、结束位置与中间位置
+            this.initSectorRadian();
+        }
+
+        PipeChart.prototype = {
+            constructor: PipeChart,
+
+            // 绘制饼
+            draw: function() {
+                this.drawSector();
+                this.drawText();
+            },
+
+            // 计算扇自身大小，起始位置、结束位置与中间位置
+            initSectorRadian: function() {
+                /*
+                * 1、求单位数据对应的弧度
+                * 1.1、求数据的总和
+                * 1.2、单位弧度 = Math.PI*2 / 数据总和
+                * 2、求扇大小、起始位置与结束位置
+                * 2.1、扇自身大小 = 单位弧度 * 每个扇对应的数据
+                * 2.2、扇的结束位置 = 单位弧度 * 前面数据的和
+                * 2.3、扇的开始位置 = 扇的结束位置 - 扇自身大小
+                * 2.4、扇的中间位置 = 扇的开始位置 + 扇自身大小 / 2
+                * */
+
+                // 计算单位弧度
+                var baseRadian = Math.PI*2 / this.sum();
+
+                // 临时变量
+                var tempSum = 0;
+                var startRadian = 0, endRadian = 0, radian = 0, centerRadian = 0;
+
+                // 计算扇自身大小，起始位置、结束位置与中间位置
+                this.sectorRadians = this.data.map(function(obj) {
+                    tempSum += obj.val;
+                    radian = baseRadian * obj.val;
+                    endRadian = baseRadian * tempSum;
+                    startRadian = endRadian - radian;
+                    centerRadian = startRadian + radian / 2;
+                    return {
+                        startRadian: startRadian,
+                        endRadian: endRadian,
+                        centerRadian: centerRadian,
+                        radian: radian
+                    };
+                });
+            },
+
+            // 求数据的和
+            sum: function() {
+                var sum = 0;
+                this.data.forEach(function(obj) {
+                    sum += obj.val;
+                });
+                return sum;
+            },
+
+            // 求圆上指定弧度点的坐标
+            getPointCoord: function(radian) {
+                var x = this.circle[0] + (this.circle[2] + this.textSpace) * Math.cos(radian);
+                    y = this.circle[0] + (this.circle[2] + this.textSpace) * Math.sin(radian);
+                return [x, y];
+            },
+
+            // 画扇
+            drawSector: function() {
+                /*
+                * 1、遍历所有的扇数据
+                * 2、清除路径，然后画扇
+                * 3、修改填充色，填充
+                * */
+                var that = this;
+                this.sectorRadians.forEach(function(sectorObj, i) {
+                    that.ctx.beginPath();
+                    that.ctx.moveTo(that.circle[0], that.circle[1]);
+                    that.ctx.arc(that.circle[0], that.circle[1], that.circle[2], sectorObj.startRadian, sectorObj.endRadian);
+                    that.ctx.fillStyle = that.colors[i];
+                    that.ctx.fill();
+                });
+            },
+
+            // 画文字
+            drawText: function() {
+                /*
+                 * 1、遍历所有的扇数据
+                 * 2、求线每一个扇描述文字的参考点坐标
+                 * 3、清除路径，修改描边色和填充色
+                 * 4、根据文字所在饼的左右方向设置水平对其方式
+                 * 5、画文字衬托线
+                 * 6、画文字
+                 * */
+                var that = this;
+                this.sectorRadians.forEach(function(sectorObj, i) {
+
+                    // 文字坐标、文字所需长度
+                    var textCoord = that.getPointCoord(sectorObj.centerRadian);
+                    var textWidth = that.ctx.measureText(that.data[i].msg).width;
+
+                    // 属性设置
+                    that.ctx.beginPath();
+                    that.ctx.strokeStyle = that.colors[i];
+                    that.ctx.fillStyle = that.colors[i];
+                    that.ctx.textBaseline = 'bottom';
+
+                    // 根据方向设置文字水平对其方式&衬托线长度正负值
+                    if (sectorObj.centerRadian > Math.PI / 2 && sectorObj.centerRadian < Math.PI * 1.5) {
+                        that.ctx.textAlign = 'right';
+                        textWidth = -Math.abs(textWidth);
+                    }else {
+                        that.ctx.textAlign = 'left';
+                        textWidth = Math.abs(textWidth);
+                    }
+
+                    // 画文字衬托线
+                    that.ctx.moveTo(that.circle[0], that.circle[1]);
+                    that.ctx.lineTo(textCoord[0], textCoord[1]);
+                    that.ctx.lineTo(textCoord[0] + textWidth, textCoord[1]);
+                    that.ctx.stroke();
+
+                    // 画文字
+                    that.ctx.fillText(that.data[i].msg, textCoord[0], textCoord[1] - 5);
+                });
+            }
+        };
+
+        var pipeC = new PipeChart({
+            ctx: ctx,
+            data: [
+                { val: 10, msg: '喜欢吸面的' },
+                { val: 40, msg: '喜欢嚼米饭的' },
+                { val: 70, msg: '喜欢喝粥的' },
+                { val: 20, msg: '喜欢啃玉米棒子的' }
+            ]
+        });
+        pipeC.draw();
+    </script>
+</body>
+</html>
