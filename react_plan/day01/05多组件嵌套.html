@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="browser.min.js"></script>
+		<script src="react.js"></script>
+		<script src="react-dom.js"></script>
+	</head>
+	<body>
+	  <div id="app"></div>
+    <script type="text/babel">
+      // 创建一组li组件实例
+      var list = [ '馄饨', '抄手', '包面', '云吞', '扁食' ];
+      var vLiArr = list.map(function(val, i) {
+        return React.createElement('li', { key: i }, val);
+      });
+
+      // 创建ul组件实例，把所有的li定义作为它的子元素
+      var vUl= React.createElement('ul', { className: 'wrap' }, vLiArr);
+
+      // 渲染到页面中
+      ReactDOM.render(vUl, document.querySelector('#app'));
+    </script>
+	</body>
+</html>

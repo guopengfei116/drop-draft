@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="browser.min.js"></script>
+		<script src="react.js"></script>
+		<script src="react-dom.js"></script>
+	</head>
+	<body>
+	  <div id="app"></div>
+    <script type="text/babel">
+      // 数据
+      var list = [ '馄饨', '抄手', '包面', '云吞', '扁食' ];
+
+      // 渲染组件
+      ReactDOM.render(
+        <ul className="wrap">
+        { /* 内层的li组件 */ }
+        {
+          list.map(function(val, i) {
+            { /* 内层的li组件 */ }
+            return <p key={ i }>{ val }</p>;
+          })
+        }
+        </ul>
+        , document.querySelector('#app'));
+    </script>
+	</body>
+</html>

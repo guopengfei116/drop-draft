@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="tab.css">
+</head>
+<body>
+    <div id="app"></div>
+    <div id="app2"></div>
+
+    <script>
+      function TabNav(props) {
+        this.props = props;
+      }
+
+      TabNav.prototype = {
+
+        // 把html字符串解析为DOM
+        parseHTML: function(html) {
+          var tempDiv = document.createElement('div');
+          tempDiv.innerHTML = html;
+          return tempDiv.children[0];
+        },
+
+        // 获取渲染所需的html
+        render: function() {
+
+          // 拼接html
+          var html = '<ul class="tab" id="tab-menu" style="margin: 150px auto;">';
+          for(var i = 0, len = this.props.navList.length; i < len; i++) {
+            if(i == 0) {
+              html += '<li class="tab-item active">' + this.props.navList[i] + '<span>◆</span></li>';
+            }else {
+              html += '<li class="tab-item">' + this.props.navList[i] + '<span>◆</span></li>';
+            }
+          }
+          html += '</ul>';
+
+          // 返回解析好的DOM对象
+          this.el = this.parseHTML(html);
+          this.handler();
+          return this.el;
+        },
+
+        // DOM操作处理
+        handler: function() {
+          var lis = this.el.querySelectorAll('li');
+          for(var i = 0, len = lis.length; i < len; i++) {
+            lis[i].onclick = function() {
+              for(var i = 0, len = lis.length; i < len; i++) {
+                lis[i].className = 'tab-item';
+              }
+              this.className = 'tab-item active';
+            };
+          }
+        }
+      };
+
+      // 创建实例，在指定的地方进行渲染，并进行事件绑定
+      var tabNav = new TabNav({ navList: ['国际大牌', '国妆名牌', '清洁用品', '男士精品'] });
+      document.querySelector('#app').appendChild(tabNav.render());
+
+      var tabNav2 = new TabNav({ navList: [11, 22, 33, 44] });
+      document.querySelector('#app2').appendChild(tabNav2.render());
+    </script>
+</body>
+</html>

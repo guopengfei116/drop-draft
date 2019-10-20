@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/tab.css">
+    <script src="js/browser.min.js"></script>
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+
+      // tab导航
+      var TabNav = React.createClass({
+        render: function() {
+          var _this = this;
+          return (
+            <ul className="tab" id="tab-menu">
+              {
+                _this.props.navList.map(function(val, i){
+                  return <li className={ _this.props.focusIndex == i? 'tab-item active': 'tab-item' }
+                    onClick={ _this.props.changeTab.bind(null, i) } key={ i }>
+                    { val }
+                    <span>◆</span>
+                  </li>
+                })
+              }
+            </ul>
+          );
+        }
+      });
+
+      // tab内容
+      var TabContent = React.createClass({
+        render: function() {
+          var _this = this;
+          return (
+            <div className="products" id="tab-main">
+              {
+                _this.props.contentList.map(function(val, i){
+                  return <div className={ _this.props.focusIndex == i? 'main selected': 'main' } key={ i }>
+                      <a href="###"><img src={ val } /></a>
+                  </div>
+                })
+              }
+            </div>
+          );
+        }
+      });
+
+      // tab容器
+      var Tab = React.createClass({
+
+        // 该函数用于定义组件状态，函数必须返回一个对象或null
+        getInitialState: function () {
+          return {
+            navList: ['国际大牌', '国妆名牌', '清洁用品', '男士精品'],
+            contentList: ['imgs/guojidapai.jpg', 'imgs/guozhuangmingpin.jpg', 'imgs/qingjieyongpin.jpg', 'imgs/nanshijingpin.jpg'],
+            focusIndex: 2  // 用来记录当前tab的下标
+          };
+        },
+
+        // 切换tab栏，内部通过组件实例的setState方法修改状态，修改后视图会自动刷新
+        changeTab: function(index) {
+          this.setState({
+            focusIndex: index
+          });
+        },
+
+        render: function() {
+          var _this = this;
+          return (
+            <div className="wrapper" id="wrapper">
+              {/* tab导航栏 */}
+              <TabNav navList={ this.state.navList } focusIndex={ this.state.focusIndex } changeTab={ this.changeTab }  />
+              {/* tab内容框 */}
+              <TabContent contentList={ this.state.contentList } focusIndex={ this.state.focusIndex }  />
+            </div>
+          );
+        }
+      });
+
+      ReactDOM.render(<Tab/>, document.querySelector('#app'));
+    </script>
+</body>
+</html>

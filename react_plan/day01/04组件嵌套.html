@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="react.js"></script>
+		<script src="react-dom.js"></script>
+	</head>
+	<body>
+	  <div id="app"></div>
+    <script type="text/javascript">
+      //  创建p组件实例
+      var vP = React.createElement('p', null, '穿过你的秀发我的手');
+
+      // 创建div组件实例，并把p作为子组件
+      var vDiv= React.createElement('div', { className: 'wrap' }, vP);
+
+      // 渲染到页面中
+      ReactDOM.render(vDiv, document.querySelector('#app'));
+    </script>
+	</body>
+</html>

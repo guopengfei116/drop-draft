@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>React组件式开发</title>
+		<!-- 1、先引入react.js-->
+    <script src="react.js"></script>
+    <!-- 2、再引入react-dom.js-->
+    <script src="react-dom.js"></script>
+	</head>
+	<body>
+	  <!-- 3、视图中定义一个占位标签 -->
+    <div id="app"></div>
+    <!-- 4、编写脚本 -->
+    <script>
+      /**
+       * 创建一个内置组件实例：
+       * param1：组件类型
+       * param2：组件属性
+       * param3：子组件
+       * */
+      var divObj = React.createElement('div', { className: 'wrap' }, 'hello world!');
+      /**
+       * 渲染组件实例：
+       * param1：组件实例
+       * param2：页面元素，指定组件渲染的位置
+       * */
+      ReactDOM.render(divObj, document.querySelector('#app'));
+    </script>
+	</body>
+</html>

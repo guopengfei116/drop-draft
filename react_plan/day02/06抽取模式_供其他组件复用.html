@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="tab.css">
+</head>
+<body>
+    <div id="app"></div>
+    <div id="app2"></div>
+
+    <script>
+      function Component() {}
+      Component.prototype = {
+
+        // 把html字符串解析为DOM
+        parseHTML: function(html) {
+          var tempDiv = document.createElement('div');
+          tempDiv.innerHTML = html;
+          return tempDiv.children[0];
+        },
+
+        mount: function(component, wrap) {
+          wrap.appendChild(component.render());
+        },
+
+        // 修改状态，修改后刷新视图
+        setState: function(upState) {
+          // 更新状态
+          for(var key in upState) {
+            this.state[key] = upState[key];
+          }
+
+          // 以新的状态重绘DOM
+          var oldEl = this.el // 旧DOM
+          this.el = this.render(); // 新DOM
+          oldEl.parentNode && oldEl.parentNode.replaceChild(this.el, oldEl); // 新旧替换
+        }
+      };
+
+      /**
+       * 改造步骤：
+       * 1、添加一个focusIndex状态，给个初始值，通过这个值可以控制nav默认的焦点
+       * 2、改变DOM操作的做法，把点击直接修改DOM替换为修改数据
+       * */
+
+      function TabNav(props) {
+        this.props = props;
+        this.state = {
+          focusIndex: 0
+        }
+      }
+
+      TabNav.prototype = {
+
+        // 获取渲染所需的html
+        render: function() {
+
+          // 拼接html
+          var html = '<ul class="tab" id="tab-menu" style="margin: 150px auto;">';
+          for(var i = 0, len = this.props.navList.length; i < len; i++) {
+            if(i == this.state.focusIndex) {
+              html += '<li class="tab-item active">' + this.props.navList[i] + '<span>◆</span></li>';
+            }else {
+              html += '<li class="tab-item">' + this.props.navList[i] + '<span>◆</span></li>';
+            }
+          }
+          html += '</ul>';
+
+          // 返回解析好的DOM对象
+          this.el = this.parseHTML(html);
+          this.handler();
+          return this.el;
+        },
+
+        // DOM操作处理
+        handler: function() {
+          var _this = this;
+          var lis = this.el.querySelectorAll('li');
+
+          for(var i = 0, len = lis.length; i < len; i++) {
+            lis[i].index = i;
+            lis[i].onclick = function() {
+              _this.setState({
+                focusIndex: this.index
+              })
+            };
+          }
+        }
+      };
+      TabNav.prototype.__proto__ = Component.prototype;
+
+      // 创建实例，在指定的地方进行渲染，并进行事件绑定
+      var tabNav = new TabNav({ navList: ['国际大牌', '国妆名牌', '清洁用品', '男士精品'] });
+      tabNav.mount(tabNav, document.querySelector('#app'));
+
+      var tabNav2 = new TabNav({ navList: [11, 22, 33, 44] });
+      tabNav2.mount(tabNav2, document.querySelector('#app2'));
+
+    </script>
+</body>
+</html>

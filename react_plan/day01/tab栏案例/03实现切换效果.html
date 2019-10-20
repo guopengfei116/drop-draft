@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/tab.css">
+    <script src="js/browser.min.js"></script>
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+
+      // tab容器
+      var Tab = React.createClass({
+
+        // 该函数用于定义组件状态，函数必须返回一个对象或null
+        getInitialState: function () {
+          return {
+            navList: ['国际大牌', '国妆名牌', '清洁用品', '男士精品'],
+            contentList: ['imgs/guojidapai.jpg', 'imgs/guozhuangmingpin.jpg', 'imgs/qingjieyongpin.jpg', 'imgs/nanshijingpin.jpg'],
+            focusIndex: 0  // 用来控制当前所选tab的下标
+          };
+        },
+
+        // 切换tab栏，内部通过组件实例的setState方法修改状态，修改后视图会自动刷新
+        changeTab: function(index) {
+          this.setState({
+            focusIndex: index
+          });
+        },
+
+        render: function() {
+          var _this = this;
+          return <div className="wrapper" id="wrapper">
+
+            {/* tab导航栏 */}
+            <ul className="tab" id="tab-menu">
+              {
+                _this.state.navList.map(function(val, i){
+                  return <li className={ _this.state.focusIndex == i? 'tab-item active': 'tab-item' }
+                    onClick={ _this.changeTab.bind(_this, i) } key={ i }>
+                    { val }
+                    <span>◆</span>
+                  </li>;
+                })
+              }
+            </ul>
+
+            {/* tab内容框 */}
+            <div className="products" id="tab-main">
+              {
+                _this.state.contentList.map(function(val, i){
+                  return <div className={ _this.state.focusIndex == i? 'main selected': 'main' } key={ i }>
+                      <a href="###"><img src={ val } /></a>
+                  </div>
+                })
+              }
+            </div>
+          </div>;
+        }
+      });
+
+      ReactDOM.render(<Tab />, document.querySelector('#app'));
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/tab.css">
+    <script src="js/browser.min.js"></script>
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+
+      // tab组件类
+      var Tab = React.createClass({
+        render: function() {
+          return <div className="wrapper" id="wrapper">
+            <ul className="tab" id="tab-menu">
+              <li className="tab-item active">国际大牌<span>◆</span></li>
+              <li className="tab-item">国妆名牌<span>◆</span></li>
+              <li className="tab-item">清洁用品<span>◆</span></li>
+              <li className="tab-item">男士精品</li>
+            </ul>
+            <div className="products" id="tab-main">
+              <div className="main selected">
+                  <a href="###"><img src="imgs/guojidapai.jpg" alt=""/></a>
+              </div>
+              <div className="main">
+                  <a href="###"><img src="imgs/guozhuangmingpin.jpg" alt=""/></a>
+              </div>
+              <div className="main">
+                  <a href="###"><img src="imgs/qingjieyongpin.jpg" alt=""/></a>
+              </div>
+              <div className="main">
+                  <a href="###"><img src="imgs/nanshijingpin.jpg" alt=""/></a>
+              </div>
+            </div>
+          </div>;
+        }
+      });
+
+      // 渲染到页面
+      ReactDOM.render(<Tab />, document.querySelector('#app'));
+    </script>
+</body>
+</html>

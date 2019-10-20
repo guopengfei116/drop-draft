@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="browser.min.js"></script>
+		<script src="react.js"></script>
+		<script src="react-dom.js"></script>
+	</head>
+	<body>
+	  <div id="app"></div>
+    <script type="text/babel">
+      function clickHandle(e) {
+        console.log(arguments);
+
+        console.log(e.target);
+      }
+
+      // 创建ul组件实例，并设置class与style
+      var vUl= React.createElement('ul', { className: 'wrap', onClick: clickHandle, onMouseDown: clickHandle }, '绑定事件');
+
+      // 渲染到页面中
+      ReactDOM.render(vUl, document.querySelector('#app'));
+    </script>
+	</body>
+</html>

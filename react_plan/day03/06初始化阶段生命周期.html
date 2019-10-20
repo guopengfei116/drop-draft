@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="react.js"></script>
+		<script src="react-dom.js"></script>
+		<script src="browser.min.js"></script>
+	</head>
+	<body>
+	  <main id="app"></main>
+
+	  <script type="text/babel">
+
+    var Test = React.createClass({
+
+      render: function() {
+        return (
+          <div>
+            <p ref="p1">{ this.props.propsList }</p>
+            <p ref="p2">{ this.state.stateList }</p>
+          </div>
+        );
+      },
+
+      getDefaultProps: function() {
+        console.log('getDefaultProps');
+        return {
+          propsList: [ 22, 44, 66, 88 ]
+        };
+      },
+
+      // props可用，state与refs都不可用
+      getInitialState: function() {
+        console.log('getInitialState');
+        console.log(this.props);
+        console.log(this.state);
+        console.log(this.refs);
+        return {
+          stateList: [ 1, 3, 5, 7, 9 ]
+        };
+      }
+    });
+
+    ReactDOM.render(<Wrap/>, document.querySelector('#app'));
+	  </script>
+	</body>
+</html>

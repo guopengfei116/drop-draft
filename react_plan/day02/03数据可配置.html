@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="tab.css">
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+      function TabNav(props) {
+        this.props = props;
+      }
+
+      TabNav.prototype = {
+
+        // 获取渲染所需的html
+        render: function() {
+          var html = '<ul class="tab" id="tab-menu" style="margin: 150px auto;">';
+          for(var i = 0, len = this.props.navList.length; i < len; i++) {
+            if(i == 0) {
+              html += '<li class="tab-item active">' + this.props.navList[i] + '<span>◆</span></li>';
+            }else {
+              html += '<li class="tab-item">' + this.props.navList[i] + '<span>◆</span></li>';
+            }
+          }
+          html += '</ul>';
+          return html;
+        },
+
+        // DOM操作处理
+        handler: function() {
+          var lis = document.querySelectorAll('li');
+          for(var i = 0, len = lis.length; i < len; i++) {
+            lis[i].onclick = function() {
+              for(var i = 0, len = lis.length; i < len; i++) {
+                lis[i].className = 'tab-item';
+              }
+              this.className = 'tab-item active';
+            };
+          }
+        }
+      };
+
+      // 创建实例，在指定的地方进行渲染，并进行事件绑定
+      var tabNav = new TabNav({ navList: ['国际大牌', '国妆名牌', '清洁用品', '男士精品'] });
+      document.querySelector('#app').innerHTML = tabNav.render();
+      tabNav.handler();
+    </script>
+</body>
+</html>

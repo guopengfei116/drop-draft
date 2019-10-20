@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="react.js"></script>
+		<script src="react-dom.js"></script>
+		<script src="browser.min.js"></script>
+	</head>
+	<body>
+	  <main id="app"></main>
+
+	  <script type="text/babel">
+
+      var Timer = React.createClass({
+
+        // 1、初始状态
+        getInitialState: function() {
+          return {
+            startTime: Date.now(),   // 起始时间
+            duration: 0,                   // 持续运行时间
+            intervalId: null               // 计时器ID
+          };
+        },
+
+        // 2、组件渲染前
+        componentWillMount: function() {
+
+        },
+
+        // 开始
+        run: function() {
+          console.log(this)
+          var _this = this;
+          _this.state.intervalId = setInterval(function() {
+            _this.setState({
+              duration: Date.now() - _this.state.startTime
+            });
+          }, 10);
+        },
+
+        // 暂停
+        pause: function() {
+          clearInterval(this.state.intervalId);
+          this.setState({
+            startTime: Date.now()
+          });
+        },
+
+        // 重置
+        reset: function() {
+          clearInterval(this.state.intervalId);
+          this.setState({
+            startTime: Date.now(),
+            duration: 0
+          });
+        },
+
+        // 3、提供渲染内容
+        render: function() {
+          var _this = this;
+          var style = {
+            float: 'right',
+            marginRight: 10,
+            width: 200,
+            border: '3px solid blue',
+            textAlign: 'center'
+          };
+
+          return (
+            <div style={ style } ref>
+              <p>{ this.state.duration }</p>
+              <button onClick={ this.run }>开始</button>
+              <button onClick={ this.pause }>暂停</button>
+              <button onClick={ this.reset }>重置</button>
+            </div>
+          );
+        },
+
+        // 4、组件渲染后
+        componentDidMount: function() {
+
+        },
+
+      });
+
+      ReactDOM.render(<Timer/>, document.querySelector('#app'));
+	  </script>
+	</body>
+</html>

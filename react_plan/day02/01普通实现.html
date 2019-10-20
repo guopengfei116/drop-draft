@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="tab.css">
+</head>
+<body>
+
+    <ul class="tab" id="tab-menu" style="margin: 150px auto;">
+        <li class="tab-item active">国际大牌<span>◆</span></li>
+        <li class="tab-item">国妆名牌<span>◆</span></li>
+        <li class="tab-item">清洁用品<span>◆</span></li>
+        <li class="tab-item">男士精品</li>
+    </ul>
+
+    <script>
+      var lis = document.querySelectorAll('li');
+      for(var i = 0, len = lis.length; i < len; i++) {
+        lis[i].onclick = function() {
+          for(var i = 0, len = lis.length; i < len; i++) {
+            lis[i].className = 'tab-item';
+          }
+          this.className = 'tab-item active';
+        };
+      }
+    </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>React组件式开发</title>
+    <script src="react.js"></script>
+    <script src="react-dom.js"></script>
+    <!-- 额外引入这个js即可使用jsx语法，这个js是由babel与babel-preset-react插件构成-->
+    <script src="browser.min.js"></script>
+  </head>
+  <body>
+      <div id="app"></div>
+      <!-- 注意这里的type，必须这么写，不然无法转换-->
+      <script type="text/babel">
+      // 直接在js中书写html标签，需要注意标签的className属性不要写成class
+        var vDiv = <div className="a b c">猛龙过江</div>;
+        // 向以前那样渲染
+        ReactDOM.render(vDiv, document.querySelector('#app'));
+      </script>
+  </body>
+</html>
