@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title><%= htmlWebpackPlugin.options.title %></title>
+	</head>
+	<body>
+		<script src="js/build.js"></script>
+		
+		<% for(var key in  htmlWebpackPlugin) { %>
+			<%= key %> : <%= JSON.stringify(htmlWebpackPlugin[key]) %>
+		<% } %>
+		
+		<% for(var key in  htmlWebpackPlugin.files) { %>
+			<%= key %> : <%= htmlWebpackPlugin.files[key] %>
+		<% } %>
+		
+		<% for(var key in  htmlWebpackPlugin.options) { %>
+			<%= key %> : <%= htmlWebpackPlugin.options[key] %>
+		<% } %>
+		
+		<!-- 司法诉讼的房价来说 -->
+	</body>
+</html>
